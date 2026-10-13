@@ -2,9 +2,11 @@
 import { computed } from 'vue';
 import { chargingNetKwh } from '../domain/calculateLoad';
 import type { LeaderboardEntry } from '../domain/leaderboard';
-import { BATTERY, BLOCKS, INITIAL_MORALE } from '../domain/scenario';
+import { BATTERY, BLOCKS, CHARGERS, INITIAL_MORALE } from '../domain/scenario';
 import type { DecorationId, GameState } from '../domain/types';
 import OpenAdrView from './OpenAdrView.vue';
+import MoraleMeter from './MoraleMeter.vue';
+import LocationIllustration from './LocationIllustration.vue';
 import Scoreboard from './Scoreboard.vue';
 
 const props = defineProps<{
@@ -16,6 +18,16 @@ const emit = defineEmits<{ nextTeam: [] }>();
 
 const actions = computed(() => props.game.executed.map((e) => e.action));
 const batteryUsed = computed(() => BATTERY.capacityKwh - (props.game.executed.at(-1)?.batteryAfterKwh ?? BATTERY.capacityKwh));
+const measures = computed(() => actions.value.reduce((n, a) => n + a.decorationsOff.length + Number(a.rinkPaused) + Number(a.batteryDischarge) + Number(a.chargersPaused) + Number(a.extraCharging), 0));
+const shiftedKwh = computed(() => actions.value.filter(a => a.chargersPaused).length * CHARGERS.energyPerBlockKwh);
+const peakKw = computed(() => Math.max(...props.game.executed.map(e => e.loadKw)));
+const highlights = computed(() => {
+  const events = props.game.executed.flatMap(e => e.events);
+  const best = [...events].sort((a, b) => b.delta - a.delta)[0];
+  const worst = [...events].filter(e => e.delta < 0).sort((a, b) => a.delta - b.delta)[0];
+  return [best, worst].filter((e): e is NonNullable<typeof e> => !!e);
+});
+const qualification = computed(() => props.game.morale >= 85 ? 'Kersthelden van Gridmas' : props.game.morale >= 78 ? 'Een dorp met wat te bespreken' : props.game.morale >= 70 ? 'De burgemeester wil jullie spreken' : 'Net gered. Buurtapp ontploft.');
 const signed = (n: number) => (n > 0 ? `+${n}` : `${n}`);
 const SHORT_NAMES: Record<DecorationId, string> = {
   homes: 'woonwijk',
@@ -27,16 +39,16 @@ const SHORT_NAMES: Record<DecorationId, string> = {
 /** Vaste, deterministische samenvatting op basis van de eindmoraal. */
 const summary = computed(() => {
   const m = props.game.morale;
-  if (m >= 85) return 'Een legendarische kerstavond. Het net hield stand en bijna niemand merkte dat er iets werd geschoven.';
-  if (m >= 78) return 'Gridmas bleef overeind en de meeste lichtjes brandden. Hier en daar wordt nog nagepraat over dat ene donkere moment.';
-  if (m >= 70) return 'Het net hield het, maar het dorp heeft het gemerkt. De bewonerscommissie wil volgend jaar graag meedenken.';
-  return 'Het licht bleef aan waar het moest, maar de kerstsfeer kreeg flinke klappen. Gelukkig is er volgend jaar weer een kerstavond.';
+  if (m >= 85) return 'Het net bleef heel en Gridmas had een mooie avond. De burgemeester vraagt of jullie volgend jaar weer kunnen.';
+  if (m >= 78) return 'Het net bleef binnen de limiet. De meeste bewoners zijn tevreden; een paar hebben alvast punten voor de evaluatie.';
+  if (m >= 70) return 'De stroomvoorziening is gered. In de buurtapp zijn ze nog niet klaar met jullie keuzes. Zet de meldingen voorlopig maar uit.';
+  return 'Technisch klopt het plan. Voor de uitnodiging van volgend jaar zou het helpen als jullie zelf een doos kerstkransjes meenemen.';
 });
 
 function actionSummary(i: number): string {
   const a = actions.value[i]!;
   const parts: string[] = [];
-  for (const id of a.decorationsOff) parts.push(`${SHORT_NAMES[id]} donker`);
+  for (const id of a.decorationsOff) parts.push(`${SHORT_NAMES[id]} lichtjes uit`);
   if (a.rinkPaused) parts.push('ijsbaan dicht');
   if (a.batteryDischarge) parts.push('batterij');
   if (a.chargersPaused) parts.push('laadpauze');
@@ -48,17 +60,21 @@ function actionSummary(i: number): string {
 <template>
   <section class="final" aria-labelledby="final-title">
     <div class="hero">
-      <p class="muted">{{ game.teamName }} heeft Gridmas door de kerstnacht geloodst</p>
+      <p class="eyebrow">Kerstavond in Gridmas is voorbij!</p>
+      <div class="final-heading"><div><p class="muted">{{ game.teamName }}</p><h2>{{ qualification }}</h2></div><LocationIllustration id="square" /></div>
       <h2 id="final-title">
         <span class="value">{{ game.morale }}</span>
         <span class="label">kerstmoraal</span>
       </h2>
       <p class="summary">{{ summary }}</p>
+      <MoraleMeter :value="game.morale" />
+      <dl class="final-stats"><div><dt>Hoogste belasting</dt><dd>{{ peakKw }} <small>kW</small></dd></div><div><dt>Maatregelen</dt><dd>{{ measures }}</dd></div><div><dt>Laden verschoven</dt><dd>{{ shiftedKwh }} <small>kWh</small></dd></div><div><dt>Batterij geleverd</dt><dd>{{ batteryUsed }} <small>kWh</small></dd></div></dl>
       <p v-if="game.isDemo" class="muted">Demo-run van de organisator: telt niet mee voor het scorebord.</p>
     </div>
 
     <div class="columns">
       <div>
+        <div class="results-scroll" tabindex="0" role="region" aria-label="Resultaten per tijdsblok">
         <table class="results">
           <caption class="visually-hidden">Resultaat per tijdsblok</caption>
           <thead>
@@ -90,12 +106,14 @@ function actionSummary(i: number): string {
             </tr>
           </tbody>
         </table>
+        </div>
 
         <p class="energy muted">
           Energiebalans: de batterij leverde {{ batteryUsed }} kWh. Laadplein netto {{ chargingNetKwh(actions) }} kWh: elke
           uitgestelde laadbeurt is ingehaald.
         </p>
 
+        <section class="highlights"><h3>Dit blijft hangen in Gridmas</h3><article v-for="event in highlights" :key="`${event.assetId}-${event.blockIndex}`"><span :class="event.delta >= 0 ? 'delta-up' : 'delta-down'">{{ signed(event.delta) }} · {{ BLOCKS[event.blockIndex]!.label }}</span><h4>{{ event.headline }}</h4><p class="muted">{{ event.text }}</p></article></section>
         <OpenAdrView :schedule="actions" />
       </div>
 
@@ -108,6 +126,22 @@ function actionSummary(i: number): string {
 </template>
 
 <style scoped>
+.results-scroll { overflow-x: auto; }
+.results { min-width: 520px; }
+.final-heading { display: flex; gap: 1rem; align-items: center; justify-content: space-between; }
+.final-heading h2 { margin-top: .4rem; font-size: 2.5rem; max-width: 25ch; }
+.final-heading svg { max-width: 200px; }
+.hero > .morale-meter { max-width: 650px; }
+.final-stats { margin: .5rem 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+.final-stats > div { padding: 1rem; border: 1px solid var(--line); background: var(--night-raised); border-radius: 12px; }
+.final-stats dt { color: var(--snow-muted); font-size: .8rem; }
+.final-stats dd { font-family: var(--font-display); font-size: 2rem; margin: .35rem 0 0; color: var(--lamp); }
+.final-stats small { font-size: 1rem; }
+.highlights { display: grid; gap: .8rem; margin: 1.5rem 0; }
+.highlights article { padding: 1rem; border-left: 2px solid var(--lamp); background: var(--night-raised); border-radius: 0 8px 8px 0; font-size: .875rem; }
+.highlights h4 { margin: .35rem 0; font-size: 1.1rem; }
+@media (max-width: 700px) { .final-stats { grid-template-columns: repeat(2, 1fr); } .final-heading svg { max-width: 100px; } .results { font-size: .8rem; } }
+
 .final {
   display: grid;
   gap: 2rem;

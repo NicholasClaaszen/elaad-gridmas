@@ -123,10 +123,10 @@ export function validateSchedule(schedule: Schedule, executedPrefix: readonly Bl
   }
 
   if (batteryUses > BATTERY.maxUses) {
-    const lowest = Math.min(...batteryRemainingAfterEachBlock(schedule));
+    const missingKwh = -Math.min(...batteryRemainingAfterEachBlock(schedule));
     issues.push({
       code: 'battery-count',
-      message: `De batterij kan maximaal ${BATTERY.maxUses} blokken ontladen (${BATTERY.capacityKwh} kWh, 50 kWh per blok). Nu ${batteryUses} blokken gepland: dat zou ${lowest} kWh opleveren.`,
+      message: `De batterij is te vaak ingepland: ${batteryUses} blokken, maximaal ${BATTERY.maxUses}. Er ontbreekt ${missingKwh} kWh. Haal een batterij-inzet weg.`,
     });
   }
 
@@ -143,7 +143,7 @@ export function validateSchedule(schedule: Schedule, executedPrefix: readonly Bl
       code: 'charging-not-neutral',
       message:
         pauses > extraSessions
-          ? `Er wordt ${-net} kWh laadenergie uitgesteld zonder inhaalmoment. Plan per pauze één extra laadsessie om 14:00 of 00:00.`
+          ? `Er moet nog ${-net} kWh laden worden ingehaald. Plan per pauze één extra laadsessie om 14:00 of 00:00.`
           : `Er wordt ${net} kWh extra geladen zonder bijbehorende pauze. Elke extra laadsessie hoort bij precies één pauze.`,
     });
   }

@@ -11,12 +11,11 @@ const json = computed(() => JSON.stringify(program.value, null, 2));
 
 <template>
   <details class="openadr">
-    <summary>Bekijk jullie avond als OpenADR-programma</summary>
+    <summary>Onder de motorkap: jullie OpenADR-programma</summary>
     <p class="disclaimer">{{ program.label }}</p>
     <p class="muted">
-      In OpenADR verstuurt een netbeheerder (VTN) een <em>Program</em> met <em>Events</em> naar apparaten (VEN's).
-      Elk event hieronder is één aansturing van twee uur (PT2H) uit jullie plan, voor programma
-      {{ program.program.programName }}.
+      Jullie plan vertaald naar opdrachten voor de locaties. Elke opdracht (Event) geldt voor één blok van twee uur.
+      Zo kun je zien waar, wanneer en hoe je de stroomvraag verandert. Dit is een uitleg van OpenADR, geen echte koppeling.
     </p>
     <ol class="events">
       <li v-for="event in program.events" :key="event.eventName">
@@ -25,7 +24,7 @@ const json = computed(() => JSON.stringify(program.value, null, 2));
       </li>
     </ol>
     <details>
-      <summary>Ruwe JSON</summary>
+      <summary>Technische weergave (JSON)</summary>
       <pre>{{ json }}</pre>
     </details>
   </details>

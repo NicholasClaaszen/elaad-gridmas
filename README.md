@@ -36,14 +36,15 @@ src/
     educationalOpenAdr.ts Program/Event/Interval-conceptweergave (niet conformiteit-gevalideerd)
   state/gameStore.ts   Vue-reactieve wrapper: persistence (versioned localStorage), scorebord, hardware-aansturing
   hardware/            HardwareAdapter-interface, MockHardwareAdapter, DummyEsp32Connector, compact protocol
-  components/          Vue SFC's per scherm
+  ui/locations.ts      Verhalen, weergavenamen en technische planningspreview; geen moraalberekening
+  components/          Vue SFC's per scherm, gedeelde locatiekaarten, dorpskaart en scoremeter
 ```
 
 Belangrijke keuzes:
 
 - **Moraal blijft verborgen.** `PlanningBoard` en `LoadChart` krijgen alleen het schema en de uitgevoerde *acties*.
-  Een test controleert dat ze niets uit de moraalengine importeren en dat de gerenderde HTML geen moraal bevat. De
-  kopbalk toont de nieuwe score pas zodra het nieuwsbulletin hem onthult.
+  Een test controleert dat de planning en gedeelde locatiecomponenten niets uit de moraalengine importeren en dat de gerenderde HTML geen moraal bevat. De
+  kopbalk toont vóór het eerste nieuwsbulletin “Nog niet bekend”; daarna alleen de laatst onthulde score.
 - **Historie is gezaghebbend.** Uitgevoerde blokken worden als snapshot met load, batterij, moraal en events
   opgeslagen en nooit herberekend. Vóór elk blok wordt het volledige programma (historie + toekomst) gevalideerd.
 - **Blok 0 als introductieronde.** Er zijn geen extra spelregels toegevoegd. Blok 0 legt in de planning het
@@ -97,3 +98,28 @@ Ontwikkelnotities:
 - Er wordt happy-dom gebruikt in plaats van jsdom, omdat de nieuwste jsdom Node 22.22+ vereist.
 - TypeScript staat op 6.x, omdat vue-tsc TypeScript 7 nog niet ondersteunt.
 - Er is (nog) geen Playwright-smoketest of ESLint opgenomen.
+
+## Interface en ontwerpkeuzes
+
+De planning heeft zeven SVG-locatiekaarten, een detailpaneel en zes tijdskolommen. Kies een blok en een locatie,
+of schakel direct in het schema. De gekozen locatie licht ook op in de betreffende rij. Elke kolom toont
+basisbelasting − ingezette flexibiliteit + extra laden = netbelasting. De knop om een blok te spelen staat
+bovenaan; het hele programma moet eerst technisch kloppen.
+
+De kopbalk blijft op desktop zichtbaar bij scrollen. Op kleinere schermen stapelen de panelen; de tijdlijn en
+resultatentabel scrollen binnen hun eigen paneel. Knoppen werken met toetsenbord en touch. Animaties volgen
+`prefers-reduced-motion` en de uitvoering kan direct worden overgeslagen.
+
+De kaarten tonen het **geplande** blok, inclusief de batterijstand ná dat blok. De dorpskaart tijdens de uitvoering
+en het nieuws toont de **uitgevoerde** `Scene` uit de store, dezelfde toestand die naar de hardwareadapter gaat.
+Planningskliks sturen niets naar hardware. De bestaande engine, vermogens, moraalpunten en opslag blijven leidend.
+Locatienamen en verhalen zijn UI-data; technische waarden worden uit `scenario.ts` gehaald.
+
+De Gridmas Courant heeft 29 vaste berichten die alleen na uitvoering verschijnen. De einduitslag toont de
+belasting per blok, het aantal maatregelen, verschoven laadenergie, batterijgebruik en twee nieuwsfragmenten
+uit de gespeelde avond. De OpenADR-uitleg en JSON staan onder een uitklapbaar paneel.
+
+Verificatie: 53 tests, waaronder een volledig spel via de zichtbare planningsknoppen, vergrendelde historie,
+locatiedetails zonder toekomstige moraal, de dorpskaart en hervatten bij het volgende ongespeelde blok.
+Typecheck en productiebuild slagen. Screenshotcontrole op desktop en tablet is nog niet uitgevoerd:
+de browsertoestemming voor de lokale preview werd geweigerd.

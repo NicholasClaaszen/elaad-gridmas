@@ -5,140 +5,140 @@ export interface FeedbackText {
   text: string;
 }
 
-/** Positief basisbericht per tijdsblok (index 0 t/m 5). */
+/** Dorpsnieuws per tijdsblok, onafhankelijk van de gekozen maatregelen. */
 export const ATMOSPHERE_FEEDBACK: readonly FeedbackText[] = [
   {
-    headline: 'De voorbereidingen lopen op rolletjes',
-    text: 'Kraampjes gaan open, de glühwein warmt op en de eerste kerstmuts is al gesignaleerd. Gridmas is er klaar voor.',
+    headline: "Kraam 4 heeft de stekker gevonden",
+    text: "De marktkooplui bouwen op. Er zijn drie verlengsnoeren zoek en iemand heeft de glühwein al geproefd. Voor de kwaliteitscontrole, uiteraard.",
   },
   {
-    headline: 'De eerste kerstlichtjes gaan aan',
-    text: 'Kinderen drukken hun neus tegen de etalageruiten. Ergens klinkt voor de twaalfde keer vandaag Last Christmas.',
+    headline: "Gridmas trekt de foute truien aan",
+    text: "De eerste bezoekers zijn binnen. Bij de oliebollenkraam vraagt iemand of poedersuiker ook als sneeuw telt. De jury beraadt zich.",
   },
   {
-    headline: 'Kerstdiner in heel Gridmas',
-    text: "Ovens draaien, gourmetstellen sissen en opa vertelt het verhaal over de sneeuwstorm van '79 weer.",
+    headline: "Gourmetlucht boven Gridmas",
+    text: "Aan tafel wordt bijgepraat, door elkaar heen gepraat en gevraagd wie het gourmetpannetje van oom Peter heeft gezien. Het ligt nog op zijn bord.",
   },
   {
-    headline: 'De kerstpiek is begonnen',
-    text: 'Het kerstkoor stemt af, de ijsdisco draait op volle toeren en heel Gridmas zingt mee, al dan niet zuiver.',
+    headline: "Het koor zet in. Ongeveer tegelijk.",
+    text: "De dirigent telt af. De tenoren beginnen een tel te vroeg, de sopranen zingen gewoon harder. Het publiek klapt enthousiast mee op een derde ritme.",
   },
   {
-    headline: 'Gezellig napraten op de markt',
-    text: 'De kerstmarkt loopt langzaam leeg, sjaals worden gezocht en iemand probeert nog een laatste oliebol te bemachtigen.',
+    headline: "Nog eentje dan",
+    text: "De markt is dicht, maar niemand heeft haast met afscheid nemen. Bij de uitgang houdt één bezoeker drie gesprekken en een zak oliebollen tegelijk gaande.",
   },
   {
-    headline: 'Stille nacht in Gridmas',
-    text: 'Het dorp slaapt. De laadpalen zoemen tevreden en de kerstman controleert zijn route nog één keer.',
+    headline: "Alleen de afwas is nog wakker",
+    text: "Gridmas gaat slapen. In de buurtapp verschijnt nog één foto van een kerstdiner. Niemand durft te vragen waarom de spruitjes paars zijn.",
   },
 ];
 
 export type PenaltyAssetId = Exclude<AssetId, 'battery'>;
 
-/** Bericht per strafgevende actie en bloknummer. Alleen geldige combinaties zijn gevuld. */
+/** Alleen berichten voor acties die in dit blok daadwerkelijk gevolgen hebben. */
 export const ACTION_FEEDBACK: Record<PenaltyAssetId, Partial<Record<number, FeedbackText>>> = {
   homes: {
     1: {
-      headline: 'Donkere voortuinen in de schemering',
-      text: 'De rendieren in de woonwijk bleven nog even uit. De meeste bewoners waren gelukkig nog boodschappen aan het doen.',
+      headline: "Rudolf heeft een vrije middag",
+      text: "De tuinverlichting in de Winterstraat blijft uit. Nummer 12 vraagt of zijn rendier stuk is. De buurman wijst naar de rest van de straat. Dat scheelt een rit naar de bouwmarkt.",
     },
     2: {
-      headline: 'Kerstdiner in het halfduister',
-      text: 'Precies tijdens het hoofdgerecht ging de tuinverlichting uit. De buurman met de opblaaskerstman eist een verklaring.',
+      headline: "Opblaaskerstman verliest zijn podium",
+      text: "Het diner staat op tafel, maar buiten blijft de kerstversiering donker. Nummer 12 had net iedereen voor het raam verzameld voor zijn nieuwe lichtshow. Alleen de oven piept.",
     },
     3: {
-      headline: 'Geen lichtjes voor de buurtwandeling',
-      text: 'Families wilden na het diner een rondje lichtjes kijken, maar troffen een donkere wijk aan. De buurtapp ontploft.',
+      headline: "Lichtjesroute wordt rondje om het blok",
+      text: "Zes gezinnen wandelen door de Winterstraat om de kerstversiering te bekijken. Alles staat uit. In de buurtapp volgen 38 berichten en een foto van een zwart vlak.",
     },
     4: {
-      headline: 'Woonwijk gaat vroeg op stand-by',
-      text: 'De meeste mensen lagen al onder een dekentje. Alleen de hond van nummer 12 merkte dat de rendieren uit waren.',
+      headline: "Nummer 12 mist zijn rendier",
+      text: "De tuinlichtjes gaan uit. De meeste buren zitten al op de bank. Nummer 12 kijkt toch even door het raam: “Hij stond er zo gezellig bij.”",
     },
   },
   seniors: {
     1: {
-      headline: 'De Gouden Ster zonder glans',
-      text: 'Het kerstdiner bij De Gouden Ster begon zonder feestverlichting. Mevrouw De Vries heeft de burgemeester al gebeld.',
+      headline: "Mevrouw De Vries belt door",
+      text: "Het diner in De Gouden Ster begint met een onverlichte kerstboom. Mevrouw De Vries belt de burgemeester. Zijn voicemail wenst haar prettige feestdagen. Dat had hij beter niet kunnen doen.",
     },
     2: {
-      headline: 'Kerstdiner bij kaarslicht (niet vrijwillig)',
-      text: 'Midden in de hoofdmaaltijd doofde de feestverlichting in De Gouden Ster. De bewonerscommissie belegt een spoedvergadering.',
+      headline: "Bewonerscommissie slaat het toetje over",
+      text: "Tijdens het kerstdiner gaat de feestverlichting uit. De bewoners schuiven hun stoelen bij elkaar voor een spoedoverleg. De notulen zijn kort: “Dit. Nooit. Meer.”",
     },
     3: {
-      headline: 'Kerstbingo in de schemering',
-      text: 'De bingo ging gewoon door, maar zonder lichtjes voelde het niet als kerst. Meneer Jansen las de nummers voor met een zaklamp.',
+      headline: "Bingo met een boze ondertoon",
+      text: "De kerstlichtjes zijn uit bij De Gouden Ster. De bingo gaat door, maar bij elk nummer roept meneer Jansen “en de boom dan?”. Hij heeft nog geen volle kaart, wel bijval.",
     },
     4: {
-      headline: 'Rustige nacht in De Gouden Ster',
-      text: 'De gemeenschappelijke ruimtes zijn inmiddels leeg. Een nachtwaker constateert dat de boom uit is.',
+      headline: "Boom uit, pantoffels aan",
+      text: "De feestverlichting in De Gouden Ster gaat uit. De zaal is al leeg. De nachtwaker haalt zijn schouders op en eet het laatste kerstkransje.",
     },
   },
   hospital: {
     1: {
-      headline: 'Sombere entree bij het ziekenhuis',
-      text: 'Bezoekers met kerstbloemen liepen een donkere hal binnen. De zorg ging gewoon door, maar de sfeer kreeg een knauw.',
+      headline: "Die boom stond toch net nog aan?",
+      text: "De kerstversiering bij Sint Licht is uit. Een bezoeker legt zijn kerstboeket ernaast en vindt het maar kaal. De halverlichting en alle zorg blijven gewoon aan.",
     },
     2: {
-      headline: 'Kerstmaal zonder twinkeling',
-      text: 'Patiënten en personeel aten hun kerstmaaltijd zonder lichtjes in de boom. De zorg draaide door; de stemming wat minder.',
+      headline: "Een kerstboom zonder kerst",
+      text: "Patiënten en personeel eten hun kerstmaaltijd naast een boom zonder lichtjes. “Dan hadden we ook een ficus kunnen neerzetten”, zegt iemand. De zorg draait door, de kerstsfeer krijgt een tik.",
     },
     3: {
-      headline: 'Bezoekuur in het donker',
-      text: 'Juist tijdens het avondbezoek was de boom bij de ingang uit. Een verpleegkundige hing uit protest haar eigen lichtsnoer op.',
+      headline: "Familiefoto naast een kale boom",
+      text: "Tijdens het avondbezoek is de feestverlichting bij Sint Licht uit. Een familie maakt toch een foto bij de boom. “Volgend jaar nemen we zelf lampjes mee.” De zorg en basisverlichting blijven aan.",
     },
     4: {
-      headline: 'Nachtdienst zonder kerstsfeer',
-      text: 'Het nachtteam had zich verheugd op de verlichte hal. De koffie smaakte ineens een stuk minder feestelijk.',
+      headline: "Nachtteam mist de lichtjes",
+      text: "De nachtploeg komt binnen en ziet de kerstversiering uit staan. Een verpleegkundige hangt een papieren ster aan de koffiemachine. “Iets moet hier nog kerst uitstralen.” Alle zorg blijft gewoon doorgaan.",
     },
   },
   square: {
     1: {
-      headline: 'Kerstmarkt opent in het donker',
-      text: 'De eerste bezoekers zochten de kraampjes op de tast. De oliebollenkraam verkocht vooral zaklampjes.',
+      headline: "Kerstboom zoekt uitstraling",
+      text: "De kerstmarkt opent met de feestverlichting uit. De grote boom lijkt vooral heel veel boom. Een bezoeker vraagt wanneer het aansteken begint. De marktmeester kijkt naar zijn schoenen.",
     },
     2: {
-      headline: 'De grote boom doofde tijdens het diner',
-      text: 'Wie tussen de gangen door even naar het plein liep, zag een donkere boom. Op sociale media trending: #GridmasGrinch.',
+      headline: "Selfies met een spar",
+      text: "De boom en feestverlichting op het dorpsplein staan uit. Bezoekers komen tussen de gangen door voor de jaarlijkse kerstfoto. Met flits zien ze vooral zichzelf en zeventien meter onversierde naalden.",
     },
     3: {
-      headline: 'Het koor zingt in het donker',
-      text: 'Net tijdens het optreden van het kerstkoor doofde de grote boom. De dirigent spreekt van sabotage.',
+      headline: "Dirigent eist een toegift mét licht",
+      text: "Het koor treedt op, maar de grote boom en feestverlichting staan uit. De dirigent stopt na het eerste lied. “We hebben zes weken gerepeteerd. Voor een struik.” Het applaus is voor hem.",
     },
     4: {
-      headline: 'Laatste ronde, lichten uit',
-      text: 'De kraampjes waren al bijna dicht. Alleen de glühweinkraam mopperde dat de laatste klanten hun bekers niet meer terugvonden.',
+      headline: "Markt dicht, licht uit",
+      text: "De kerstversiering op het plein gaat uit. De kraampjes zijn al gesloten. Eén verkoper wilde nog een foto van zijn kraam en vraagt of het heel even terug kan.",
     },
   },
   rink: {
     1: {
-      headline: 'IJsbaan dicht voor de families',
-      text: 'Tientallen kinderen stonden met hun schaatsen klaar voor de middagsessie. De ijsmeester deelde chocolademelk uit als troostprijs.',
+      headline: "Schaatsen aan. Hek dicht.",
+      text: "De Gladde Kerst sluit precies als de families aankomen. Een vader probeert uit te leggen dat warme chocolademelk óók een uitje is. Zijn dochter houdt haar schaatsen aan. Uit principe.",
     },
     2: {
-      headline: 'IJsbaan even dicht tijdens het diner',
-      text: 'Veel bezoekers zaten toch aan hun kerstdiner. De ijsmeester kon voor het eerst in jaren rustig eten.',
+      headline: "IJsmeester eet warm",
+      text: "De ijsbaan is dicht tijdens het kerstdiner. Een paar bezoekers moeten hun rondjes uitstellen. De ijsmeester zit voor het eerst deze week aan tafel voordat de jus een vel krijgt.",
     },
     3: {
-      headline: 'Kerstdisco op het ijs afgelast',
-      text: 'De kerstdisco op het ijs is afgelast. De DJ zit met 400 ongebruikte glowsticks.',
+      headline: "DJ met 400 glowsticks zoekt publiek",
+      text: "De ijsdisco gaat niet door: De Gladde Kerst is gesloten. De dj draait één nummer voor de ijsmeester. Die vraagt of het zachter kan. Buiten staan de schaatsers klaar voor een feest dat niet begint.",
     },
   },
   chargers: {
     1: {
-      headline: 'Laadplein even op pauze',
-      text: "Bijna niemand had haast; de meeste auto's stonden toch tot morgen geparkeerd. Eén taxichauffeur bromde iets over kerstgeest.",
+      headline: "Auto wacht, chauffeur eet oliebol",
+      text: "Het laadplein pauzeert. De meeste bezoekers blijven nog uren, dus weinig haast. Eén chauffeur ververst zijn laadapp drie keer en besluit dan maar iets te eten.",
     },
     2: {
-      headline: 'Laden wacht op het toetje',
-      text: 'Een paar bezoekers zagen in de app dat hun auto niet laadde. Ze besloten er na de kerstpudding over te klagen.',
+      headline: "Laden na het toetje, graag",
+      text: "De auto’s laden even niet. Een bezoeker wil na het diner meteen weg en ziet het percentage stilstaan. Hij neemt nog een toetje, maar houdt zijn jas alvast aan.",
     },
     3: {
-      headline: "Accu's blijven steken",
-      text: 'Wie na het koor vroeg naar huis wilde, zag het laadpercentage niet stijgen. Een tante zoekt al naar de laatste trein.',
+      headline: "Nog steeds 43 procent",
+      text: "Na het koor willen de eerste bezoekers vertrekken. Het laadplein staat op pauze. Een tante loopt naar haar auto, kijkt in de app en loopt terug. Ze heeft het koor nu wel gehoord.",
     },
     4: {
-      headline: 'Vertrek met halflege accu',
-      text: "Bezoekers willen vertrekken, maar de accu's zijn niet vol. Een oom heeft aangekondigd volgend jaar met de diesel te komen.",
+      headline: "Oom Henk blijft. Tegen zijn zin.",
+      text: "De bezoekers willen naar huis, maar het laden is gepauzeerd. Oom Henk had zijn afscheid al drie keer gedaan. Nu staat hij weer in de hal, met zijn jas aan en een heel nieuw onderwerp om over te klagen.",
     },
   },
 };

@@ -6,13 +6,13 @@ import App from '../src/App.vue';
 import LoadChart from '../src/components/LoadChart.vue';
 import PlanningBoard from '../src/components/PlanningBoard.vue';
 import { referenceDemoSchedule } from '../src/domain/referenceSchedule';
-import { createEmptySchedule } from '../src/domain/scenario';
+import { BLOCKS, DECORATIONS, createEmptySchedule } from '../src/domain/scenario';
 import { MockHardwareAdapter } from '../src/hardware/MockHardwareAdapter';
 import { createGameStore } from '../src/state/gameStore';
 import { GAME_STORE_KEY } from '../src/state/injection';
 import { referenceSchedule } from './fixtures';
 
-const PLANNING_COMPONENTS = ['PlanningBoard.vue', 'LoadChart.vue'];
+const PLANNING_COMPONENTS = ['PlanningBoard.vue', 'LoadChart.vue', 'LocationCard.vue', 'LocationDetail.vue', 'VillageView.vue', 'VillageMap.vue', 'LocationIllustration.vue'];
 const FORBIDDEN_IMPORTS = ['calculateMorale', 'feedbackContent', 'domain/game', 'MoraleEvent', 'ExecutedBlock', 'GameState'];
 
 describe('8. de planning toont geen moraal of straffen', () => {
@@ -83,7 +83,19 @@ describe('App: volledige speelloop', () => {
     await wrapper.get('form').trigger('submit');
     expect(wrapper.text()).toContain('Plan de kerstavond');
 
-    for (const action of referenceSchedule()) store.setAction(action);
+    // Build the entire plan through the visible controls, not store shortcuts.
+    for (const action of referenceSchedule()) {
+      const label = BLOCKS[action.blockIndex]!.label;
+      for (const id of action.decorationsOff) {
+        const name = DECORATIONS.find(d => d.id === id)!.name;
+        await wrapper.get(`[aria-label="${name}, ${label}: feestverlichting aan"]`).trigger('click');
+      }
+      if (action.rinkPaused) await wrapper.get(`[aria-label="IJsbaan, ${label}: open"]`).trigger('click');
+      if (action.batteryDischarge) await wrapper.get(`[aria-label="Buurtbatterij, ${label}: stand-by"]`).trigger('click');
+      if (action.chargersPaused) await wrapper.get(`[aria-label="Laadplein, ${label}: actief"]`).trigger('click');
+      if (action.extraCharging) await wrapper.get(`[aria-label="Laadplein, ${label}: stand-by"]`).trigger('click');
+    }
+    expect(store.state.game!.schedule).toEqual(referenceSchedule());
     await flushPromises();
 
     for (let i = 0; i < 6; i++) {
@@ -92,11 +104,20 @@ describe('App: volledige speelloop', () => {
       await play.trigger('click');
       await flushPromises();
       // Tijdens de animatie toont de kop nog de oude moraal; pas het nieuws onthult de nieuwe.
-      expect(wrapper.get('.topbar .morale strong').text()).toBe(String(moraleBefore));
+      if (i === 0) {
+        expect(wrapper.get('.topbar .morale').text()).toContain('Nog niet bekend');
+        expect(wrapper.find('.topbar .morale strong').exists()).toBe(false);
+      } else {
+        expect(wrapper.get('.topbar .morale strong').text()).toBe(String(moraleBefore));
+      }
+      expect(wrapper.findAll('.map-location')).toHaveLength(7);
+      const batteryPercent = [100, 100, 50, 0, 0, 0][i];
+      expect(wrapper.get('.map-location.battery').text()).toContain(`Batterij ${batteryPercent}%`);
       // Lopende ronde overslaan
       await wrapper.findAll('button').find((b) => b.text() === 'Direct naar het nieuws')!.trigger('click');
       await flushPromises();
       expect(wrapper.text()).toContain('De Gridmas Courant');
+      expect(wrapper.get('[role="meter"]').attributes('aria-valuenow')).toBe(String(store.state.game!.morale));
       const next = wrapper.findAll('button').find((b) => /Verder naar volgende ronde|Naar de uitslag/.test(b.text()))!;
       await next.trigger('click');
       await flushPromises();
@@ -104,6 +125,8 @@ describe('App: volledige speelloop', () => {
 
     expect(wrapper.text()).toContain('kerstmoraal');
     expect(wrapper.text()).toContain('Team Test');
+    expect(wrapper.text()).toContain('Kersthelden van Gridmas');
+    expect(wrapper.get('.final-stats').text()).toContain('80 kWh');
     expect(wrapper.text()).toContain('OpenADR 3.1 conceptweergave - niet conformiteit-gevalideerde API-payload');
     expect(store.state.leaderboard).toHaveLength(1);
     expect(mock.scenes).toHaveLength(6);
@@ -111,5 +134,79 @@ describe('App: volledige speelloop', () => {
     await wrapper.findAll('button').find((b) => b.text() === 'Volgend team')!.trigger('click');
     await flushPromises();
     expect(wrapper.text()).toContain('Start planning');
+    expect(wrapper.get('.scoreboard').text()).toContain('Team Test');
+    await wrapper.get('#team-name').setValue('Het volgende team');
+    await wrapper.get('form').trigger('submit');
+    expect(store.state.game!.teamName).toBe('Het volgende team');
+    expect(store.state.leaderboard).toHaveLength(1);
+    wrapper.unmount();
+  });
+});
+
+
+describe('locaties en geselecteerde planning', () => {
+  it('verbindt locatiekaarten, tijdselectie en de detailbediening met het schema', async () => {
+    const store = createGameStore();
+    const wrapper = mount(App, { global: { provide: { [GAME_STORE_KEY as symbol]: store } } });
+    await wrapper.get('#team-name').setValue('Team Locaties');
+    await wrapper.get('form').trigger('submit');
+    expect(wrapper.findAll('.location-card')).toHaveLength(7);
+    await wrapper.get('[aria-label="Selecteer 18:00-20:00"]').trigger('click');
+    await wrapper.get('.location-card[aria-label^="Ziekenhuis Sint Licht"]').trigger('click');
+    expect(wrapper.get('[data-asset="hospital"]').classes()).toContain('highlighted');
+    expect(wrapper.get('.location-detail').text()).toContain('18:00-20:00');
+    expect(wrapper.get('.location-detail').text()).toContain('zorg en basisverlichting blijven aan');
+    await wrapper.get('.detail-action').trigger('click');
+    expect(store.state.game!.schedule[2]!.decorationsOff).toEqual(['hospital']);
+    expect(wrapper.find('[aria-label="Ziekenhuis (alleen feestverlichting), 18:00-20:00: feestverlichting uit"]').exists()).toBe(true);
+    expect(wrapper.get('.header-metrics').text()).toContain('145');
+    expect(wrapper.get('.location-detail').text()).toContain('Verlichting uit');
+    expect(wrapper.get('.planning').html().toLowerCase()).not.toMatch(/moraal|penalty|morale/);
+    expect(wrapper.get('.topbar .morale').text()).toContain('Nog niet bekend');
+    for (const card of wrapper.findAll('.location-card')) {
+      await card.trigger('click');
+      expect(wrapper.get('.planning').html().toLowerCase()).not.toMatch(/moraal|penalty|morale/);
+    }
+    wrapper.unmount();
+  });
+
+  it('legt beperkingen uit en voorkomt detailwijzigingen in gespeelde blokken', async () => {
+    const wrapper = mount(PlanningBoard, { props: { schedule: referenceSchedule(), executedActions: referenceSchedule().slice(0, 3), selectedBlock: 2 } });
+    await wrapper.get('.location-card[aria-label^="Buurtbatterij"]').trigger('click');
+    expect(wrapper.get('.detail-action').attributes('disabled')).toBeDefined();
+    expect(wrapper.get('.restriction').text()).toContain('Dit blok is gespeeld');
+    await wrapper.get('.detail-action').trigger('click');
+    expect(wrapper.emitted('update')).toBeUndefined();
+    await wrapper.setProps({ selectedBlock: 4 });
+    expect(wrapper.get('.restriction').text()).toContain('volledig ingepland');
+    await wrapper.setProps({ selectedBlock: 3 });
+    expect(wrapper.find('.restriction').exists()).toBe(false);
+    await wrapper.get('.detail-action').trigger('click');
+    expect(wrapper.emitted('update')![0]![0]).toMatchObject({ blockIndex: 3, batteryDischarge: false });
+    await wrapper.setProps({ selectedBlock: 5 });
+    expect(wrapper.get('.restriction').text()).toContain('niet beschikbaar');
+    wrapper.unmount();
+  });
+});
+
+
+describe('App: hervatten', () => {
+  it('selecteert na opnieuw openen het eerstvolgende ongespeelde blok', async () => {
+    const data = new Map<string, string>();
+    const storage = { getItem: (k: string) => data.get(k) ?? null, setItem: (k: string, v: string) => { data.set(k, v); }, removeItem: (k: string) => { data.delete(k); } };
+    const original = createGameStore({ storage });
+    original.startGame('Team Hervat');
+    for (const action of referenceSchedule()) original.setAction(action);
+    for (let i = 0; i < 3; i++) {
+      await original.playNextBlock();
+      original.finishRunningRound();
+      original.continueAfterReview();
+    }
+    const restored = createGameStore({ storage });
+    const wrapper = mount(App, { global: { provide: { [GAME_STORE_KEY as symbol]: restored } } });
+    expect(wrapper.get('[aria-label="Selecteer 20:00-22:00"]').attributes('aria-pressed')).toBe('true');
+    expect(wrapper.get('.topbar .morale strong').text()).toBe('86');
+    expect(wrapper.get('[aria-label="Woonwijk, 18:00-20:00: feestverlichting aan"]').attributes('disabled')).toBeDefined();
+    wrapper.unmount();
   });
 });

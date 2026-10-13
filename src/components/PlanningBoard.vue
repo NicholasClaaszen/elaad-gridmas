@@ -1,25 +1,57 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { batteryRemainingAfterEachBlock, calculateLoads, chargingNetKwh } from '../domain/calculateLoad';
 import { BATTERY, BLOCKS, CAPACITY_KW, CHARGERS, DECORATIONS, DECORATION_BLOCKS, RINK } from '../domain/scenario';
-import type { BlockAction, DecorationId, Schedule } from '../domain/types';
+import type { AssetId, BlockAction, DecorationId, Schedule } from '../domain/types';
 import { validateSchedule } from '../domain/validateSchedule';
 import LoadChart from './LoadChart.vue';
+import VillageView from './VillageView.vue';
+import LocationDetail from './LocationDetail.vue';
+import { availableInBlock, LOCATIONS, projectPlanningScene } from '../ui/locations';
 
 /*
  * Bewust alleen technische data als invoer: deze component krijgt nooit moraal- of strafinformatie.
  */
 const props = defineProps<{
+  selectedBlock?: number;
   schedule: Schedule;
   executedActions: BlockAction[];
   error?: string | null;
 }>();
 
 const emit = defineEmits<{
+  selectBlock: [index: number];
   update: [action: BlockAction];
   play: [];
   dismissError: [];
 }>();
+
+const selectedAsset = ref<AssetId>('homes');
+const selectedIndex = computed(() => props.selectedBlock ?? 0);
+const selectedLocation = computed(() => LOCATIONS.find(l => l.id === selectedAsset.value)!);
+const selectedAction = computed(() => props.schedule[selectedIndex.value]!);
+const selectedScene = computed(() => projectPlanningScene(selectedAction.value, battery.value[selectedIndex.value]!, loads.value[selectedIndex.value]!));
+const restriction = computed(() => {
+  const id = selectedAsset.value;
+  const a = selectedAction.value;
+  if (isLocked(selectedIndex.value)) return 'Dit blok is gespeeld. De keuzes liggen vast.';
+  if (!availableInBlock(id, selectedIndex.value)) return 'Deze maatregel is in dit blok niet beschikbaar.';
+  if (id === 'rink' && !a.rinkPaused && props.schedule.filter(b => b.rinkPaused).length >= RINK.maxUses) return 'De ijsbaan kan maar één keer dicht. Maak eerst het andere geplande blok vrij.';
+  if (id === 'battery' && !a.batteryDischarge && batteryBlocks.value >= BATTERY.maxUses) return 'De batterij is al volledig ingepland. Maak eerst een ander gepland batterijblok vrij.';
+  if (id === 'chargers' && CHARGERS.pauseBlocks.includes(selectedIndex.value) && !a.chargersPaused && pauses.value >= CHARGERS.maxPauses) return 'Er zijn al twee laadpauzes gepland. Haal eerst een andere geplande pauze weg.';
+  return '';
+});
+
+function toggleSelected(): void {
+  if (restriction.value) return;
+  const i = selectedIndex.value;
+  const a = selectedAction.value;
+  const id = selectedAsset.value;
+  if (id === 'rink') patch(i, { rinkPaused: !a.rinkPaused });
+  else if (id === 'battery') patch(i, { batteryDischarge: !a.batteryDischarge });
+  else if (id === 'chargers') patch(i, CHARGERS.extraBlocks.includes(i) ? { extraCharging: !a.extraCharging } : { chargersPaused: !a.chargersPaused });
+  else toggleDecoration(i, id);
+}
 
 const lockedCount = computed(() => props.executedActions.length);
 const nextIndex = computed(() => lockedCount.value);
@@ -51,39 +83,53 @@ function isLocked(i: number): boolean {
   return i < lockedCount.value;
 }
 
-function patch(i: number, change: Partial<BlockAction>): void {
+function patch(i: number, change: Partial<BlockAction>, assetId?: AssetId): void {
   if (isLocked(i)) return;
+  if (assetId) selectedAsset.value = assetId;
+  emit('selectBlock', i);
   const current = props.schedule[i]!;
   emit('update', { ...current, decorationsOff: [...current.decorationsOff], ...change });
 }
 
 function toggleDecoration(i: number, id: DecorationId): void {
   const off = props.schedule[i]!.decorationsOff;
-  patch(i, { decorationsOff: off.includes(id) ? off.filter((d) => d !== id) : [...off, id] });
+  patch(i, { decorationsOff: off.includes(id) ? off.filter((d) => d !== id) : [...off, id] }, id);
 }
 </script>
 
 <template>
   <section class="planning" aria-labelledby="planning-title">
+    <div class="village-section">
+      <div class="village-heading">
+        <div><p class="eyebrow">Jullie controlecentrum</p><h2 id="planning-title">Plan de kerstavond</h2><p class="muted">Selecteer een tijdsblok en bekijk een locatie.</p></div>
+        <div class="play-control"><span :class="isValid ? 'delta-up' : 'muted'">{{ isValid ? 'Het hele programma klopt' : `${issues.length} punten om op te lossen` }}</span><button type="button" class="btn btn-primary play" :disabled="!isValid" @click="emit('play')">{{ playLabel }}</button></div>
+      </div>
+      <VillageView :scene="selectedScene" :selected="selectedAsset" @select="selectedAsset = $event" />
+      <p class="preview-caption muted">Planningsbeeld · {{ BLOCKS[selectedIndex]!.label }} · batterij na dit blok. Dit is jullie plan; het dorp voert het pas uit als jullie spelen.</p>
+    </div>
     <div class="main">
       <header class="intro">
-        <h2 id="planning-title">Plan de kerstavond</h2>
+        <h3>Jullie OpenADR-programma</h3>
         <p v-if="isFirstRound" class="muted">
-          Zorg dat geen enkel blok boven de {{ CAPACITY_KW }} kW uitkomt. Pas als alle zes blokken passen, kan de avond beginnen.
+          Houd elk blok op maximaal {{ CAPACITY_KW }} kW. Klik op een tijd bovenaan of schakel direct in het schema.
         </p>
         <p v-else class="muted">
-          Uitgevoerde blokken liggen vast. Je kunt alleen de blokken die nog komen aanpassen.
+          Gespeelde blokken liggen vast. De rest van de avond kun je nog aanpassen.
         </p>
       </header>
 
 
       <div class="board" role="group" aria-label="Planning per tijdsblok">
         <div class="corner" />
-        <div
+        <button
           v-for="block in BLOCKS"
           :key="block.index"
+          type="button"
           class="block-head"
-          :class="[columnStatus(block.index), { invalid: blockIssues(block.index).length > 0 }]"
+          :aria-pressed="selectedIndex === block.index"
+          :aria-label="`Selecteer ${block.label}`"
+          :class="[columnStatus(block.index), { invalid: blockIssues(block.index).length > 0, selected: selectedIndex === block.index }]"
+          @click="emit('selectBlock', block.index)"
         >
           <span class="time">{{ block.label }}</span>
           <span class="phase muted">{{ block.phase }}</span>
@@ -92,7 +138,7 @@ function toggleDecoration(i: number, id: DecorationId): void {
             <template v-else-if="columnStatus(block.index) === 'next'">Volgende</template>
             <template v-else>Gepland</template>
           </span>
-        </div>
+        </button>
 
         <div class="row-label chart-label">
           <span class="name">Netbelasting</span>
@@ -102,11 +148,11 @@ function toggleDecoration(i: number, id: DecorationId): void {
 
         <!-- Feestverlichting -->
         <template v-for="decoration in DECORATIONS" :key="decoration.id">
-          <div class="row-label">
-            <span class="name">{{ decoration.name }}</span>
+          <button type="button" class="row-label location-row" :class="{ highlighted: selectedAsset === decoration.id }" :data-asset="decoration.id" @click="selectedAsset = decoration.id">
+            <span class="name">{{ LOCATIONS.find(l => l.id === decoration.id)!.shortName }}</span>
             <span class="muted">Feestverlichting uit: −{{ decoration.reductionKw }} kW</span>
-          </div>
-          <div v-for="block in BLOCKS" :key="block.index" class="cell" :class="{ locked: isLocked(block.index) }">
+          </button>
+          <div v-for="block in BLOCKS" :key="block.index" class="cell" :class="{ locked: isLocked(block.index), highlighted: selectedAsset === decoration.id }">
             <button
               v-if="DECORATION_BLOCKS.includes(block.index)"
               type="button"
@@ -126,11 +172,11 @@ function toggleDecoration(i: number, id: DecorationId): void {
         </template>
 
         <!-- IJsbaan -->
-        <div class="row-label">
-          <span class="name">{{ RINK.name }}</span>
+        <button type="button" class="row-label location-row" :class="{ highlighted: selectedAsset === 'rink' }" data-asset="rink" @click="selectedAsset = 'rink'">
+          <span class="name">{{ LOCATIONS.find(l => l.id === 'rink')!.shortName }}</span>
           <span class="muted">Eén keer dicht: −{{ RINK.reductionKw }} kW</span>
-        </div>
-        <div v-for="block in BLOCKS" :key="block.index" class="cell" :class="{ locked: isLocked(block.index) }">
+        </button>
+        <div v-for="block in BLOCKS" :key="block.index" class="cell" :class="{ locked: isLocked(block.index), highlighted: selectedAsset === 'rink' }">
           <button
             v-if="RINK.allowedBlocks.includes(block.index)"
             type="button"
@@ -139,7 +185,7 @@ function toggleDecoration(i: number, id: DecorationId): void {
             :aria-pressed="schedule[block.index]!.rinkPaused"
             :aria-label="`IJsbaan, ${block.label}: ${schedule[block.index]!.rinkPaused ? 'dicht' : 'open'}`"
             :disabled="isLocked(block.index)"
-            @click="patch(block.index, { rinkPaused: !schedule[block.index]!.rinkPaused })"
+            @click="patch(block.index, { rinkPaused: !schedule[block.index]!.rinkPaused }, 'rink')"
           >
             <span>{{ schedule[block.index]!.rinkPaused ? 'Dicht' : 'Open' }}</span>
             <span v-if="schedule[block.index]!.rinkPaused" class="kw-tag">−{{ RINK.reductionKw }} kW</span>
@@ -147,35 +193,12 @@ function toggleDecoration(i: number, id: DecorationId): void {
           <span v-else class="na" aria-label="niet beschikbaar">–</span>
         </div>
 
-        <!-- Batterij -->
-        <div class="row-label">
-          <span class="name">{{ BATTERY.name }}</span>
-          <span class="muted">Ontladen: −{{ BATTERY.dischargeKw }} kW, kost {{ BATTERY.energyPerBlockKwh }} kWh</span>
-        </div>
-        <div v-for="block in BLOCKS" :key="block.index" class="cell" :class="{ locked: isLocked(block.index) }">
-          <button
-            v-if="BATTERY.allowedBlocks.includes(block.index)"
-            type="button"
-            class="toggle"
-            :class="schedule[block.index]!.batteryDischarge ? 'is-active' : 'is-idle'"
-            :aria-pressed="schedule[block.index]!.batteryDischarge"
-            :aria-label="`Buurtbatterij, ${block.label}: ${schedule[block.index]!.batteryDischarge ? 'ontladen' : 'stand-by'}`"
-            :disabled="isLocked(block.index)"
-            @click="patch(block.index, { batteryDischarge: !schedule[block.index]!.batteryDischarge })"
-          >
-            <span>{{ schedule[block.index]!.batteryDischarge ? 'Ontladen' : 'Stand-by' }}</span>
-            <span v-if="schedule[block.index]!.batteryDischarge" class="kw-tag">−{{ BATTERY.dischargeKw }} kW</span>
-          </button>
-          <span v-else class="na" aria-label="niet beschikbaar">–</span>
-          <span class="energy muted" :class="{ negative: battery[block.index]! < 0 }">{{ battery[block.index] }} kWh</span>
-        </div>
-
         <!-- Laadplein -->
-        <div class="row-label">
-          <span class="name">{{ CHARGERS.name }}</span>
+        <button type="button" class="row-label location-row" :class="{ highlighted: selectedAsset === 'chargers' }" data-asset="chargers" @click="selectedAsset = 'chargers'">
+          <span class="name">{{ LOCATIONS.find(l => l.id === 'chargers')!.shortName }}</span>
           <span class="muted">Pauze −{{ CHARGERS.pauseKw }} kW, extra laden +{{ CHARGERS.extraKw }} kW</span>
-        </div>
-        <div v-for="block in BLOCKS" :key="block.index" class="cell" :class="{ locked: isLocked(block.index) }">
+        </button>
+        <div v-for="block in BLOCKS" :key="block.index" class="cell" :class="{ locked: isLocked(block.index), highlighted: selectedAsset === 'chargers' }">
           <button
             v-if="CHARGERS.pauseBlocks.includes(block.index)"
             type="button"
@@ -184,7 +207,7 @@ function toggleDecoration(i: number, id: DecorationId): void {
             :aria-pressed="schedule[block.index]!.chargersPaused"
             :aria-label="`Laadplein, ${block.label}: ${schedule[block.index]!.chargersPaused ? 'pauze' : 'actief'}`"
             :disabled="isLocked(block.index)"
-            @click="patch(block.index, { chargersPaused: !schedule[block.index]!.chargersPaused })"
+            @click="patch(block.index, { chargersPaused: !schedule[block.index]!.chargersPaused }, 'chargers')"
           >
             <span>{{ schedule[block.index]!.chargersPaused ? 'Pauze' : 'Actief' }}</span>
             <span v-if="schedule[block.index]!.chargersPaused" class="kw-tag">−{{ CHARGERS.pauseKw }} kW</span>
@@ -197,27 +220,59 @@ function toggleDecoration(i: number, id: DecorationId): void {
             :aria-pressed="schedule[block.index]!.extraCharging"
             :aria-label="`Laadplein, ${block.label}: ${schedule[block.index]!.extraCharging ? 'extra laden' : 'stand-by'}`"
             :disabled="isLocked(block.index)"
-            @click="patch(block.index, { extraCharging: !schedule[block.index]!.extraCharging })"
+            @click="patch(block.index, { extraCharging: !schedule[block.index]!.extraCharging }, 'chargers')"
           >
             <span>{{ schedule[block.index]!.extraCharging ? 'Extra laden' : 'Stand-by' }}</span>
             <span v-if="schedule[block.index]!.extraCharging" class="kw-tag">+{{ CHARGERS.extraKw }} kW</span>
           </button>
         </div>
+
+        <!-- Batterij -->
+        <button type="button" class="row-label location-row" :class="{ highlighted: selectedAsset === 'battery' }" data-asset="battery" @click="selectedAsset = 'battery'">
+          <span class="name">{{ LOCATIONS.find(l => l.id === 'battery')!.shortName }}</span>
+          <span class="muted">Ontladen: −{{ BATTERY.dischargeKw }} kW, kost {{ BATTERY.energyPerBlockKwh }} kWh</span>
+        </button>
+        <div v-for="block in BLOCKS" :key="block.index" class="cell" :class="{ locked: isLocked(block.index), highlighted: selectedAsset === 'battery' }">
+          <button
+            v-if="BATTERY.allowedBlocks.includes(block.index)"
+            type="button"
+            class="toggle"
+            :class="schedule[block.index]!.batteryDischarge ? 'is-active' : 'is-idle'"
+            :aria-pressed="schedule[block.index]!.batteryDischarge"
+            :aria-label="`Buurtbatterij, ${block.label}: ${schedule[block.index]!.batteryDischarge ? 'ontladen' : 'stand-by'}`"
+            :disabled="isLocked(block.index)"
+            @click="patch(block.index, { batteryDischarge: !schedule[block.index]!.batteryDischarge }, 'battery')"
+          >
+            <span>{{ schedule[block.index]!.batteryDischarge ? 'Ontladen' : 'Stand-by' }}</span>
+            <span v-if="schedule[block.index]!.batteryDischarge" class="kw-tag">−{{ BATTERY.dischargeKw }} kW</span>
+          </button>
+          <span v-else class="na" aria-label="niet beschikbaar">–</span>
+          <span class="energy muted" :class="{ negative: battery[block.index]! < 0 }">{{ battery[block.index] }} kWh</span>
+        </div>
+
+
+        <div class="row-label"><span class="name">Zo telt het op</span><span class="muted">Basis − inzet + extra</span></div>
+        <div v-for="block in BLOCKS" :key="`sum-${block.index}`" class="load-equation" :class="{ congested: loads[block.index]! > CAPACITY_KW }">
+          <span>{{ block.baselineLoadKw }} − {{ block.baselineLoadKw + (schedule[block.index]!.extraCharging ? CHARGERS.extraKw : 0) - loads[block.index]! }} + {{ schedule[block.index]!.extraCharging ? CHARGERS.extraKw : 0 }}</span>
+          <strong>= {{ loads[block.index] }} kW</strong>
+          <span>{{ loads[block.index]! > CAPACITY_KW ? `${loads[block.index]! - CAPACITY_KW} kW te veel` : 'Binnen de limiet' }}</span>
+        </div>
       </div>
     </div>
 
     <aside class="side" aria-label="Controle van het programma">
-      <section v-if="isFirstRound" class="guide" aria-label="Uitleg eerste blok">
-        <h3>Zo begint het</h3>
+      <LocationDetail :location="selectedLocation" :scene="selectedScene" editable :battery-discharging="selectedAction.batteryDischarge" :block-label="BLOCKS[selectedIndex]!.label" :restriction="restriction" @toggle="toggleSelected" />
+      <div class="side-divider" />
+      <details v-if="isFirstRound" class="guide">
+        <summary>Tip: begin met het laadplein</summary>
         <p>
-          Om 14:00 is het nog rustig: 75 kW, dus 25 kW ruimte. Die ruimte kun je gebruiken om het laadplein alvast
-          <strong>vooruit te laden</strong>. Daarmee verdien je één laadpauze later op de avond. Je mag ook wachten en
-          pas na middernacht inhalen. Elke pauze vraagt precies één extra laadsessie.
+          Om 14:00 is er ruimte om alvast extra te laden. Dat geeft ruimte voor een laadpauze later.
+          Inhalen kan ook na middernacht. Plan voor elke pauze één extra laadsessie.
         </p>
         <p>
           Na elk gespeeld blok lees je in het nieuwsbulletin hoe Gridmas op jullie keuzes reageerde.
         </p>
-      </section>
+      </details>
       <h3>Klopt het programma?</h3>
 
       <dl class="resources">
@@ -231,7 +286,7 @@ function toggleDecoration(i: number, id: DecorationId): void {
         <div :class="{ bad: schedule.filter((a) => a.rinkPaused).length > RINK.maxUses }">
           <dt>IJsbaan</dt>
           <dd>
-            <template v-if="rinkBlock < 0">Nog niet ingezet (1 keer mogelijk)</template>
+            <template v-if="rinkBlock < 0">Nog niet ingepland (één keer mogelijk)</template>
             <template v-else>Dicht om {{ BLOCKS[rinkBlock]!.label }}</template>
           </dd>
         </div>
@@ -246,11 +301,11 @@ function toggleDecoration(i: number, id: DecorationId): void {
       </dl>
 
       <div class="issues" role="status" aria-live="polite">
-        <p v-if="isValid" class="ok">Alle zes blokken passen binnen de regels.</p>
+        <p v-if="isValid" class="ok">Het plan klopt. Gridmas kan beginnen.</p>
         <ul v-else>
           <li v-for="(issue, n) in issues" :key="n">{{ issue.message }}</li>
         </ul>
-        <p v-if="globalIssues.length === 0 && !isValid" class="muted hint">Rood gemarkeerde blokken hebben nog werk nodig.</p>
+        <p v-if="globalIssues.length === 0 && !isValid" class="muted hint">In de rode blokken vraagt het dorp nog te veel stroom.</p>
       </div>
 
       <div v-if="error" class="error" role="alert">
@@ -258,16 +313,29 @@ function toggleDecoration(i: number, id: DecorationId): void {
         <button type="button" class="btn btn-quiet" @click="emit('dismissError')">Sluiten</button>
       </div>
 
-      <button type="button" class="btn btn-primary play" :disabled="!isValid" @click="emit('play')">
-        {{ playLabel }}
-      </button>
-      <p v-if="!isValid" class="muted hint">Los eerst de punten hierboven op.</p>
-      <slot name="side" />
+
     </aside>
   </section>
 </template>
 
 <style scoped>
+.village-section { grid-column: 1 / -1; }
+.village-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 1rem; margin-bottom: 1rem; }
+.village-heading h2 { font-size: 1.8rem; }
+.village-heading p.muted, .preview-caption { font-size: .8rem; }
+.preview-caption { margin-top: .6rem; }
+.play-control { display: grid; justify-items: end; gap: .4rem; flex-shrink: 0; font-size: .8rem; }
+.location-row { text-align: left; background: transparent; border: 1px solid transparent; border-radius: 6px; cursor: pointer; color: inherit; }
+.location-row:hover { background: #ffffff08; }
+.highlighted { background: #e9b65c0b; border-color: #e9b65c55; }
+.block-head { cursor: pointer; color: inherit; text-align: left; border: 1px solid var(--line); }
+.block-head.selected { box-shadow: inset 0 0 0 1px var(--lamp); border-color: var(--lamp); }
+.load-equation { display: grid; gap: .1rem; padding: .5rem .15rem; border-top: 1px solid var(--line); text-align: center; font-size: .7rem; color: var(--snow-muted); }
+.load-equation strong { font-size: 1rem; color: var(--pine); }
+.load-equation.congested strong { color: var(--holly); }
+.side-divider { border-top: 1px solid var(--line); }
+@media (max-width: 700px) { .village-heading { align-items: stretch; flex-direction: column; } .play-control { justify-items: stretch; } }
+
 .planning {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 310px;
@@ -279,7 +347,7 @@ function toggleDecoration(i: number, id: DecorationId): void {
   margin-bottom: 0.75rem;
 }
 
-.intro h2 {
+.intro h3 {
   font-size: var(--step-2);
   margin-bottom: 0.25rem;
 }
@@ -292,21 +360,21 @@ function toggleDecoration(i: number, id: DecorationId): void {
   font-size: var(--step--1);
 }
 
-.guide h3 {
+.guide summary {
   font-size: var(--step-0);
 }
 
 .board {
   --board-gap: 6px;
   display: grid;
-  grid-template-columns: 13.5rem repeat(6, minmax(0, 1fr));
+  grid-template-columns: 10rem repeat(6, minmax(0, 1fr));
   gap: var(--board-gap);
 }
 
 .block-head {
   display: flex;
   flex-direction: column;
-  padding: 0.4rem 0.6rem;
+  padding: 0.4rem 0.3rem;
   border-radius: var(--radius-control);
   border-top: 3px solid var(--line);
   line-height: 1.3;
@@ -316,7 +384,7 @@ function toggleDecoration(i: number, id: DecorationId): void {
 .block-head .time {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: var(--step-0);
+  font-size: .875rem;
   white-space: nowrap;
 }
 
@@ -453,8 +521,6 @@ function toggleDecoration(i: number, id: DecorationId): void {
 }
 
 .side {
-  position: sticky;
-  top: 1rem;
   display: grid;
   gap: 1rem;
   padding: 1.25rem;
@@ -531,7 +597,7 @@ function toggleDecoration(i: number, id: DecorationId): void {
   }
 }
 
-@media (max-width: 760px) {
+@media (max-width: 900px) {
   .board {
     overflow-x: auto;
     grid-template-columns: 9rem repeat(6, 7rem);

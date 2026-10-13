@@ -14,7 +14,7 @@ const ranked = computed(() => rankLeaderboard(props.entries).slice(0, props.limi
 <template>
   <section class="scoreboard" aria-labelledby="scoreboard-title">
     <h3 id="scoreboard-title">Scorebord</h3>
-    <p v-if="ranked.length === 0" class="muted">Nog geen teams. Jullie kunnen de eerste zijn.</p>
+    <p v-if="ranked.length === 0" class="muted">Het scorebord is nog leeg. De eerste plek ligt voor het oprapen.</p>
     <table v-else>
       <thead>
         <tr>

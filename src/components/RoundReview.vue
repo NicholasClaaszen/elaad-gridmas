@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { BLOCKS, CAPACITY_KW } from '../domain/scenario';
+import MoraleMeter from './MoraleMeter.vue';
 import type { ExecutedBlock } from '../domain/types';
 
 const props = defineProps<{
@@ -11,17 +12,21 @@ const props = defineProps<{
 const emit = defineEmits<{ continue: [] }>();
 
 const block = computed(() => BLOCKS[props.executed.action.blockIndex]!);
+const positive = computed(() => props.executed.events.reduce((sum, e) => sum + Math.max(0, e.delta), 0));
+const negative = computed(() => props.executed.events.reduce((sum, e) => sum + Math.min(0, e.delta), 0));
 const signed = (n: number) => (n > 0 ? `+${n}` : `${n}`);
 </script>
 
 <template>
   <section class="review" aria-labelledby="review-title">
-    <header>
+    <header class="newspaper-head">
+      <p class="eyebrow">24 december · Extra editie</p>
       <p class="muted">Nieuwsbulletin {{ block.label }}, {{ block.phase }}</p>
       <h2 id="review-title">De Gridmas Courant</h2>
     </header>
 
     <div class="score" role="status">
+      <div class="score-arithmetic"><span>Vorige stand <strong>{{ executed.moraleBefore }}</strong></span><span class="delta-up">Kerst in het dorp <strong>+{{ positive }}</strong></span><span class="delta-down">Reacties op jullie keuzes <strong>{{ negative }}</strong></span></div>
       <p class="morale">
         <span class="label">Kerstmoraal</span>
         <span class="value">{{ executed.moraleAfter }}</span>
@@ -31,6 +36,8 @@ const signed = (n: number) => (n > 0 ? `+${n}` : `${n}`);
         {{ signed(executed.delta) }} dit blok
         <span class="muted">(was {{ executed.moraleBefore }})</span>
       </p>
+      <MoraleMeter :value="executed.moraleAfter" :before="executed.moraleBefore" />
+      <p v-if="executed.moraleBefore + executed.delta !== executed.moraleAfter" class="muted">De score blijft tussen 0 en 100.</p>
       <p class="facts muted">
         Netbelasting {{ executed.loadKw }} kW van {{ CAPACITY_KW }} kW, batterij nog {{ executed.batteryAfterKwh }} kWh
       </p>
@@ -49,8 +56,8 @@ const signed = (n: number) => (n > 0 ? `+${n}` : `${n}`);
     <aside v-if="executed.action.blockIndex === 0" class="first-round">
       <h3>Zo werkt het verder</h3>
       <p>
-        Na elk blok lees je hier hoe het dorp reageerde. De gevolgen van keuzes zie je pas als een blok is gespeeld.
-        Gespeelde blokken liggen vast; alles wat nog komt mag je blijven aanpassen.
+        Dit blok ligt vast. Terug naar de planning? Dan kun je alles wat nog komt aanpassen.
+        De Courant meldt zich na het volgende blok weer.
       </p>
     </aside>
 
@@ -61,6 +68,14 @@ const signed = (n: number) => (n > 0 ? `+${n}` : `${n}`);
 </template>
 
 <style scoped>
+.newspaper-head { padding-bottom: 1rem; border-bottom: 3px double var(--line); display: grid; gap: .5rem; }
+.newspaper-head h2 { font-size: clamp(2rem, 3.3vw, 3rem); letter-spacing: -.035em; }
+.score-arithmetic { display: flex; justify-content: space-between; gap: .75rem; margin-bottom: .7rem; }
+.score-arithmetic > span { display: flex; flex-direction: column; font-size: .75rem; }
+.score-arithmetic strong { font-family: var(--font-display); font-size: 1.5rem; }
+.review { background: var(--night-raised); padding: 1.5rem; border: 1px solid var(--line); border-radius: 14px; width: 100%; }
+.score .morale-meter { margin: .8rem 0; }
+
 .review {
   max-width: 760px;
   margin: 0 auto;

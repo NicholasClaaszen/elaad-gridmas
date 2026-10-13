@@ -9,9 +9,9 @@ export const BLOCKS: readonly ScenarioBlock[] = [
   { index: 0, label: '14:00-16:00', baselineLoadKw: 75, baseMoraleBonus: 3, phase: 'voorbereiden' },
   { index: 1, label: '16:00-18:00', baselineLoadKw: 115, baseMoraleBonus: 5, phase: 'eerste kerstlichtjes' },
   { index: 2, label: '18:00-20:00', baselineLoadKw: 150, baseMoraleBonus: 8, phase: 'kerstdiner' },
-  { index: 3, label: '20:00-22:00', baselineLoadKw: 155, baseMoraleBonus: 8, phase: 'kerstpiek/koor' },
+  { index: 3, label: '20:00-22:00', baselineLoadKw: 155, baseMoraleBonus: 8, phase: 'kerstkoor & ijsdisco' },
   { index: 4, label: '22:00-00:00', baselineLoadKw: 125, baseMoraleBonus: 4, phase: 'vertrek kerstmarkt' },
-  { index: 5, label: '00:00-02:00', baselineLoadKw: 65, baseMoraleBonus: 4, phase: 'nachtelijke afwikkeling' },
+  { index: 5, label: '00:00-02:00', baselineLoadKw: 65, baseMoraleBonus: 4, phase: 'stille nacht' },
 ];
 
 export const BLOCK_COUNT = BLOCKS.length;
@@ -46,7 +46,7 @@ export const DECORATIONS: readonly DecorationDefinition[] = [
     id: 'square',
     name: 'Dorpsplein en kerstmarkt',
     reductionKw: 15,
-    story: 'De grote kerstboom, de kraampjes en het podium van het kerstkoor. Het kloppend hart van de avond.',
+    story: 'De grote kerstboom, de kraampjes en het podium van het kerstkoor. Van 20:00 tot 22:00 staat het kerstkoor op het podium.',
   },
 ];
 

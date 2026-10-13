@@ -162,6 +162,7 @@ const summary = computed(() =>
 .bar {
   background: linear-gradient(to top, #2c6f55, var(--pine));
   opacity: 0.85;
+  transition: height .25s ease, bottom .25s ease;
 }
 
 .bar-over {
@@ -222,8 +223,9 @@ const summary = computed(() =>
 
 .legend {
   display: flex;
-  gap: 1.25rem;
-  font-size: var(--step--1);
+  gap: .4rem 1rem;
+  flex-wrap: wrap;
+  font-size: .75rem;
   margin-top: 0.5rem;
 }
 

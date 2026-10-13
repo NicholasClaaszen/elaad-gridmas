@@ -1,16 +1,16 @@
 :root {
-  --night: #15233f;
-  --night-deep: #0e1830;
-  --night-raised: #1d2f52;
-  --line: #2f4570;
-  --snow: #eef2f7;
-  --snow-muted: #a9b8cf;
+  --night: #101d2d;
+  --night-deep: #132335;
+  --night-raised: #1b2c40;
+  --line: #344b60;
+  --snow: #f5f2e9;
+  --snow-muted: #b5c0cc;
   --frost: #9db8d9;
-  --lamp: #ffc65c;
-  --lamp-soft: #ffc65c33;
-  --pine: #3fa977;
-  --holly: #e0475b;
-  --holly-soft: #e0475b26;
+  --lamp: #e9b65c;
+  --lamp-soft: #e9b65c33;
+  --pine: #39a678;
+  --holly: #d65b55;
+  --holly-soft: #d65b5526;
 
   --font-display: 'Bricolage Grotesque Variable', 'Segoe UI', sans-serif;
   --font-body: 'Atkinson Hyperlegible', 'Segoe UI', sans-serif;
@@ -42,7 +42,7 @@ body {
 
 body {
   background:
-    radial-gradient(ellipse 80% 50% at 50% -10%, #24396a 0%, transparent 70%),
+    radial-gradient(ellipse 80% 50% at 50% -10%, #243d50 0%, transparent 70%),
     var(--night);
   color: var(--snow);
   font-family: var(--font-body);
@@ -145,3 +145,9 @@ select {
     transition-duration: 0.01ms !important;
   }
 }
+
+.eyebrow { font-size: .7rem; letter-spacing: .13em; text-transform: uppercase; color: var(--lamp); }
+summary { cursor: pointer; min-height: 44px; display: flex; align-items: center; gap: .5rem; }
+h4 { font-family: var(--font-display); }
+button, a, summary { -webkit-tap-highlight-color: transparent; }
+@media (max-width: 600px) { :root { --step-3: 1.8rem; } }
