@@ -1,0 +1,147 @@
+:root {
+  --night: #15233f;
+  --night-deep: #0e1830;
+  --night-raised: #1d2f52;
+  --line: #2f4570;
+  --snow: #eef2f7;
+  --snow-muted: #a9b8cf;
+  --frost: #9db8d9;
+  --lamp: #ffc65c;
+  --lamp-soft: #ffc65c33;
+  --pine: #3fa977;
+  --holly: #e0475b;
+  --holly-soft: #e0475b26;
+
+  --font-display: 'Bricolage Grotesque Variable', 'Segoe UI', sans-serif;
+  --font-body: 'Atkinson Hyperlegible', 'Segoe UI', sans-serif;
+
+  --step--1: 0.875rem;
+  --step-0: 1rem;
+  --step-1: 1.25rem;
+  --step-2: 1.6rem;
+  --step-3: 2.25rem;
+  --step-4: 3.5rem;
+
+  --radius-control: 6px;
+  --radius-panel: 12px;
+
+  color-scheme: dark;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  background:
+    radial-gradient(ellipse 80% 50% at 50% -10%, #24396a 0%, transparent 70%),
+    var(--night);
+  color: var(--snow);
+  font-family: var(--font-body);
+  font-size: var(--step-0);
+  line-height: 1.5;
+  font-variant-numeric: tabular-nums;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  line-height: 1.1;
+  margin: 0;
+  font-weight: 700;
+}
+
+p {
+  margin: 0;
+}
+
+button,
+input,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 3px solid var(--lamp);
+  outline-offset: 2px;
+}
+
+.btn {
+  border: 1px solid var(--line);
+  background: var(--night-raised);
+  border-radius: var(--radius-control);
+  padding: 0.55rem 1rem;
+  cursor: pointer;
+  min-height: 44px;
+}
+
+.btn:hover:not(:disabled) {
+  border-color: var(--frost);
+}
+
+.btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.btn-primary {
+  background: var(--lamp);
+  border-color: var(--lamp);
+  color: var(--night-deep);
+  font-weight: 700;
+  font-family: var(--font-display);
+  font-size: var(--step-1);
+  padding: 0.6rem 1.4rem;
+}
+
+.btn-primary:hover:not(:disabled) {
+  border-color: var(--snow);
+  box-shadow: 0 0 24px var(--lamp-soft);
+}
+
+.btn-quiet {
+  background: transparent;
+  border-color: transparent;
+  color: var(--snow-muted);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.muted {
+  color: var(--snow-muted);
+}
+
+.delta-up {
+  color: var(--pine);
+}
+
+.delta-down {
+  color: var(--holly);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -1,0 +1,19 @@
+Bouw een werkende browsergame voor ons ElaadNL-kerstevent: "Merry Gridmas - Keep the lights on!".
+
+Lees eerst het bestand SPEC.md volledig. Dat is de gezaghebbende functionele en technische specificatie inclusief exacte scenariodata, spelregels, moraaltabel, voorbeeldschema, state machine, acceptatiecriteria en testcases. REFERENCE_CASE.json bevat de verplichte referentietest. Verzin geen eigen regels of waarden als die daar staan.
+
+Voer de implementatie nu uit in deze repository, in deze volgorde:
+1. Vue 3 + TypeScript + Vite + Vitest, inclusief pure en geteste spelengine.
+2. Een verzorgd, volledig speelbaar Nederlandstalig planningsdashboard met 6 tijdsblokken, technische validatie en verborgen toekomstige moraalscores.
+3. Chronologische speelrondes met moraalfeedback na elke ronde, definitief vergrendeld verleden en aanpasbare toekomst.
+4. Een lokaal leaderboard voor opeenvolgende groepjes en een mock-hardware-preview van de kerstbomen, ijsbaan, batterij en het laadplein.
+5. Een educatieve (niet-conformiteitsgevalideerde) OpenADR 3.1 Program/Event/Interval-weergave; voorbereiding van een latere ESP32-adapter.
+
+Belangrijke harde eisen:
+- De referentieplanning moet loads [95,95,95,100,100,85], moraal [78,82,86,82,83,87] en batterij [100,100,50,0,0,0] opleveren.
+- Geen echte OpenADR-server, geen backend, geen database, geen cloud en geen React.
+- Alle 6 tijdsblokken moeten technisch valide zijn, anders mag de simulatie niet starten/doorlopen.
+- Het moraalresultaat van een toekomstig blok mag nooit in de plannings-UI te zien zijn.
+- De speelloop moet volledig werken zonder ESP32 en zonder internet.
+
+Laat me aan het einde zien hoe ik de app lokaal start, welke tests zijn gedraaid, en wat nog nodig is voor de fysieke LED-koppeling. Begin direct met implementeren; stop niet na alleen een plan.
