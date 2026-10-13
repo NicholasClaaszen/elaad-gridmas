@@ -56,7 +56,22 @@ Belangrijke keuzes:
 ## Organisatorenpaneel
 
 Knop *Organisator* rechtsonder: spel resetten, demo met referentieschema, scorebord exporteren/importeren/wissen
-(met bevestiging) en hardwaremodus kiezen.
+(met bevestiging), geluid aan/uit en testen, en hardwaremodus kiezen. Zie ook de [hostkaart](docs/HOSTKAART.md).
+
+## Extra's voor de kerstmarkt
+
+- **Teamtitels** (`src/domain/teamTitles.ts`): op het eindscherm krijgt elk team titels op basis van wát het deed,
+  niet van de score, zoals "De IJsdisco-redders" of "De Batterijbazen".
+- **Geluid** (`src/audio/`): elk nieuwsbulletin krijgt een eigen mix van geluiden op basis van de keuzes (batterij,
+  extra laden) en de berichten (lichtjes uit, ijsbaan dicht, laadpauze). Zware straffen klinken harder, en een
+  slechte ronde eindigt met gemopper. Alles wordt live gesynthetiseerd met de Web Audio API: geen audiobestanden,
+  geen netwerk. Geluid start pas na de eerste klik (browserbeleid) en is uit te zetten in het organisatorenpaneel.
+- **Eindsamenvattingen** (`src/content/finalSummaries.json`): vooraf geschreven teksten per "verhaalsleutel".
+  De sleutel bevat wanneer de ijsbaan dicht was, het dorpsplein tijdens het koor, of senioren, woonwijk en ziekenhuis
+  donker gingen, het aantal laadpauzes en de moraalband. Dat geeft 169 bereikbare combinaties, die de engine zelf
+  opsomt. Lege samenvattingen vallen terug op de vaste tekst per moraalband. Na een wijziging in de spelregels:
+  `npm run content:summaries` (bestaande teksten blijven behouden). Daarna controleert `npm test` dat het bestand
+  klopt en dat de teksten de schrijfregels volgen.
 
 ## Hardware (fase 2-voorbereiding)
 

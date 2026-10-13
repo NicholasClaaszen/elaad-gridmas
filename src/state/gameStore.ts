@@ -23,6 +23,7 @@ import { MockHardwareAdapter } from '../hardware/MockHardwareAdapter';
 
 export const GAME_STORAGE_KEY = 'merry-gridmas:game';
 export const LEADERBOARD_STORAGE_KEY = 'merry-gridmas:leaderboard';
+export const SETTINGS_STORAGE_KEY = 'merry-gridmas:settings';
 const STORAGE_VERSION = 1;
 const HARDWARE_TIMEOUT_MS = 2000;
 
@@ -83,8 +84,12 @@ export function createGameStore(options: GameStoreOptions = {}) {
   const persisted = readJson<PersistedGame>(storage, GAME_STORAGE_KEY);
   const restoredGame = persisted?.version === STORAGE_VERSION ? persisted.game : null;
 
+  const settings = readJson<{ soundOn?: boolean }>(storage, SETTINGS_STORAGE_KEY);
+
   const state = reactive({
     game: restoredGame as GameState | null,
+    /** Stationsinstelling, los van het spel: blijft bewaard tussen teams. */
+    soundOn: settings?.soundOn ?? true,
     leaderboard: parseStoredLeaderboard(),
     hardwareMode: (persisted?.hardwareMode ?? 'mock') as HardwareMode,
     hardwareWarning: null as string | null,
@@ -258,6 +263,11 @@ export function createGameStore(options: GameStoreOptions = {}) {
     setDummyOffline(offline: boolean): void {
       const dummy = adapters['esp32-dummy'];
       if (dummy instanceof DummyEsp32Connector) dummy.offline = offline;
+    },
+
+    setSoundOn(on: boolean): void {
+      state.soundOn = on;
+      storage.setItem(SETTINGS_STORAGE_KEY, JSON.stringify({ soundOn: on }));
     },
 
     dismissError(): void {

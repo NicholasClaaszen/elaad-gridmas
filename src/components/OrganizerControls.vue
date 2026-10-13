@@ -4,7 +4,7 @@ import { referenceDemoSchedule } from '../domain/referenceSchedule';
 import type { HardwareMode } from '../state/gameStore';
 import { useGameStore } from '../state/injection';
 
-const emit = defineEmits<{ close: [] }>();
+const emit = defineEmits<{ close: []; testSound: [] }>();
 const store = useGameStore();
 
 const confirmClear = ref(false);
@@ -104,6 +104,17 @@ function toggleOffline(): void {
             <button type="button" class="btn danger" @click="clearLeaderboard">Ja, wissen</button>
             <button type="button" class="btn btn-quiet" @click="confirmClear = false">Annuleren</button>
           </template>
+        </div>
+      </div>
+
+      <div class="group">
+        <h3>Geluid</h3>
+        <div class="actions">
+          <label class="check">
+            <input type="checkbox" :checked="store.state.soundOn" @change="store.setSoundOn(($event.target as HTMLInputElement).checked)" />
+            Geluid bij het nieuws en de uitslag
+          </label>
+          <button type="button" class="btn" :disabled="!store.state.soundOn" @click="emit('testSound')">Test geluid</button>
         </div>
       </div>
 

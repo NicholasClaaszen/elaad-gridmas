@@ -8,6 +8,8 @@ import OpenAdrView from './OpenAdrView.vue';
 import MoraleMeter from './MoraleMeter.vue';
 import LocationIllustration from './LocationIllustration.vue';
 import Scoreboard from './Scoreboard.vue';
+import { teamTitles } from '../domain/teamTitles';
+import { finalSummaryFor } from '../content/finalSummaries';
 
 const props = defineProps<{
   game: GameState;
@@ -28,6 +30,7 @@ const highlights = computed(() => {
   return [best, worst].filter((e): e is NonNullable<typeof e> => !!e);
 });
 const qualification = computed(() => props.game.morale >= 85 ? 'Kersthelden van Gridmas' : props.game.morale >= 78 ? 'Een dorp met wat te bespreken' : props.game.morale >= 70 ? 'De burgemeester wil jullie spreken' : 'Net gered. Buurtapp ontploft.');
+const titles = computed(() => teamTitles(actions.value));
 const signed = (n: number) => (n > 0 ? `+${n}` : `${n}`);
 const SHORT_NAMES: Record<DecorationId, string> = {
   homes: 'woonwijk',
@@ -36,14 +39,15 @@ const SHORT_NAMES: Record<DecorationId, string> = {
   square: 'dorpsplein',
 };
 
-/** Vaste, deterministische samenvatting op basis van de eindmoraal. */
-const summary = computed(() => {
-  const m = props.game.morale;
+/** Vooraf geschreven samenvatting voor dit verloop; anders een vaste tekst op basis van de eindmoraal. */
+const summary = computed(() => finalSummaryFor(actions.value, props.game.morale) ?? fallbackSummary(props.game.morale));
+
+function fallbackSummary(m: number): string {
   if (m >= 85) return 'Het net bleef heel en Gridmas had een mooie avond. De burgemeester vraagt of jullie volgend jaar weer kunnen.';
   if (m >= 78) return 'Het net bleef binnen de limiet. De meeste bewoners zijn tevreden; een paar hebben alvast punten voor de evaluatie.';
   if (m >= 70) return 'De stroomvoorziening is gered. In de buurtapp zijn ze nog niet klaar met jullie keuzes. Zet de meldingen voorlopig maar uit.';
   return 'Technisch klopt het plan. Voor de uitnodiging van volgend jaar zou het helpen als jullie zelf een doos kerstkransjes meenemen.';
-});
+}
 
 function actionSummary(i: number): string {
   const a = actions.value[i]!;
@@ -68,6 +72,15 @@ function actionSummary(i: number): string {
       </h2>
       <p class="summary">{{ summary }}</p>
       <MoraleMeter :value="game.morale" />
+      <section class="titles" aria-labelledby="titles-title">
+        <h3 id="titles-title">Jullie verdiende titels</h3>
+        <ul>
+          <li v-for="(t, n) in titles" :key="t.id" :class="{ main: n === 0 }">
+            <strong>{{ t.title }}</strong>
+            <span class="muted">{{ t.reason }}</span>
+          </li>
+        </ul>
+      </section>
       <dl class="final-stats"><div><dt>Hoogste belasting</dt><dd>{{ peakKw }} <small>kW</small></dd></div><div><dt>Maatregelen</dt><dd>{{ measures }}</dd></div><div><dt>Laden verschoven</dt><dd>{{ shiftedKwh }} <small>kWh</small></dd></div><div><dt>Batterij geleverd</dt><dd>{{ batteryUsed }} <small>kWh</small></dd></div></dl>
       <p v-if="game.isDemo" class="muted">Demo-run van de organisator: telt niet mee voor het scorebord.</p>
     </div>
@@ -127,6 +140,12 @@ function actionSummary(i: number): string {
 
 <style scoped>
 .results-scroll { overflow-x: auto; }
+.titles h3 { font-size: 1.1rem; margin: .75rem 0 .5rem; }
+.titles ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: .75rem; max-width: 900px; }
+.titles li { display: grid; gap: .25rem; padding: .8rem 1rem; border: 1px solid var(--line); border-radius: 10px; font-size: .875rem; }
+.titles li strong { font-family: var(--font-display); font-size: 1.1rem; color: var(--snow); }
+.titles li.main { border-color: var(--lamp); background: var(--lamp-soft); }
+.titles li.main strong { color: var(--lamp); }
 .results { min-width: 520px; }
 .final-heading { display: flex; gap: 1rem; align-items: center; justify-content: space-between; }
 .final-heading h2 { margin-top: .4rem; font-size: 2.5rem; max-width: 25ch; }

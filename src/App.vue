@@ -11,6 +11,8 @@ import WelcomeScreen from './components/WelcomeScreen.vue';
 import { BATTERY, BLOCK_COUNT, BLOCKS, CAPACITY_KW } from './domain/scenario';
 import { calculateLoad, batteryRemainingAfterEachBlock } from './domain/calculateLoad';
 import { useGameStore } from './state/injection';
+import { createSoundPlayer } from './audio/soundPlayer';
+import { buildFinaleSoundscape, buildNewsSoundscape } from './audio/soundscape';
 
 const store = useGameStore();
 const { state } = store;
@@ -42,11 +44,19 @@ const revealed = computed(() => {
   const shown = g.executed.length - hidden;
   return { morale: hidden ? g.executed.at(-1)!.moraleBefore : g.morale, blocks: shown };
 });
+// Geluid mag pas na een klik; elke klik in de app ontgrendelt het. Daarna klinkt het nieuws vanzelf.
+const sound = createSoundPlayer();
+watch(screen, (now, before) => {
+  const last = state.game?.executed.at(-1);
+  if (!state.soundOn || !last) return;
+  if (now === 'ROUND_REVIEW' && before === 'ROUND_RUNNING') sound.play(buildNewsSoundscape(last));
+  if (now === 'FINISHED' && before === 'ROUND_REVIEW') sound.play(buildFinaleSoundscape(state.game!.morale));
+});
 const runningLabel = computed(() => BLOCKS[(lastExecuted.value?.action.blockIndex ?? 0)]!.label);
 </script>
 
 <template>
-  <div class="app">
+  <div class="app" @pointerdown.capture="sound.unlock()" @keydown.capture="sound.unlock()">
     <header class="topbar">
       <div class="brand-block"><p class="brand">Merry Gridmas<span class="brand-star" aria-hidden="true">✦</span></p><p class="brand-sub">Keep the lights on!</p></div>
       <div class="phase"><span class="eyebrow">{{ phaseLabel }}</span><span v-if="game" class="team">{{ game.teamName }}</span><span v-else class="team">ElaadNL · Kerstavond 2026</span></div>
@@ -113,7 +123,7 @@ const runningLabel = computed(() => BLOCKS[(lastExecuted.value?.action.blockInde
       <button type="button" class="btn btn-quiet organizer" @click="showOrganizer = true">Organisator</button>
     </footer>
 
-    <OrganizerControls v-if="showOrganizer" @close="showOrganizer = false" />
+    <OrganizerControls v-if="showOrganizer" @close="showOrganizer = false" @test-sound="sound.play(buildFinaleSoundscape(87))" />
   </div>
 </template>
 

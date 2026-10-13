@@ -1,0 +1,2382 @@
+{
+  "format": "merry-gridmas-final-summaries",
+  "version": 1,
+  "instructions": [
+    "Vul per entry alleen het veld \"summary\". Wijzig key, facts en traits niet; die komen uit de spelengine.",
+    "Taal: Nederlands. Lengte: 2 of 3 zinnen, maximaal 350 tekens.",
+    "Toon (SPEC §3.2): kort, speels, kerstsfeer, licht absurd, maar duidelijk causaal. Het is een terugblik op de hele kerstavond in Gridmas.",
+    "Gebruik alleen wat in \"facts\" staat. Verzin geen extra tijdstippen of maatregelen; noem de buurtbatterij en extra laden niet specifiek.",
+    "Noem geen getallen voor moraal, strafpunten of de hoogst haalbare score. De stemming volgt uit de laatste zin van \"facts\".",
+    "Ziekenhuis: alleen de feestverlichting ging uit; suggereer nooit dat zorg of apparatuur uitviel.",
+    "Terugkerende personages mogen: mevrouw De Vries (De Gouden Ster), meneer Jansen, de ijsmeester, de DJ, de dirigent van het kerstkoor, de burgemeester.",
+    "Controleer na het invullen met: npm test"
+  ],
+  "entries": [
+    {
+      "key": "ijsbaan-1618|koor-donker|senioren-aan|woonwijk-uit|ziekenhuis-aan|pauzes-1|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 16:00 tot 18:00 (eerste kerstlichtjes). Tijdens het kerstkoor (20:00-22:00) ging de grote boom op het dorpsplein uit. De Gouden Ster hield de hele avond zijn feestverlichting. De woonwijk zat minstens één blok zonder tuinverlichting. De kerstboom bij het ziekenhuis bleef de hele avond aan. Het laadplein pauzeerde één keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "16:00-18:00",
+        "squareDarkDuringChoir": true,
+        "seniorsDark": false,
+        "homesDark": true,
+        "hospitalDark": false,
+        "chargerPauses": 1,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1618|koor-donker|senioren-aan|woonwijk-uit|ziekenhuis-aan|pauzes-2|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 16:00 tot 18:00 (eerste kerstlichtjes). Tijdens het kerstkoor (20:00-22:00) ging de grote boom op het dorpsplein uit. De Gouden Ster hield de hele avond zijn feestverlichting. De woonwijk zat minstens één blok zonder tuinverlichting. De kerstboom bij het ziekenhuis bleef de hele avond aan. Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "16:00-18:00",
+        "squareDarkDuringChoir": true,
+        "seniorsDark": false,
+        "homesDark": true,
+        "hospitalDark": false,
+        "chargerPauses": 2,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1618|koor-donker|senioren-aan|woonwijk-uit|ziekenhuis-uit|pauzes-0|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 16:00 tot 18:00 (eerste kerstlichtjes). Tijdens het kerstkoor (20:00-22:00) ging de grote boom op het dorpsplein uit. De Gouden Ster hield de hele avond zijn feestverlichting. De woonwijk zat minstens één blok zonder tuinverlichting. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein laadde de hele avond normaal door. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "16:00-18:00",
+        "squareDarkDuringChoir": true,
+        "seniorsDark": false,
+        "homesDark": true,
+        "hospitalDark": true,
+        "chargerPauses": 0,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1618|koor-donker|senioren-aan|woonwijk-uit|ziekenhuis-uit|pauzes-1|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 16:00 tot 18:00 (eerste kerstlichtjes). Tijdens het kerstkoor (20:00-22:00) ging de grote boom op het dorpsplein uit. De Gouden Ster hield de hele avond zijn feestverlichting. De woonwijk zat minstens één blok zonder tuinverlichting. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein pauzeerde één keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "16:00-18:00",
+        "squareDarkDuringChoir": true,
+        "seniorsDark": false,
+        "homesDark": true,
+        "hospitalDark": true,
+        "chargerPauses": 1,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1618|koor-donker|senioren-aan|woonwijk-uit|ziekenhuis-uit|pauzes-2|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 16:00 tot 18:00 (eerste kerstlichtjes). Tijdens het kerstkoor (20:00-22:00) ging de grote boom op het dorpsplein uit. De Gouden Ster hield de hele avond zijn feestverlichting. De woonwijk zat minstens één blok zonder tuinverlichting. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "16:00-18:00",
+        "squareDarkDuringChoir": true,
+        "seniorsDark": false,
+        "homesDark": true,
+        "hospitalDark": true,
+        "chargerPauses": 2,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1618|koor-donker|senioren-uit|woonwijk-aan|ziekenhuis-aan|pauzes-1|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 16:00 tot 18:00 (eerste kerstlichtjes). Tijdens het kerstkoor (20:00-22:00) ging de grote boom op het dorpsplein uit. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk bleef de hele avond verlicht. De kerstboom bij het ziekenhuis bleef de hele avond aan. Het laadplein pauzeerde één keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "16:00-18:00",
+        "squareDarkDuringChoir": true,
+        "seniorsDark": true,
+        "homesDark": false,
+        "hospitalDark": false,
+        "chargerPauses": 1,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1618|koor-donker|senioren-uit|woonwijk-aan|ziekenhuis-aan|pauzes-2|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 16:00 tot 18:00 (eerste kerstlichtjes). Tijdens het kerstkoor (20:00-22:00) ging de grote boom op het dorpsplein uit. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk bleef de hele avond verlicht. De kerstboom bij het ziekenhuis bleef de hele avond aan. Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "16:00-18:00",
+        "squareDarkDuringChoir": true,
+        "seniorsDark": true,
+        "homesDark": false,
+        "hospitalDark": false,
+        "chargerPauses": 2,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1618|koor-donker|senioren-uit|woonwijk-aan|ziekenhuis-uit|pauzes-0|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 16:00 tot 18:00 (eerste kerstlichtjes). Tijdens het kerstkoor (20:00-22:00) ging de grote boom op het dorpsplein uit. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk bleef de hele avond verlicht. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein laadde de hele avond normaal door. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "16:00-18:00",
+        "squareDarkDuringChoir": true,
+        "seniorsDark": true,
+        "homesDark": false,
+        "hospitalDark": true,
+        "chargerPauses": 0,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1618|koor-donker|senioren-uit|woonwijk-aan|ziekenhuis-uit|pauzes-1|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 16:00 tot 18:00 (eerste kerstlichtjes). Tijdens het kerstkoor (20:00-22:00) ging de grote boom op het dorpsplein uit. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk bleef de hele avond verlicht. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein pauzeerde één keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "16:00-18:00",
+        "squareDarkDuringChoir": true,
+        "seniorsDark": true,
+        "homesDark": false,
+        "hospitalDark": true,
+        "chargerPauses": 1,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1618|koor-donker|senioren-uit|woonwijk-aan|ziekenhuis-uit|pauzes-2|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 16:00 tot 18:00 (eerste kerstlichtjes). Tijdens het kerstkoor (20:00-22:00) ging de grote boom op het dorpsplein uit. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk bleef de hele avond verlicht. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "16:00-18:00",
+        "squareDarkDuringChoir": true,
+        "seniorsDark": true,
+        "homesDark": false,
+        "hospitalDark": true,
+        "chargerPauses": 2,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1618|koor-donker|senioren-uit|woonwijk-uit|ziekenhuis-aan|pauzes-0|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 16:00 tot 18:00 (eerste kerstlichtjes). Tijdens het kerstkoor (20:00-22:00) ging de grote boom op het dorpsplein uit. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk zat minstens één blok zonder tuinverlichting. De kerstboom bij het ziekenhuis bleef de hele avond aan. Het laadplein laadde de hele avond normaal door. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "16:00-18:00",
+        "squareDarkDuringChoir": true,
+        "seniorsDark": true,
+        "homesDark": true,
+        "hospitalDark": false,
+        "chargerPauses": 0,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1618|koor-donker|senioren-uit|woonwijk-uit|ziekenhuis-aan|pauzes-1|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 16:00 tot 18:00 (eerste kerstlichtjes). Tijdens het kerstkoor (20:00-22:00) ging de grote boom op het dorpsplein uit. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk zat minstens één blok zonder tuinverlichting. De kerstboom bij het ziekenhuis bleef de hele avond aan. Het laadplein pauzeerde één keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "16:00-18:00",
+        "squareDarkDuringChoir": true,
+        "seniorsDark": true,
+        "homesDark": true,
+        "hospitalDark": false,
+        "chargerPauses": 1,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1618|koor-donker|senioren-uit|woonwijk-uit|ziekenhuis-aan|pauzes-2|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 16:00 tot 18:00 (eerste kerstlichtjes). Tijdens het kerstkoor (20:00-22:00) ging de grote boom op het dorpsplein uit. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk zat minstens één blok zonder tuinverlichting. De kerstboom bij het ziekenhuis bleef de hele avond aan. Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "16:00-18:00",
+        "squareDarkDuringChoir": true,
+        "seniorsDark": true,
+        "homesDark": true,
+        "hospitalDark": false,
+        "chargerPauses": 2,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1618|koor-donker|senioren-uit|woonwijk-uit|ziekenhuis-uit|pauzes-0|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 16:00 tot 18:00 (eerste kerstlichtjes). Tijdens het kerstkoor (20:00-22:00) ging de grote boom op het dorpsplein uit. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk zat minstens één blok zonder tuinverlichting. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein laadde de hele avond normaal door. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "16:00-18:00",
+        "squareDarkDuringChoir": true,
+        "seniorsDark": true,
+        "homesDark": true,
+        "hospitalDark": true,
+        "chargerPauses": 0,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1618|koor-donker|senioren-uit|woonwijk-uit|ziekenhuis-uit|pauzes-1|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 16:00 tot 18:00 (eerste kerstlichtjes). Tijdens het kerstkoor (20:00-22:00) ging de grote boom op het dorpsplein uit. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk zat minstens één blok zonder tuinverlichting. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein pauzeerde één keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "16:00-18:00",
+        "squareDarkDuringChoir": true,
+        "seniorsDark": true,
+        "homesDark": true,
+        "hospitalDark": true,
+        "chargerPauses": 1,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1618|koor-donker|senioren-uit|woonwijk-uit|ziekenhuis-uit|pauzes-2|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 16:00 tot 18:00 (eerste kerstlichtjes). Tijdens het kerstkoor (20:00-22:00) ging de grote boom op het dorpsplein uit. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk zat minstens één blok zonder tuinverlichting. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "16:00-18:00",
+        "squareDarkDuringChoir": true,
+        "seniorsDark": true,
+        "homesDark": true,
+        "hospitalDark": true,
+        "chargerPauses": 2,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1618|koor-licht|senioren-aan|woonwijk-uit|ziekenhuis-aan|pauzes-1|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 16:00 tot 18:00 (eerste kerstlichtjes). Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De Gouden Ster hield de hele avond zijn feestverlichting. De woonwijk zat minstens één blok zonder tuinverlichting. De kerstboom bij het ziekenhuis bleef de hele avond aan. Het laadplein pauzeerde één keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "16:00-18:00",
+        "squareDarkDuringChoir": false,
+        "seniorsDark": false,
+        "homesDark": true,
+        "hospitalDark": false,
+        "chargerPauses": 1,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1618|koor-licht|senioren-aan|woonwijk-uit|ziekenhuis-aan|pauzes-2|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 16:00 tot 18:00 (eerste kerstlichtjes). Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De Gouden Ster hield de hele avond zijn feestverlichting. De woonwijk zat minstens één blok zonder tuinverlichting. De kerstboom bij het ziekenhuis bleef de hele avond aan. Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "16:00-18:00",
+        "squareDarkDuringChoir": false,
+        "seniorsDark": false,
+        "homesDark": true,
+        "hospitalDark": false,
+        "chargerPauses": 2,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1618|koor-licht|senioren-aan|woonwijk-uit|ziekenhuis-uit|pauzes-1|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 16:00 tot 18:00 (eerste kerstlichtjes). Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De Gouden Ster hield de hele avond zijn feestverlichting. De woonwijk zat minstens één blok zonder tuinverlichting. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein pauzeerde één keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "16:00-18:00",
+        "squareDarkDuringChoir": false,
+        "seniorsDark": false,
+        "homesDark": true,
+        "hospitalDark": true,
+        "chargerPauses": 1,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1618|koor-licht|senioren-aan|woonwijk-uit|ziekenhuis-uit|pauzes-2|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 16:00 tot 18:00 (eerste kerstlichtjes). Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De Gouden Ster hield de hele avond zijn feestverlichting. De woonwijk zat minstens één blok zonder tuinverlichting. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "16:00-18:00",
+        "squareDarkDuringChoir": false,
+        "seniorsDark": false,
+        "homesDark": true,
+        "hospitalDark": true,
+        "chargerPauses": 2,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1618|koor-licht|senioren-uit|woonwijk-aan|ziekenhuis-aan|pauzes-1|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 16:00 tot 18:00 (eerste kerstlichtjes). Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk bleef de hele avond verlicht. De kerstboom bij het ziekenhuis bleef de hele avond aan. Het laadplein pauzeerde één keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "16:00-18:00",
+        "squareDarkDuringChoir": false,
+        "seniorsDark": true,
+        "homesDark": false,
+        "hospitalDark": false,
+        "chargerPauses": 1,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1618|koor-licht|senioren-uit|woonwijk-aan|ziekenhuis-aan|pauzes-2|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 16:00 tot 18:00 (eerste kerstlichtjes). Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk bleef de hele avond verlicht. De kerstboom bij het ziekenhuis bleef de hele avond aan. Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "16:00-18:00",
+        "squareDarkDuringChoir": false,
+        "seniorsDark": true,
+        "homesDark": false,
+        "hospitalDark": false,
+        "chargerPauses": 2,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1618|koor-licht|senioren-uit|woonwijk-aan|ziekenhuis-uit|pauzes-1|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 16:00 tot 18:00 (eerste kerstlichtjes). Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk bleef de hele avond verlicht. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein pauzeerde één keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "16:00-18:00",
+        "squareDarkDuringChoir": false,
+        "seniorsDark": true,
+        "homesDark": false,
+        "hospitalDark": true,
+        "chargerPauses": 1,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1618|koor-licht|senioren-uit|woonwijk-aan|ziekenhuis-uit|pauzes-2|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 16:00 tot 18:00 (eerste kerstlichtjes). Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk bleef de hele avond verlicht. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "16:00-18:00",
+        "squareDarkDuringChoir": false,
+        "seniorsDark": true,
+        "homesDark": false,
+        "hospitalDark": true,
+        "chargerPauses": 2,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1618|koor-licht|senioren-uit|woonwijk-aan|ziekenhuis-uit|pauzes-2|moraal-70-77",
+      "facts": "De ijsbaan was dicht van 16:00 tot 18:00 (eerste kerstlichtjes). Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk bleef de hele avond verlicht. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: matig, het dorp heeft het duidelijk gemerkt.",
+      "traits": {
+        "rinkClosedAt": "16:00-18:00",
+        "squareDarkDuringChoir": false,
+        "seniorsDark": true,
+        "homesDark": false,
+        "hospitalDark": true,
+        "chargerPauses": 2,
+        "moraleBand": "70-77"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1618|koor-licht|senioren-uit|woonwijk-uit|ziekenhuis-aan|pauzes-1|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 16:00 tot 18:00 (eerste kerstlichtjes). Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk zat minstens één blok zonder tuinverlichting. De kerstboom bij het ziekenhuis bleef de hele avond aan. Het laadplein pauzeerde één keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "16:00-18:00",
+        "squareDarkDuringChoir": false,
+        "seniorsDark": true,
+        "homesDark": true,
+        "hospitalDark": false,
+        "chargerPauses": 1,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1618|koor-licht|senioren-uit|woonwijk-uit|ziekenhuis-aan|pauzes-2|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 16:00 tot 18:00 (eerste kerstlichtjes). Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk zat minstens één blok zonder tuinverlichting. De kerstboom bij het ziekenhuis bleef de hele avond aan. Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "16:00-18:00",
+        "squareDarkDuringChoir": false,
+        "seniorsDark": true,
+        "homesDark": true,
+        "hospitalDark": false,
+        "chargerPauses": 2,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1618|koor-licht|senioren-uit|woonwijk-uit|ziekenhuis-aan|pauzes-2|moraal-70-77",
+      "facts": "De ijsbaan was dicht van 16:00 tot 18:00 (eerste kerstlichtjes). Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk zat minstens één blok zonder tuinverlichting. De kerstboom bij het ziekenhuis bleef de hele avond aan. Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: matig, het dorp heeft het duidelijk gemerkt.",
+      "traits": {
+        "rinkClosedAt": "16:00-18:00",
+        "squareDarkDuringChoir": false,
+        "seniorsDark": true,
+        "homesDark": true,
+        "hospitalDark": false,
+        "chargerPauses": 2,
+        "moraleBand": "70-77"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1618|koor-licht|senioren-uit|woonwijk-uit|ziekenhuis-uit|pauzes-1|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 16:00 tot 18:00 (eerste kerstlichtjes). Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk zat minstens één blok zonder tuinverlichting. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein pauzeerde één keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "16:00-18:00",
+        "squareDarkDuringChoir": false,
+        "seniorsDark": true,
+        "homesDark": true,
+        "hospitalDark": true,
+        "chargerPauses": 1,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1618|koor-licht|senioren-uit|woonwijk-uit|ziekenhuis-uit|pauzes-2|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 16:00 tot 18:00 (eerste kerstlichtjes). Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk zat minstens één blok zonder tuinverlichting. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "16:00-18:00",
+        "squareDarkDuringChoir": false,
+        "seniorsDark": true,
+        "homesDark": true,
+        "hospitalDark": true,
+        "chargerPauses": 2,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1618|koor-licht|senioren-uit|woonwijk-uit|ziekenhuis-uit|pauzes-2|moraal-70-77",
+      "facts": "De ijsbaan was dicht van 16:00 tot 18:00 (eerste kerstlichtjes). Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk zat minstens één blok zonder tuinverlichting. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: matig, het dorp heeft het duidelijk gemerkt.",
+      "traits": {
+        "rinkClosedAt": "16:00-18:00",
+        "squareDarkDuringChoir": false,
+        "seniorsDark": true,
+        "homesDark": true,
+        "hospitalDark": true,
+        "chargerPauses": 2,
+        "moraleBand": "70-77"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1820|koor-donker|senioren-aan|woonwijk-aan|ziekenhuis-aan|pauzes-2|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 18:00 tot 20:00 (kerstdiner). Tijdens het kerstkoor (20:00-22:00) ging de grote boom op het dorpsplein uit. De Gouden Ster hield de hele avond zijn feestverlichting. De woonwijk bleef de hele avond verlicht. De kerstboom bij het ziekenhuis bleef de hele avond aan. Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "18:00-20:00",
+        "squareDarkDuringChoir": true,
+        "seniorsDark": false,
+        "homesDark": false,
+        "hospitalDark": false,
+        "chargerPauses": 2,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1820|koor-donker|senioren-aan|woonwijk-aan|ziekenhuis-uit|pauzes-1|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 18:00 tot 20:00 (kerstdiner). Tijdens het kerstkoor (20:00-22:00) ging de grote boom op het dorpsplein uit. De Gouden Ster hield de hele avond zijn feestverlichting. De woonwijk bleef de hele avond verlicht. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein pauzeerde één keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "18:00-20:00",
+        "squareDarkDuringChoir": true,
+        "seniorsDark": false,
+        "homesDark": false,
+        "hospitalDark": true,
+        "chargerPauses": 1,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1820|koor-donker|senioren-aan|woonwijk-aan|ziekenhuis-uit|pauzes-2|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 18:00 tot 20:00 (kerstdiner). Tijdens het kerstkoor (20:00-22:00) ging de grote boom op het dorpsplein uit. De Gouden Ster hield de hele avond zijn feestverlichting. De woonwijk bleef de hele avond verlicht. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "18:00-20:00",
+        "squareDarkDuringChoir": true,
+        "seniorsDark": false,
+        "homesDark": false,
+        "hospitalDark": true,
+        "chargerPauses": 2,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1820|koor-donker|senioren-aan|woonwijk-uit|ziekenhuis-aan|pauzes-1|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 18:00 tot 20:00 (kerstdiner). Tijdens het kerstkoor (20:00-22:00) ging de grote boom op het dorpsplein uit. De Gouden Ster hield de hele avond zijn feestverlichting. De woonwijk zat minstens één blok zonder tuinverlichting. De kerstboom bij het ziekenhuis bleef de hele avond aan. Het laadplein pauzeerde één keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "18:00-20:00",
+        "squareDarkDuringChoir": true,
+        "seniorsDark": false,
+        "homesDark": true,
+        "hospitalDark": false,
+        "chargerPauses": 1,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1820|koor-donker|senioren-aan|woonwijk-uit|ziekenhuis-aan|pauzes-2|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 18:00 tot 20:00 (kerstdiner). Tijdens het kerstkoor (20:00-22:00) ging de grote boom op het dorpsplein uit. De Gouden Ster hield de hele avond zijn feestverlichting. De woonwijk zat minstens één blok zonder tuinverlichting. De kerstboom bij het ziekenhuis bleef de hele avond aan. Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "18:00-20:00",
+        "squareDarkDuringChoir": true,
+        "seniorsDark": false,
+        "homesDark": true,
+        "hospitalDark": false,
+        "chargerPauses": 2,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1820|koor-donker|senioren-aan|woonwijk-uit|ziekenhuis-aan|pauzes-2|moraal-70-77",
+      "facts": "De ijsbaan was dicht van 18:00 tot 20:00 (kerstdiner). Tijdens het kerstkoor (20:00-22:00) ging de grote boom op het dorpsplein uit. De Gouden Ster hield de hele avond zijn feestverlichting. De woonwijk zat minstens één blok zonder tuinverlichting. De kerstboom bij het ziekenhuis bleef de hele avond aan. Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: matig, het dorp heeft het duidelijk gemerkt.",
+      "traits": {
+        "rinkClosedAt": "18:00-20:00",
+        "squareDarkDuringChoir": true,
+        "seniorsDark": false,
+        "homesDark": true,
+        "hospitalDark": false,
+        "chargerPauses": 2,
+        "moraleBand": "70-77"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1820|koor-donker|senioren-aan|woonwijk-uit|ziekenhuis-uit|pauzes-0|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 18:00 tot 20:00 (kerstdiner). Tijdens het kerstkoor (20:00-22:00) ging de grote boom op het dorpsplein uit. De Gouden Ster hield de hele avond zijn feestverlichting. De woonwijk zat minstens één blok zonder tuinverlichting. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein laadde de hele avond normaal door. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "18:00-20:00",
+        "squareDarkDuringChoir": true,
+        "seniorsDark": false,
+        "homesDark": true,
+        "hospitalDark": true,
+        "chargerPauses": 0,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1820|koor-donker|senioren-aan|woonwijk-uit|ziekenhuis-uit|pauzes-1|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 18:00 tot 20:00 (kerstdiner). Tijdens het kerstkoor (20:00-22:00) ging de grote boom op het dorpsplein uit. De Gouden Ster hield de hele avond zijn feestverlichting. De woonwijk zat minstens één blok zonder tuinverlichting. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein pauzeerde één keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "18:00-20:00",
+        "squareDarkDuringChoir": true,
+        "seniorsDark": false,
+        "homesDark": true,
+        "hospitalDark": true,
+        "chargerPauses": 1,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1820|koor-donker|senioren-aan|woonwijk-uit|ziekenhuis-uit|pauzes-2|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 18:00 tot 20:00 (kerstdiner). Tijdens het kerstkoor (20:00-22:00) ging de grote boom op het dorpsplein uit. De Gouden Ster hield de hele avond zijn feestverlichting. De woonwijk zat minstens één blok zonder tuinverlichting. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "18:00-20:00",
+        "squareDarkDuringChoir": true,
+        "seniorsDark": false,
+        "homesDark": true,
+        "hospitalDark": true,
+        "chargerPauses": 2,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1820|koor-donker|senioren-uit|woonwijk-aan|ziekenhuis-aan|pauzes-1|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 18:00 tot 20:00 (kerstdiner). Tijdens het kerstkoor (20:00-22:00) ging de grote boom op het dorpsplein uit. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk bleef de hele avond verlicht. De kerstboom bij het ziekenhuis bleef de hele avond aan. Het laadplein pauzeerde één keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "18:00-20:00",
+        "squareDarkDuringChoir": true,
+        "seniorsDark": true,
+        "homesDark": false,
+        "hospitalDark": false,
+        "chargerPauses": 1,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1820|koor-donker|senioren-uit|woonwijk-aan|ziekenhuis-aan|pauzes-2|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 18:00 tot 20:00 (kerstdiner). Tijdens het kerstkoor (20:00-22:00) ging de grote boom op het dorpsplein uit. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk bleef de hele avond verlicht. De kerstboom bij het ziekenhuis bleef de hele avond aan. Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "18:00-20:00",
+        "squareDarkDuringChoir": true,
+        "seniorsDark": true,
+        "homesDark": false,
+        "hospitalDark": false,
+        "chargerPauses": 2,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1820|koor-donker|senioren-uit|woonwijk-aan|ziekenhuis-aan|pauzes-2|moraal-70-77",
+      "facts": "De ijsbaan was dicht van 18:00 tot 20:00 (kerstdiner). Tijdens het kerstkoor (20:00-22:00) ging de grote boom op het dorpsplein uit. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk bleef de hele avond verlicht. De kerstboom bij het ziekenhuis bleef de hele avond aan. Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: matig, het dorp heeft het duidelijk gemerkt.",
+      "traits": {
+        "rinkClosedAt": "18:00-20:00",
+        "squareDarkDuringChoir": true,
+        "seniorsDark": true,
+        "homesDark": false,
+        "hospitalDark": false,
+        "chargerPauses": 2,
+        "moraleBand": "70-77"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1820|koor-donker|senioren-uit|woonwijk-aan|ziekenhuis-uit|pauzes-0|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 18:00 tot 20:00 (kerstdiner). Tijdens het kerstkoor (20:00-22:00) ging de grote boom op het dorpsplein uit. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk bleef de hele avond verlicht. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein laadde de hele avond normaal door. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "18:00-20:00",
+        "squareDarkDuringChoir": true,
+        "seniorsDark": true,
+        "homesDark": false,
+        "hospitalDark": true,
+        "chargerPauses": 0,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1820|koor-donker|senioren-uit|woonwijk-aan|ziekenhuis-uit|pauzes-1|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 18:00 tot 20:00 (kerstdiner). Tijdens het kerstkoor (20:00-22:00) ging de grote boom op het dorpsplein uit. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk bleef de hele avond verlicht. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein pauzeerde één keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "18:00-20:00",
+        "squareDarkDuringChoir": true,
+        "seniorsDark": true,
+        "homesDark": false,
+        "hospitalDark": true,
+        "chargerPauses": 1,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1820|koor-donker|senioren-uit|woonwijk-aan|ziekenhuis-uit|pauzes-2|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 18:00 tot 20:00 (kerstdiner). Tijdens het kerstkoor (20:00-22:00) ging de grote boom op het dorpsplein uit. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk bleef de hele avond verlicht. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "18:00-20:00",
+        "squareDarkDuringChoir": true,
+        "seniorsDark": true,
+        "homesDark": false,
+        "hospitalDark": true,
+        "chargerPauses": 2,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1820|koor-donker|senioren-uit|woonwijk-aan|ziekenhuis-uit|pauzes-2|moraal-70-77",
+      "facts": "De ijsbaan was dicht van 18:00 tot 20:00 (kerstdiner). Tijdens het kerstkoor (20:00-22:00) ging de grote boom op het dorpsplein uit. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk bleef de hele avond verlicht. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: matig, het dorp heeft het duidelijk gemerkt.",
+      "traits": {
+        "rinkClosedAt": "18:00-20:00",
+        "squareDarkDuringChoir": true,
+        "seniorsDark": true,
+        "homesDark": false,
+        "hospitalDark": true,
+        "chargerPauses": 2,
+        "moraleBand": "70-77"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1820|koor-donker|senioren-uit|woonwijk-uit|ziekenhuis-aan|pauzes-0|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 18:00 tot 20:00 (kerstdiner). Tijdens het kerstkoor (20:00-22:00) ging de grote boom op het dorpsplein uit. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk zat minstens één blok zonder tuinverlichting. De kerstboom bij het ziekenhuis bleef de hele avond aan. Het laadplein laadde de hele avond normaal door. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "18:00-20:00",
+        "squareDarkDuringChoir": true,
+        "seniorsDark": true,
+        "homesDark": true,
+        "hospitalDark": false,
+        "chargerPauses": 0,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1820|koor-donker|senioren-uit|woonwijk-uit|ziekenhuis-aan|pauzes-1|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 18:00 tot 20:00 (kerstdiner). Tijdens het kerstkoor (20:00-22:00) ging de grote boom op het dorpsplein uit. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk zat minstens één blok zonder tuinverlichting. De kerstboom bij het ziekenhuis bleef de hele avond aan. Het laadplein pauzeerde één keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "18:00-20:00",
+        "squareDarkDuringChoir": true,
+        "seniorsDark": true,
+        "homesDark": true,
+        "hospitalDark": false,
+        "chargerPauses": 1,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1820|koor-donker|senioren-uit|woonwijk-uit|ziekenhuis-aan|pauzes-2|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 18:00 tot 20:00 (kerstdiner). Tijdens het kerstkoor (20:00-22:00) ging de grote boom op het dorpsplein uit. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk zat minstens één blok zonder tuinverlichting. De kerstboom bij het ziekenhuis bleef de hele avond aan. Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "18:00-20:00",
+        "squareDarkDuringChoir": true,
+        "seniorsDark": true,
+        "homesDark": true,
+        "hospitalDark": false,
+        "chargerPauses": 2,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1820|koor-donker|senioren-uit|woonwijk-uit|ziekenhuis-aan|pauzes-2|moraal-70-77",
+      "facts": "De ijsbaan was dicht van 18:00 tot 20:00 (kerstdiner). Tijdens het kerstkoor (20:00-22:00) ging de grote boom op het dorpsplein uit. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk zat minstens één blok zonder tuinverlichting. De kerstboom bij het ziekenhuis bleef de hele avond aan. Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: matig, het dorp heeft het duidelijk gemerkt.",
+      "traits": {
+        "rinkClosedAt": "18:00-20:00",
+        "squareDarkDuringChoir": true,
+        "seniorsDark": true,
+        "homesDark": true,
+        "hospitalDark": false,
+        "chargerPauses": 2,
+        "moraleBand": "70-77"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1820|koor-donker|senioren-uit|woonwijk-uit|ziekenhuis-uit|pauzes-0|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 18:00 tot 20:00 (kerstdiner). Tijdens het kerstkoor (20:00-22:00) ging de grote boom op het dorpsplein uit. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk zat minstens één blok zonder tuinverlichting. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein laadde de hele avond normaal door. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "18:00-20:00",
+        "squareDarkDuringChoir": true,
+        "seniorsDark": true,
+        "homesDark": true,
+        "hospitalDark": true,
+        "chargerPauses": 0,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1820|koor-donker|senioren-uit|woonwijk-uit|ziekenhuis-uit|pauzes-1|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 18:00 tot 20:00 (kerstdiner). Tijdens het kerstkoor (20:00-22:00) ging de grote boom op het dorpsplein uit. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk zat minstens één blok zonder tuinverlichting. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein pauzeerde één keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "18:00-20:00",
+        "squareDarkDuringChoir": true,
+        "seniorsDark": true,
+        "homesDark": true,
+        "hospitalDark": true,
+        "chargerPauses": 1,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1820|koor-donker|senioren-uit|woonwijk-uit|ziekenhuis-uit|pauzes-2|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 18:00 tot 20:00 (kerstdiner). Tijdens het kerstkoor (20:00-22:00) ging de grote boom op het dorpsplein uit. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk zat minstens één blok zonder tuinverlichting. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "18:00-20:00",
+        "squareDarkDuringChoir": true,
+        "seniorsDark": true,
+        "homesDark": true,
+        "hospitalDark": true,
+        "chargerPauses": 2,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1820|koor-licht|senioren-aan|woonwijk-uit|ziekenhuis-aan|pauzes-1|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 18:00 tot 20:00 (kerstdiner). Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De Gouden Ster hield de hele avond zijn feestverlichting. De woonwijk zat minstens één blok zonder tuinverlichting. De kerstboom bij het ziekenhuis bleef de hele avond aan. Het laadplein pauzeerde één keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "18:00-20:00",
+        "squareDarkDuringChoir": false,
+        "seniorsDark": false,
+        "homesDark": true,
+        "hospitalDark": false,
+        "chargerPauses": 1,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1820|koor-licht|senioren-aan|woonwijk-uit|ziekenhuis-aan|pauzes-1|moraal-70-77",
+      "facts": "De ijsbaan was dicht van 18:00 tot 20:00 (kerstdiner). Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De Gouden Ster hield de hele avond zijn feestverlichting. De woonwijk zat minstens één blok zonder tuinverlichting. De kerstboom bij het ziekenhuis bleef de hele avond aan. Het laadplein pauzeerde één keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: matig, het dorp heeft het duidelijk gemerkt.",
+      "traits": {
+        "rinkClosedAt": "18:00-20:00",
+        "squareDarkDuringChoir": false,
+        "seniorsDark": false,
+        "homesDark": true,
+        "hospitalDark": false,
+        "chargerPauses": 1,
+        "moraleBand": "70-77"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1820|koor-licht|senioren-aan|woonwijk-uit|ziekenhuis-aan|pauzes-2|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 18:00 tot 20:00 (kerstdiner). Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De Gouden Ster hield de hele avond zijn feestverlichting. De woonwijk zat minstens één blok zonder tuinverlichting. De kerstboom bij het ziekenhuis bleef de hele avond aan. Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "18:00-20:00",
+        "squareDarkDuringChoir": false,
+        "seniorsDark": false,
+        "homesDark": true,
+        "hospitalDark": false,
+        "chargerPauses": 2,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1820|koor-licht|senioren-aan|woonwijk-uit|ziekenhuis-aan|pauzes-2|moraal-70-77",
+      "facts": "De ijsbaan was dicht van 18:00 tot 20:00 (kerstdiner). Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De Gouden Ster hield de hele avond zijn feestverlichting. De woonwijk zat minstens één blok zonder tuinverlichting. De kerstboom bij het ziekenhuis bleef de hele avond aan. Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: matig, het dorp heeft het duidelijk gemerkt.",
+      "traits": {
+        "rinkClosedAt": "18:00-20:00",
+        "squareDarkDuringChoir": false,
+        "seniorsDark": false,
+        "homesDark": true,
+        "hospitalDark": false,
+        "chargerPauses": 2,
+        "moraleBand": "70-77"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1820|koor-licht|senioren-aan|woonwijk-uit|ziekenhuis-aan|pauzes-2|moraal-78-84",
+      "facts": "De ijsbaan was dicht van 18:00 tot 20:00 (kerstdiner). Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De Gouden Ster hield de hele avond zijn feestverlichting. De woonwijk zat minstens één blok zonder tuinverlichting. De kerstboom bij het ziekenhuis bleef de hele avond aan. Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: goed, met hier en daar wat gemopper.",
+      "traits": {
+        "rinkClosedAt": "18:00-20:00",
+        "squareDarkDuringChoir": false,
+        "seniorsDark": false,
+        "homesDark": true,
+        "hospitalDark": false,
+        "chargerPauses": 2,
+        "moraleBand": "78-84"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1820|koor-licht|senioren-aan|woonwijk-uit|ziekenhuis-uit|pauzes-1|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 18:00 tot 20:00 (kerstdiner). Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De Gouden Ster hield de hele avond zijn feestverlichting. De woonwijk zat minstens één blok zonder tuinverlichting. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein pauzeerde één keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "18:00-20:00",
+        "squareDarkDuringChoir": false,
+        "seniorsDark": false,
+        "homesDark": true,
+        "hospitalDark": true,
+        "chargerPauses": 1,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1820|koor-licht|senioren-aan|woonwijk-uit|ziekenhuis-uit|pauzes-1|moraal-70-77",
+      "facts": "De ijsbaan was dicht van 18:00 tot 20:00 (kerstdiner). Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De Gouden Ster hield de hele avond zijn feestverlichting. De woonwijk zat minstens één blok zonder tuinverlichting. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein pauzeerde één keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: matig, het dorp heeft het duidelijk gemerkt.",
+      "traits": {
+        "rinkClosedAt": "18:00-20:00",
+        "squareDarkDuringChoir": false,
+        "seniorsDark": false,
+        "homesDark": true,
+        "hospitalDark": true,
+        "chargerPauses": 1,
+        "moraleBand": "70-77"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1820|koor-licht|senioren-aan|woonwijk-uit|ziekenhuis-uit|pauzes-2|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 18:00 tot 20:00 (kerstdiner). Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De Gouden Ster hield de hele avond zijn feestverlichting. De woonwijk zat minstens één blok zonder tuinverlichting. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "18:00-20:00",
+        "squareDarkDuringChoir": false,
+        "seniorsDark": false,
+        "homesDark": true,
+        "hospitalDark": true,
+        "chargerPauses": 2,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1820|koor-licht|senioren-aan|woonwijk-uit|ziekenhuis-uit|pauzes-2|moraal-70-77",
+      "facts": "De ijsbaan was dicht van 18:00 tot 20:00 (kerstdiner). Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De Gouden Ster hield de hele avond zijn feestverlichting. De woonwijk zat minstens één blok zonder tuinverlichting. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: matig, het dorp heeft het duidelijk gemerkt.",
+      "traits": {
+        "rinkClosedAt": "18:00-20:00",
+        "squareDarkDuringChoir": false,
+        "seniorsDark": false,
+        "homesDark": true,
+        "hospitalDark": true,
+        "chargerPauses": 2,
+        "moraleBand": "70-77"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1820|koor-licht|senioren-uit|woonwijk-aan|ziekenhuis-aan|pauzes-1|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 18:00 tot 20:00 (kerstdiner). Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk bleef de hele avond verlicht. De kerstboom bij het ziekenhuis bleef de hele avond aan. Het laadplein pauzeerde één keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "18:00-20:00",
+        "squareDarkDuringChoir": false,
+        "seniorsDark": true,
+        "homesDark": false,
+        "hospitalDark": false,
+        "chargerPauses": 1,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1820|koor-licht|senioren-uit|woonwijk-aan|ziekenhuis-aan|pauzes-1|moraal-70-77",
+      "facts": "De ijsbaan was dicht van 18:00 tot 20:00 (kerstdiner). Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk bleef de hele avond verlicht. De kerstboom bij het ziekenhuis bleef de hele avond aan. Het laadplein pauzeerde één keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: matig, het dorp heeft het duidelijk gemerkt.",
+      "traits": {
+        "rinkClosedAt": "18:00-20:00",
+        "squareDarkDuringChoir": false,
+        "seniorsDark": true,
+        "homesDark": false,
+        "hospitalDark": false,
+        "chargerPauses": 1,
+        "moraleBand": "70-77"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1820|koor-licht|senioren-uit|woonwijk-aan|ziekenhuis-aan|pauzes-1|moraal-78-84",
+      "facts": "De ijsbaan was dicht van 18:00 tot 20:00 (kerstdiner). Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk bleef de hele avond verlicht. De kerstboom bij het ziekenhuis bleef de hele avond aan. Het laadplein pauzeerde één keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: goed, met hier en daar wat gemopper.",
+      "traits": {
+        "rinkClosedAt": "18:00-20:00",
+        "squareDarkDuringChoir": false,
+        "seniorsDark": true,
+        "homesDark": false,
+        "hospitalDark": false,
+        "chargerPauses": 1,
+        "moraleBand": "78-84"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1820|koor-licht|senioren-uit|woonwijk-aan|ziekenhuis-aan|pauzes-2|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 18:00 tot 20:00 (kerstdiner). Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk bleef de hele avond verlicht. De kerstboom bij het ziekenhuis bleef de hele avond aan. Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "18:00-20:00",
+        "squareDarkDuringChoir": false,
+        "seniorsDark": true,
+        "homesDark": false,
+        "hospitalDark": false,
+        "chargerPauses": 2,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1820|koor-licht|senioren-uit|woonwijk-aan|ziekenhuis-aan|pauzes-2|moraal-70-77",
+      "facts": "De ijsbaan was dicht van 18:00 tot 20:00 (kerstdiner). Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk bleef de hele avond verlicht. De kerstboom bij het ziekenhuis bleef de hele avond aan. Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: matig, het dorp heeft het duidelijk gemerkt.",
+      "traits": {
+        "rinkClosedAt": "18:00-20:00",
+        "squareDarkDuringChoir": false,
+        "seniorsDark": true,
+        "homesDark": false,
+        "hospitalDark": false,
+        "chargerPauses": 2,
+        "moraleBand": "70-77"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1820|koor-licht|senioren-uit|woonwijk-aan|ziekenhuis-aan|pauzes-2|moraal-78-84",
+      "facts": "De ijsbaan was dicht van 18:00 tot 20:00 (kerstdiner). Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk bleef de hele avond verlicht. De kerstboom bij het ziekenhuis bleef de hele avond aan. Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: goed, met hier en daar wat gemopper.",
+      "traits": {
+        "rinkClosedAt": "18:00-20:00",
+        "squareDarkDuringChoir": false,
+        "seniorsDark": true,
+        "homesDark": false,
+        "hospitalDark": false,
+        "chargerPauses": 2,
+        "moraleBand": "78-84"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1820|koor-licht|senioren-uit|woonwijk-aan|ziekenhuis-aan|pauzes-2|moraal-85-100",
+      "facts": "De ijsbaan was dicht van 18:00 tot 20:00 (kerstdiner). Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk bleef de hele avond verlicht. De kerstboom bij het ziekenhuis bleef de hele avond aan. Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: uitstekend, bijna iedereen had een prachtige avond.",
+      "traits": {
+        "rinkClosedAt": "18:00-20:00",
+        "squareDarkDuringChoir": false,
+        "seniorsDark": true,
+        "homesDark": false,
+        "hospitalDark": false,
+        "chargerPauses": 2,
+        "moraleBand": "85-100"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1820|koor-licht|senioren-uit|woonwijk-aan|ziekenhuis-uit|pauzes-1|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 18:00 tot 20:00 (kerstdiner). Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk bleef de hele avond verlicht. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein pauzeerde één keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "18:00-20:00",
+        "squareDarkDuringChoir": false,
+        "seniorsDark": true,
+        "homesDark": false,
+        "hospitalDark": true,
+        "chargerPauses": 1,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1820|koor-licht|senioren-uit|woonwijk-aan|ziekenhuis-uit|pauzes-1|moraal-70-77",
+      "facts": "De ijsbaan was dicht van 18:00 tot 20:00 (kerstdiner). Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk bleef de hele avond verlicht. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein pauzeerde één keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: matig, het dorp heeft het duidelijk gemerkt.",
+      "traits": {
+        "rinkClosedAt": "18:00-20:00",
+        "squareDarkDuringChoir": false,
+        "seniorsDark": true,
+        "homesDark": false,
+        "hospitalDark": true,
+        "chargerPauses": 1,
+        "moraleBand": "70-77"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1820|koor-licht|senioren-uit|woonwijk-aan|ziekenhuis-uit|pauzes-2|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 18:00 tot 20:00 (kerstdiner). Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk bleef de hele avond verlicht. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "18:00-20:00",
+        "squareDarkDuringChoir": false,
+        "seniorsDark": true,
+        "homesDark": false,
+        "hospitalDark": true,
+        "chargerPauses": 2,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1820|koor-licht|senioren-uit|woonwijk-aan|ziekenhuis-uit|pauzes-2|moraal-70-77",
+      "facts": "De ijsbaan was dicht van 18:00 tot 20:00 (kerstdiner). Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk bleef de hele avond verlicht. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: matig, het dorp heeft het duidelijk gemerkt.",
+      "traits": {
+        "rinkClosedAt": "18:00-20:00",
+        "squareDarkDuringChoir": false,
+        "seniorsDark": true,
+        "homesDark": false,
+        "hospitalDark": true,
+        "chargerPauses": 2,
+        "moraleBand": "70-77"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1820|koor-licht|senioren-uit|woonwijk-aan|ziekenhuis-uit|pauzes-2|moraal-78-84",
+      "facts": "De ijsbaan was dicht van 18:00 tot 20:00 (kerstdiner). Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk bleef de hele avond verlicht. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: goed, met hier en daar wat gemopper.",
+      "traits": {
+        "rinkClosedAt": "18:00-20:00",
+        "squareDarkDuringChoir": false,
+        "seniorsDark": true,
+        "homesDark": false,
+        "hospitalDark": true,
+        "chargerPauses": 2,
+        "moraleBand": "78-84"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1820|koor-licht|senioren-uit|woonwijk-uit|ziekenhuis-aan|pauzes-1|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 18:00 tot 20:00 (kerstdiner). Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk zat minstens één blok zonder tuinverlichting. De kerstboom bij het ziekenhuis bleef de hele avond aan. Het laadplein pauzeerde één keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "18:00-20:00",
+        "squareDarkDuringChoir": false,
+        "seniorsDark": true,
+        "homesDark": true,
+        "hospitalDark": false,
+        "chargerPauses": 1,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1820|koor-licht|senioren-uit|woonwijk-uit|ziekenhuis-aan|pauzes-1|moraal-70-77",
+      "facts": "De ijsbaan was dicht van 18:00 tot 20:00 (kerstdiner). Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk zat minstens één blok zonder tuinverlichting. De kerstboom bij het ziekenhuis bleef de hele avond aan. Het laadplein pauzeerde één keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: matig, het dorp heeft het duidelijk gemerkt.",
+      "traits": {
+        "rinkClosedAt": "18:00-20:00",
+        "squareDarkDuringChoir": false,
+        "seniorsDark": true,
+        "homesDark": true,
+        "hospitalDark": false,
+        "chargerPauses": 1,
+        "moraleBand": "70-77"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1820|koor-licht|senioren-uit|woonwijk-uit|ziekenhuis-aan|pauzes-2|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 18:00 tot 20:00 (kerstdiner). Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk zat minstens één blok zonder tuinverlichting. De kerstboom bij het ziekenhuis bleef de hele avond aan. Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "18:00-20:00",
+        "squareDarkDuringChoir": false,
+        "seniorsDark": true,
+        "homesDark": true,
+        "hospitalDark": false,
+        "chargerPauses": 2,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1820|koor-licht|senioren-uit|woonwijk-uit|ziekenhuis-aan|pauzes-2|moraal-70-77",
+      "facts": "De ijsbaan was dicht van 18:00 tot 20:00 (kerstdiner). Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk zat minstens één blok zonder tuinverlichting. De kerstboom bij het ziekenhuis bleef de hele avond aan. Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: matig, het dorp heeft het duidelijk gemerkt.",
+      "traits": {
+        "rinkClosedAt": "18:00-20:00",
+        "squareDarkDuringChoir": false,
+        "seniorsDark": true,
+        "homesDark": true,
+        "hospitalDark": false,
+        "chargerPauses": 2,
+        "moraleBand": "70-77"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1820|koor-licht|senioren-uit|woonwijk-uit|ziekenhuis-aan|pauzes-2|moraal-78-84",
+      "facts": "De ijsbaan was dicht van 18:00 tot 20:00 (kerstdiner). Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk zat minstens één blok zonder tuinverlichting. De kerstboom bij het ziekenhuis bleef de hele avond aan. Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: goed, met hier en daar wat gemopper.",
+      "traits": {
+        "rinkClosedAt": "18:00-20:00",
+        "squareDarkDuringChoir": false,
+        "seniorsDark": true,
+        "homesDark": true,
+        "hospitalDark": false,
+        "chargerPauses": 2,
+        "moraleBand": "78-84"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1820|koor-licht|senioren-uit|woonwijk-uit|ziekenhuis-aan|pauzes-2|moraal-85-100",
+      "facts": "De ijsbaan was dicht van 18:00 tot 20:00 (kerstdiner). Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk zat minstens één blok zonder tuinverlichting. De kerstboom bij het ziekenhuis bleef de hele avond aan. Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: uitstekend, bijna iedereen had een prachtige avond.",
+      "traits": {
+        "rinkClosedAt": "18:00-20:00",
+        "squareDarkDuringChoir": false,
+        "seniorsDark": true,
+        "homesDark": true,
+        "hospitalDark": false,
+        "chargerPauses": 2,
+        "moraleBand": "85-100"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1820|koor-licht|senioren-uit|woonwijk-uit|ziekenhuis-uit|pauzes-1|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 18:00 tot 20:00 (kerstdiner). Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk zat minstens één blok zonder tuinverlichting. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein pauzeerde één keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "18:00-20:00",
+        "squareDarkDuringChoir": false,
+        "seniorsDark": true,
+        "homesDark": true,
+        "hospitalDark": true,
+        "chargerPauses": 1,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1820|koor-licht|senioren-uit|woonwijk-uit|ziekenhuis-uit|pauzes-1|moraal-70-77",
+      "facts": "De ijsbaan was dicht van 18:00 tot 20:00 (kerstdiner). Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk zat minstens één blok zonder tuinverlichting. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein pauzeerde één keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: matig, het dorp heeft het duidelijk gemerkt.",
+      "traits": {
+        "rinkClosedAt": "18:00-20:00",
+        "squareDarkDuringChoir": false,
+        "seniorsDark": true,
+        "homesDark": true,
+        "hospitalDark": true,
+        "chargerPauses": 1,
+        "moraleBand": "70-77"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1820|koor-licht|senioren-uit|woonwijk-uit|ziekenhuis-uit|pauzes-1|moraal-78-84",
+      "facts": "De ijsbaan was dicht van 18:00 tot 20:00 (kerstdiner). Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk zat minstens één blok zonder tuinverlichting. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein pauzeerde één keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: goed, met hier en daar wat gemopper.",
+      "traits": {
+        "rinkClosedAt": "18:00-20:00",
+        "squareDarkDuringChoir": false,
+        "seniorsDark": true,
+        "homesDark": true,
+        "hospitalDark": true,
+        "chargerPauses": 1,
+        "moraleBand": "78-84"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1820|koor-licht|senioren-uit|woonwijk-uit|ziekenhuis-uit|pauzes-2|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 18:00 tot 20:00 (kerstdiner). Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk zat minstens één blok zonder tuinverlichting. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "18:00-20:00",
+        "squareDarkDuringChoir": false,
+        "seniorsDark": true,
+        "homesDark": true,
+        "hospitalDark": true,
+        "chargerPauses": 2,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1820|koor-licht|senioren-uit|woonwijk-uit|ziekenhuis-uit|pauzes-2|moraal-70-77",
+      "facts": "De ijsbaan was dicht van 18:00 tot 20:00 (kerstdiner). Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk zat minstens één blok zonder tuinverlichting. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: matig, het dorp heeft het duidelijk gemerkt.",
+      "traits": {
+        "rinkClosedAt": "18:00-20:00",
+        "squareDarkDuringChoir": false,
+        "seniorsDark": true,
+        "homesDark": true,
+        "hospitalDark": true,
+        "chargerPauses": 2,
+        "moraleBand": "70-77"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-1820|koor-licht|senioren-uit|woonwijk-uit|ziekenhuis-uit|pauzes-2|moraal-78-84",
+      "facts": "De ijsbaan was dicht van 18:00 tot 20:00 (kerstdiner). Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk zat minstens één blok zonder tuinverlichting. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: goed, met hier en daar wat gemopper.",
+      "traits": {
+        "rinkClosedAt": "18:00-20:00",
+        "squareDarkDuringChoir": false,
+        "seniorsDark": true,
+        "homesDark": true,
+        "hospitalDark": true,
+        "chargerPauses": 2,
+        "moraleBand": "78-84"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-2022|koor-donker|senioren-aan|woonwijk-aan|ziekenhuis-aan|pauzes-2|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 20:00 tot 22:00 (kerstkoor & ijsdisco). Tijdens het kerstkoor (20:00-22:00) ging de grote boom op het dorpsplein uit. De Gouden Ster hield de hele avond zijn feestverlichting. De woonwijk bleef de hele avond verlicht. De kerstboom bij het ziekenhuis bleef de hele avond aan. Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "20:00-22:00",
+        "squareDarkDuringChoir": true,
+        "seniorsDark": false,
+        "homesDark": false,
+        "hospitalDark": false,
+        "chargerPauses": 2,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-2022|koor-donker|senioren-aan|woonwijk-aan|ziekenhuis-uit|pauzes-2|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 20:00 tot 22:00 (kerstkoor & ijsdisco). Tijdens het kerstkoor (20:00-22:00) ging de grote boom op het dorpsplein uit. De Gouden Ster hield de hele avond zijn feestverlichting. De woonwijk bleef de hele avond verlicht. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "20:00-22:00",
+        "squareDarkDuringChoir": true,
+        "seniorsDark": false,
+        "homesDark": false,
+        "hospitalDark": true,
+        "chargerPauses": 2,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-2022|koor-donker|senioren-aan|woonwijk-uit|ziekenhuis-aan|pauzes-0|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 20:00 tot 22:00 (kerstkoor & ijsdisco). Tijdens het kerstkoor (20:00-22:00) ging de grote boom op het dorpsplein uit. De Gouden Ster hield de hele avond zijn feestverlichting. De woonwijk zat minstens één blok zonder tuinverlichting. De kerstboom bij het ziekenhuis bleef de hele avond aan. Het laadplein laadde de hele avond normaal door. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "20:00-22:00",
+        "squareDarkDuringChoir": true,
+        "seniorsDark": false,
+        "homesDark": true,
+        "hospitalDark": false,
+        "chargerPauses": 0,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-2022|koor-donker|senioren-aan|woonwijk-uit|ziekenhuis-aan|pauzes-1|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 20:00 tot 22:00 (kerstkoor & ijsdisco). Tijdens het kerstkoor (20:00-22:00) ging de grote boom op het dorpsplein uit. De Gouden Ster hield de hele avond zijn feestverlichting. De woonwijk zat minstens één blok zonder tuinverlichting. De kerstboom bij het ziekenhuis bleef de hele avond aan. Het laadplein pauzeerde één keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "20:00-22:00",
+        "squareDarkDuringChoir": true,
+        "seniorsDark": false,
+        "homesDark": true,
+        "hospitalDark": false,
+        "chargerPauses": 1,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-2022|koor-donker|senioren-aan|woonwijk-uit|ziekenhuis-aan|pauzes-2|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 20:00 tot 22:00 (kerstkoor & ijsdisco). Tijdens het kerstkoor (20:00-22:00) ging de grote boom op het dorpsplein uit. De Gouden Ster hield de hele avond zijn feestverlichting. De woonwijk zat minstens één blok zonder tuinverlichting. De kerstboom bij het ziekenhuis bleef de hele avond aan. Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "20:00-22:00",
+        "squareDarkDuringChoir": true,
+        "seniorsDark": false,
+        "homesDark": true,
+        "hospitalDark": false,
+        "chargerPauses": 2,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-2022|koor-donker|senioren-aan|woonwijk-uit|ziekenhuis-uit|pauzes-0|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 20:00 tot 22:00 (kerstkoor & ijsdisco). Tijdens het kerstkoor (20:00-22:00) ging de grote boom op het dorpsplein uit. De Gouden Ster hield de hele avond zijn feestverlichting. De woonwijk zat minstens één blok zonder tuinverlichting. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein laadde de hele avond normaal door. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "20:00-22:00",
+        "squareDarkDuringChoir": true,
+        "seniorsDark": false,
+        "homesDark": true,
+        "hospitalDark": true,
+        "chargerPauses": 0,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-2022|koor-donker|senioren-aan|woonwijk-uit|ziekenhuis-uit|pauzes-1|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 20:00 tot 22:00 (kerstkoor & ijsdisco). Tijdens het kerstkoor (20:00-22:00) ging de grote boom op het dorpsplein uit. De Gouden Ster hield de hele avond zijn feestverlichting. De woonwijk zat minstens één blok zonder tuinverlichting. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein pauzeerde één keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "20:00-22:00",
+        "squareDarkDuringChoir": true,
+        "seniorsDark": false,
+        "homesDark": true,
+        "hospitalDark": true,
+        "chargerPauses": 1,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-2022|koor-donker|senioren-aan|woonwijk-uit|ziekenhuis-uit|pauzes-2|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 20:00 tot 22:00 (kerstkoor & ijsdisco). Tijdens het kerstkoor (20:00-22:00) ging de grote boom op het dorpsplein uit. De Gouden Ster hield de hele avond zijn feestverlichting. De woonwijk zat minstens één blok zonder tuinverlichting. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "20:00-22:00",
+        "squareDarkDuringChoir": true,
+        "seniorsDark": false,
+        "homesDark": true,
+        "hospitalDark": true,
+        "chargerPauses": 2,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-2022|koor-donker|senioren-uit|woonwijk-aan|ziekenhuis-aan|pauzes-0|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 20:00 tot 22:00 (kerstkoor & ijsdisco). Tijdens het kerstkoor (20:00-22:00) ging de grote boom op het dorpsplein uit. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk bleef de hele avond verlicht. De kerstboom bij het ziekenhuis bleef de hele avond aan. Het laadplein laadde de hele avond normaal door. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "20:00-22:00",
+        "squareDarkDuringChoir": true,
+        "seniorsDark": true,
+        "homesDark": false,
+        "hospitalDark": false,
+        "chargerPauses": 0,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-2022|koor-donker|senioren-uit|woonwijk-aan|ziekenhuis-aan|pauzes-1|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 20:00 tot 22:00 (kerstkoor & ijsdisco). Tijdens het kerstkoor (20:00-22:00) ging de grote boom op het dorpsplein uit. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk bleef de hele avond verlicht. De kerstboom bij het ziekenhuis bleef de hele avond aan. Het laadplein pauzeerde één keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "20:00-22:00",
+        "squareDarkDuringChoir": true,
+        "seniorsDark": true,
+        "homesDark": false,
+        "hospitalDark": false,
+        "chargerPauses": 1,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-2022|koor-donker|senioren-uit|woonwijk-aan|ziekenhuis-aan|pauzes-2|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 20:00 tot 22:00 (kerstkoor & ijsdisco). Tijdens het kerstkoor (20:00-22:00) ging de grote boom op het dorpsplein uit. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk bleef de hele avond verlicht. De kerstboom bij het ziekenhuis bleef de hele avond aan. Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "20:00-22:00",
+        "squareDarkDuringChoir": true,
+        "seniorsDark": true,
+        "homesDark": false,
+        "hospitalDark": false,
+        "chargerPauses": 2,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-2022|koor-donker|senioren-uit|woonwijk-aan|ziekenhuis-uit|pauzes-0|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 20:00 tot 22:00 (kerstkoor & ijsdisco). Tijdens het kerstkoor (20:00-22:00) ging de grote boom op het dorpsplein uit. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk bleef de hele avond verlicht. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein laadde de hele avond normaal door. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "20:00-22:00",
+        "squareDarkDuringChoir": true,
+        "seniorsDark": true,
+        "homesDark": false,
+        "hospitalDark": true,
+        "chargerPauses": 0,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-2022|koor-donker|senioren-uit|woonwijk-aan|ziekenhuis-uit|pauzes-1|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 20:00 tot 22:00 (kerstkoor & ijsdisco). Tijdens het kerstkoor (20:00-22:00) ging de grote boom op het dorpsplein uit. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk bleef de hele avond verlicht. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein pauzeerde één keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "20:00-22:00",
+        "squareDarkDuringChoir": true,
+        "seniorsDark": true,
+        "homesDark": false,
+        "hospitalDark": true,
+        "chargerPauses": 1,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-2022|koor-donker|senioren-uit|woonwijk-aan|ziekenhuis-uit|pauzes-2|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 20:00 tot 22:00 (kerstkoor & ijsdisco). Tijdens het kerstkoor (20:00-22:00) ging de grote boom op het dorpsplein uit. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk bleef de hele avond verlicht. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "20:00-22:00",
+        "squareDarkDuringChoir": true,
+        "seniorsDark": true,
+        "homesDark": false,
+        "hospitalDark": true,
+        "chargerPauses": 2,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-2022|koor-donker|senioren-uit|woonwijk-uit|ziekenhuis-aan|pauzes-0|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 20:00 tot 22:00 (kerstkoor & ijsdisco). Tijdens het kerstkoor (20:00-22:00) ging de grote boom op het dorpsplein uit. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk zat minstens één blok zonder tuinverlichting. De kerstboom bij het ziekenhuis bleef de hele avond aan. Het laadplein laadde de hele avond normaal door. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "20:00-22:00",
+        "squareDarkDuringChoir": true,
+        "seniorsDark": true,
+        "homesDark": true,
+        "hospitalDark": false,
+        "chargerPauses": 0,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-2022|koor-donker|senioren-uit|woonwijk-uit|ziekenhuis-aan|pauzes-1|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 20:00 tot 22:00 (kerstkoor & ijsdisco). Tijdens het kerstkoor (20:00-22:00) ging de grote boom op het dorpsplein uit. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk zat minstens één blok zonder tuinverlichting. De kerstboom bij het ziekenhuis bleef de hele avond aan. Het laadplein pauzeerde één keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "20:00-22:00",
+        "squareDarkDuringChoir": true,
+        "seniorsDark": true,
+        "homesDark": true,
+        "hospitalDark": false,
+        "chargerPauses": 1,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-2022|koor-donker|senioren-uit|woonwijk-uit|ziekenhuis-aan|pauzes-2|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 20:00 tot 22:00 (kerstkoor & ijsdisco). Tijdens het kerstkoor (20:00-22:00) ging de grote boom op het dorpsplein uit. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk zat minstens één blok zonder tuinverlichting. De kerstboom bij het ziekenhuis bleef de hele avond aan. Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "20:00-22:00",
+        "squareDarkDuringChoir": true,
+        "seniorsDark": true,
+        "homesDark": true,
+        "hospitalDark": false,
+        "chargerPauses": 2,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-2022|koor-donker|senioren-uit|woonwijk-uit|ziekenhuis-uit|pauzes-0|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 20:00 tot 22:00 (kerstkoor & ijsdisco). Tijdens het kerstkoor (20:00-22:00) ging de grote boom op het dorpsplein uit. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk zat minstens één blok zonder tuinverlichting. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein laadde de hele avond normaal door. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "20:00-22:00",
+        "squareDarkDuringChoir": true,
+        "seniorsDark": true,
+        "homesDark": true,
+        "hospitalDark": true,
+        "chargerPauses": 0,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-2022|koor-donker|senioren-uit|woonwijk-uit|ziekenhuis-uit|pauzes-1|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 20:00 tot 22:00 (kerstkoor & ijsdisco). Tijdens het kerstkoor (20:00-22:00) ging de grote boom op het dorpsplein uit. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk zat minstens één blok zonder tuinverlichting. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein pauzeerde één keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "20:00-22:00",
+        "squareDarkDuringChoir": true,
+        "seniorsDark": true,
+        "homesDark": true,
+        "hospitalDark": true,
+        "chargerPauses": 1,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-2022|koor-donker|senioren-uit|woonwijk-uit|ziekenhuis-uit|pauzes-2|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 20:00 tot 22:00 (kerstkoor & ijsdisco). Tijdens het kerstkoor (20:00-22:00) ging de grote boom op het dorpsplein uit. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk zat minstens één blok zonder tuinverlichting. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "20:00-22:00",
+        "squareDarkDuringChoir": true,
+        "seniorsDark": true,
+        "homesDark": true,
+        "hospitalDark": true,
+        "chargerPauses": 2,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-2022|koor-licht|senioren-aan|woonwijk-aan|ziekenhuis-aan|pauzes-2|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 20:00 tot 22:00 (kerstkoor & ijsdisco). Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De Gouden Ster hield de hele avond zijn feestverlichting. De woonwijk bleef de hele avond verlicht. De kerstboom bij het ziekenhuis bleef de hele avond aan. Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "20:00-22:00",
+        "squareDarkDuringChoir": false,
+        "seniorsDark": false,
+        "homesDark": false,
+        "hospitalDark": false,
+        "chargerPauses": 2,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-2022|koor-licht|senioren-aan|woonwijk-aan|ziekenhuis-uit|pauzes-2|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 20:00 tot 22:00 (kerstkoor & ijsdisco). Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De Gouden Ster hield de hele avond zijn feestverlichting. De woonwijk bleef de hele avond verlicht. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "20:00-22:00",
+        "squareDarkDuringChoir": false,
+        "seniorsDark": false,
+        "homesDark": false,
+        "hospitalDark": true,
+        "chargerPauses": 2,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-2022|koor-licht|senioren-aan|woonwijk-uit|ziekenhuis-aan|pauzes-0|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 20:00 tot 22:00 (kerstkoor & ijsdisco). Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De Gouden Ster hield de hele avond zijn feestverlichting. De woonwijk zat minstens één blok zonder tuinverlichting. De kerstboom bij het ziekenhuis bleef de hele avond aan. Het laadplein laadde de hele avond normaal door. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "20:00-22:00",
+        "squareDarkDuringChoir": false,
+        "seniorsDark": false,
+        "homesDark": true,
+        "hospitalDark": false,
+        "chargerPauses": 0,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-2022|koor-licht|senioren-aan|woonwijk-uit|ziekenhuis-aan|pauzes-1|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 20:00 tot 22:00 (kerstkoor & ijsdisco). Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De Gouden Ster hield de hele avond zijn feestverlichting. De woonwijk zat minstens één blok zonder tuinverlichting. De kerstboom bij het ziekenhuis bleef de hele avond aan. Het laadplein pauzeerde één keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "20:00-22:00",
+        "squareDarkDuringChoir": false,
+        "seniorsDark": false,
+        "homesDark": true,
+        "hospitalDark": false,
+        "chargerPauses": 1,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-2022|koor-licht|senioren-aan|woonwijk-uit|ziekenhuis-aan|pauzes-2|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 20:00 tot 22:00 (kerstkoor & ijsdisco). Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De Gouden Ster hield de hele avond zijn feestverlichting. De woonwijk zat minstens één blok zonder tuinverlichting. De kerstboom bij het ziekenhuis bleef de hele avond aan. Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "20:00-22:00",
+        "squareDarkDuringChoir": false,
+        "seniorsDark": false,
+        "homesDark": true,
+        "hospitalDark": false,
+        "chargerPauses": 2,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-2022|koor-licht|senioren-aan|woonwijk-uit|ziekenhuis-aan|pauzes-2|moraal-70-77",
+      "facts": "De ijsbaan was dicht van 20:00 tot 22:00 (kerstkoor & ijsdisco). Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De Gouden Ster hield de hele avond zijn feestverlichting. De woonwijk zat minstens één blok zonder tuinverlichting. De kerstboom bij het ziekenhuis bleef de hele avond aan. Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: matig, het dorp heeft het duidelijk gemerkt.",
+      "traits": {
+        "rinkClosedAt": "20:00-22:00",
+        "squareDarkDuringChoir": false,
+        "seniorsDark": false,
+        "homesDark": true,
+        "hospitalDark": false,
+        "chargerPauses": 2,
+        "moraleBand": "70-77"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-2022|koor-licht|senioren-aan|woonwijk-uit|ziekenhuis-uit|pauzes-0|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 20:00 tot 22:00 (kerstkoor & ijsdisco). Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De Gouden Ster hield de hele avond zijn feestverlichting. De woonwijk zat minstens één blok zonder tuinverlichting. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein laadde de hele avond normaal door. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "20:00-22:00",
+        "squareDarkDuringChoir": false,
+        "seniorsDark": false,
+        "homesDark": true,
+        "hospitalDark": true,
+        "chargerPauses": 0,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-2022|koor-licht|senioren-aan|woonwijk-uit|ziekenhuis-uit|pauzes-1|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 20:00 tot 22:00 (kerstkoor & ijsdisco). Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De Gouden Ster hield de hele avond zijn feestverlichting. De woonwijk zat minstens één blok zonder tuinverlichting. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein pauzeerde één keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "20:00-22:00",
+        "squareDarkDuringChoir": false,
+        "seniorsDark": false,
+        "homesDark": true,
+        "hospitalDark": true,
+        "chargerPauses": 1,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-2022|koor-licht|senioren-aan|woonwijk-uit|ziekenhuis-uit|pauzes-2|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 20:00 tot 22:00 (kerstkoor & ijsdisco). Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De Gouden Ster hield de hele avond zijn feestverlichting. De woonwijk zat minstens één blok zonder tuinverlichting. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "20:00-22:00",
+        "squareDarkDuringChoir": false,
+        "seniorsDark": false,
+        "homesDark": true,
+        "hospitalDark": true,
+        "chargerPauses": 2,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-2022|koor-licht|senioren-aan|woonwijk-uit|ziekenhuis-uit|pauzes-2|moraal-70-77",
+      "facts": "De ijsbaan was dicht van 20:00 tot 22:00 (kerstkoor & ijsdisco). Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De Gouden Ster hield de hele avond zijn feestverlichting. De woonwijk zat minstens één blok zonder tuinverlichting. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: matig, het dorp heeft het duidelijk gemerkt.",
+      "traits": {
+        "rinkClosedAt": "20:00-22:00",
+        "squareDarkDuringChoir": false,
+        "seniorsDark": false,
+        "homesDark": true,
+        "hospitalDark": true,
+        "chargerPauses": 2,
+        "moraleBand": "70-77"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-2022|koor-licht|senioren-uit|woonwijk-aan|ziekenhuis-aan|pauzes-0|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 20:00 tot 22:00 (kerstkoor & ijsdisco). Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk bleef de hele avond verlicht. De kerstboom bij het ziekenhuis bleef de hele avond aan. Het laadplein laadde de hele avond normaal door. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "20:00-22:00",
+        "squareDarkDuringChoir": false,
+        "seniorsDark": true,
+        "homesDark": false,
+        "hospitalDark": false,
+        "chargerPauses": 0,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-2022|koor-licht|senioren-uit|woonwijk-aan|ziekenhuis-aan|pauzes-1|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 20:00 tot 22:00 (kerstkoor & ijsdisco). Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk bleef de hele avond verlicht. De kerstboom bij het ziekenhuis bleef de hele avond aan. Het laadplein pauzeerde één keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "20:00-22:00",
+        "squareDarkDuringChoir": false,
+        "seniorsDark": true,
+        "homesDark": false,
+        "hospitalDark": false,
+        "chargerPauses": 1,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-2022|koor-licht|senioren-uit|woonwijk-aan|ziekenhuis-aan|pauzes-2|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 20:00 tot 22:00 (kerstkoor & ijsdisco). Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk bleef de hele avond verlicht. De kerstboom bij het ziekenhuis bleef de hele avond aan. Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "20:00-22:00",
+        "squareDarkDuringChoir": false,
+        "seniorsDark": true,
+        "homesDark": false,
+        "hospitalDark": false,
+        "chargerPauses": 2,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-2022|koor-licht|senioren-uit|woonwijk-aan|ziekenhuis-aan|pauzes-2|moraal-70-77",
+      "facts": "De ijsbaan was dicht van 20:00 tot 22:00 (kerstkoor & ijsdisco). Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk bleef de hele avond verlicht. De kerstboom bij het ziekenhuis bleef de hele avond aan. Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: matig, het dorp heeft het duidelijk gemerkt.",
+      "traits": {
+        "rinkClosedAt": "20:00-22:00",
+        "squareDarkDuringChoir": false,
+        "seniorsDark": true,
+        "homesDark": false,
+        "hospitalDark": false,
+        "chargerPauses": 2,
+        "moraleBand": "70-77"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-2022|koor-licht|senioren-uit|woonwijk-aan|ziekenhuis-uit|pauzes-0|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 20:00 tot 22:00 (kerstkoor & ijsdisco). Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk bleef de hele avond verlicht. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein laadde de hele avond normaal door. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "20:00-22:00",
+        "squareDarkDuringChoir": false,
+        "seniorsDark": true,
+        "homesDark": false,
+        "hospitalDark": true,
+        "chargerPauses": 0,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-2022|koor-licht|senioren-uit|woonwijk-aan|ziekenhuis-uit|pauzes-1|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 20:00 tot 22:00 (kerstkoor & ijsdisco). Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk bleef de hele avond verlicht. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein pauzeerde één keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "20:00-22:00",
+        "squareDarkDuringChoir": false,
+        "seniorsDark": true,
+        "homesDark": false,
+        "hospitalDark": true,
+        "chargerPauses": 1,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-2022|koor-licht|senioren-uit|woonwijk-aan|ziekenhuis-uit|pauzes-1|moraal-70-77",
+      "facts": "De ijsbaan was dicht van 20:00 tot 22:00 (kerstkoor & ijsdisco). Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk bleef de hele avond verlicht. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein pauzeerde één keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: matig, het dorp heeft het duidelijk gemerkt.",
+      "traits": {
+        "rinkClosedAt": "20:00-22:00",
+        "squareDarkDuringChoir": false,
+        "seniorsDark": true,
+        "homesDark": false,
+        "hospitalDark": true,
+        "chargerPauses": 1,
+        "moraleBand": "70-77"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-2022|koor-licht|senioren-uit|woonwijk-aan|ziekenhuis-uit|pauzes-2|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 20:00 tot 22:00 (kerstkoor & ijsdisco). Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk bleef de hele avond verlicht. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "20:00-22:00",
+        "squareDarkDuringChoir": false,
+        "seniorsDark": true,
+        "homesDark": false,
+        "hospitalDark": true,
+        "chargerPauses": 2,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-2022|koor-licht|senioren-uit|woonwijk-aan|ziekenhuis-uit|pauzes-2|moraal-70-77",
+      "facts": "De ijsbaan was dicht van 20:00 tot 22:00 (kerstkoor & ijsdisco). Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk bleef de hele avond verlicht. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: matig, het dorp heeft het duidelijk gemerkt.",
+      "traits": {
+        "rinkClosedAt": "20:00-22:00",
+        "squareDarkDuringChoir": false,
+        "seniorsDark": true,
+        "homesDark": false,
+        "hospitalDark": true,
+        "chargerPauses": 2,
+        "moraleBand": "70-77"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-2022|koor-licht|senioren-uit|woonwijk-aan|ziekenhuis-uit|pauzes-2|moraal-78-84",
+      "facts": "De ijsbaan was dicht van 20:00 tot 22:00 (kerstkoor & ijsdisco). Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk bleef de hele avond verlicht. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: goed, met hier en daar wat gemopper.",
+      "traits": {
+        "rinkClosedAt": "20:00-22:00",
+        "squareDarkDuringChoir": false,
+        "seniorsDark": true,
+        "homesDark": false,
+        "hospitalDark": true,
+        "chargerPauses": 2,
+        "moraleBand": "78-84"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-2022|koor-licht|senioren-uit|woonwijk-uit|ziekenhuis-aan|pauzes-0|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 20:00 tot 22:00 (kerstkoor & ijsdisco). Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk zat minstens één blok zonder tuinverlichting. De kerstboom bij het ziekenhuis bleef de hele avond aan. Het laadplein laadde de hele avond normaal door. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "20:00-22:00",
+        "squareDarkDuringChoir": false,
+        "seniorsDark": true,
+        "homesDark": true,
+        "hospitalDark": false,
+        "chargerPauses": 0,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-2022|koor-licht|senioren-uit|woonwijk-uit|ziekenhuis-aan|pauzes-1|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 20:00 tot 22:00 (kerstkoor & ijsdisco). Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk zat minstens één blok zonder tuinverlichting. De kerstboom bij het ziekenhuis bleef de hele avond aan. Het laadplein pauzeerde één keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "20:00-22:00",
+        "squareDarkDuringChoir": false,
+        "seniorsDark": true,
+        "homesDark": true,
+        "hospitalDark": false,
+        "chargerPauses": 1,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-2022|koor-licht|senioren-uit|woonwijk-uit|ziekenhuis-aan|pauzes-1|moraal-70-77",
+      "facts": "De ijsbaan was dicht van 20:00 tot 22:00 (kerstkoor & ijsdisco). Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk zat minstens één blok zonder tuinverlichting. De kerstboom bij het ziekenhuis bleef de hele avond aan. Het laadplein pauzeerde één keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: matig, het dorp heeft het duidelijk gemerkt.",
+      "traits": {
+        "rinkClosedAt": "20:00-22:00",
+        "squareDarkDuringChoir": false,
+        "seniorsDark": true,
+        "homesDark": true,
+        "hospitalDark": false,
+        "chargerPauses": 1,
+        "moraleBand": "70-77"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-2022|koor-licht|senioren-uit|woonwijk-uit|ziekenhuis-aan|pauzes-2|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 20:00 tot 22:00 (kerstkoor & ijsdisco). Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk zat minstens één blok zonder tuinverlichting. De kerstboom bij het ziekenhuis bleef de hele avond aan. Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "20:00-22:00",
+        "squareDarkDuringChoir": false,
+        "seniorsDark": true,
+        "homesDark": true,
+        "hospitalDark": false,
+        "chargerPauses": 2,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-2022|koor-licht|senioren-uit|woonwijk-uit|ziekenhuis-aan|pauzes-2|moraal-70-77",
+      "facts": "De ijsbaan was dicht van 20:00 tot 22:00 (kerstkoor & ijsdisco). Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk zat minstens één blok zonder tuinverlichting. De kerstboom bij het ziekenhuis bleef de hele avond aan. Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: matig, het dorp heeft het duidelijk gemerkt.",
+      "traits": {
+        "rinkClosedAt": "20:00-22:00",
+        "squareDarkDuringChoir": false,
+        "seniorsDark": true,
+        "homesDark": true,
+        "hospitalDark": false,
+        "chargerPauses": 2,
+        "moraleBand": "70-77"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-2022|koor-licht|senioren-uit|woonwijk-uit|ziekenhuis-aan|pauzes-2|moraal-78-84",
+      "facts": "De ijsbaan was dicht van 20:00 tot 22:00 (kerstkoor & ijsdisco). Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk zat minstens één blok zonder tuinverlichting. De kerstboom bij het ziekenhuis bleef de hele avond aan. Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: goed, met hier en daar wat gemopper.",
+      "traits": {
+        "rinkClosedAt": "20:00-22:00",
+        "squareDarkDuringChoir": false,
+        "seniorsDark": true,
+        "homesDark": true,
+        "hospitalDark": false,
+        "chargerPauses": 2,
+        "moraleBand": "78-84"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-2022|koor-licht|senioren-uit|woonwijk-uit|ziekenhuis-uit|pauzes-0|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 20:00 tot 22:00 (kerstkoor & ijsdisco). Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk zat minstens één blok zonder tuinverlichting. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein laadde de hele avond normaal door. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "20:00-22:00",
+        "squareDarkDuringChoir": false,
+        "seniorsDark": true,
+        "homesDark": true,
+        "hospitalDark": true,
+        "chargerPauses": 0,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-2022|koor-licht|senioren-uit|woonwijk-uit|ziekenhuis-uit|pauzes-1|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 20:00 tot 22:00 (kerstkoor & ijsdisco). Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk zat minstens één blok zonder tuinverlichting. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein pauzeerde één keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "20:00-22:00",
+        "squareDarkDuringChoir": false,
+        "seniorsDark": true,
+        "homesDark": true,
+        "hospitalDark": true,
+        "chargerPauses": 1,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-2022|koor-licht|senioren-uit|woonwijk-uit|ziekenhuis-uit|pauzes-1|moraal-70-77",
+      "facts": "De ijsbaan was dicht van 20:00 tot 22:00 (kerstkoor & ijsdisco). Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk zat minstens één blok zonder tuinverlichting. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein pauzeerde één keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: matig, het dorp heeft het duidelijk gemerkt.",
+      "traits": {
+        "rinkClosedAt": "20:00-22:00",
+        "squareDarkDuringChoir": false,
+        "seniorsDark": true,
+        "homesDark": true,
+        "hospitalDark": true,
+        "chargerPauses": 1,
+        "moraleBand": "70-77"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-2022|koor-licht|senioren-uit|woonwijk-uit|ziekenhuis-uit|pauzes-2|moraal-0-69",
+      "facts": "De ijsbaan was dicht van 20:00 tot 22:00 (kerstkoor & ijsdisco). Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk zat minstens één blok zonder tuinverlichting. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": "20:00-22:00",
+        "squareDarkDuringChoir": false,
+        "seniorsDark": true,
+        "homesDark": true,
+        "hospitalDark": true,
+        "chargerPauses": 2,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-2022|koor-licht|senioren-uit|woonwijk-uit|ziekenhuis-uit|pauzes-2|moraal-70-77",
+      "facts": "De ijsbaan was dicht van 20:00 tot 22:00 (kerstkoor & ijsdisco). Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk zat minstens één blok zonder tuinverlichting. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: matig, het dorp heeft het duidelijk gemerkt.",
+      "traits": {
+        "rinkClosedAt": "20:00-22:00",
+        "squareDarkDuringChoir": false,
+        "seniorsDark": true,
+        "homesDark": true,
+        "hospitalDark": true,
+        "chargerPauses": 2,
+        "moraleBand": "70-77"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-open|koor-donker|senioren-aan|woonwijk-uit|ziekenhuis-aan|pauzes-1|moraal-0-69",
+      "facts": "De ijsbaan bleef de hele avond open, ook tijdens de kerstdisco. Tijdens het kerstkoor (20:00-22:00) ging de grote boom op het dorpsplein uit. De Gouden Ster hield de hele avond zijn feestverlichting. De woonwijk zat minstens één blok zonder tuinverlichting. De kerstboom bij het ziekenhuis bleef de hele avond aan. Het laadplein pauzeerde één keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": null,
+        "squareDarkDuringChoir": true,
+        "seniorsDark": false,
+        "homesDark": true,
+        "hospitalDark": false,
+        "chargerPauses": 1,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-open|koor-donker|senioren-aan|woonwijk-uit|ziekenhuis-aan|pauzes-2|moraal-0-69",
+      "facts": "De ijsbaan bleef de hele avond open, ook tijdens de kerstdisco. Tijdens het kerstkoor (20:00-22:00) ging de grote boom op het dorpsplein uit. De Gouden Ster hield de hele avond zijn feestverlichting. De woonwijk zat minstens één blok zonder tuinverlichting. De kerstboom bij het ziekenhuis bleef de hele avond aan. Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": null,
+        "squareDarkDuringChoir": true,
+        "seniorsDark": false,
+        "homesDark": true,
+        "hospitalDark": false,
+        "chargerPauses": 2,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-open|koor-donker|senioren-aan|woonwijk-uit|ziekenhuis-uit|pauzes-0|moraal-0-69",
+      "facts": "De ijsbaan bleef de hele avond open, ook tijdens de kerstdisco. Tijdens het kerstkoor (20:00-22:00) ging de grote boom op het dorpsplein uit. De Gouden Ster hield de hele avond zijn feestverlichting. De woonwijk zat minstens één blok zonder tuinverlichting. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein laadde de hele avond normaal door. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": null,
+        "squareDarkDuringChoir": true,
+        "seniorsDark": false,
+        "homesDark": true,
+        "hospitalDark": true,
+        "chargerPauses": 0,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-open|koor-donker|senioren-aan|woonwijk-uit|ziekenhuis-uit|pauzes-1|moraal-0-69",
+      "facts": "De ijsbaan bleef de hele avond open, ook tijdens de kerstdisco. Tijdens het kerstkoor (20:00-22:00) ging de grote boom op het dorpsplein uit. De Gouden Ster hield de hele avond zijn feestverlichting. De woonwijk zat minstens één blok zonder tuinverlichting. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein pauzeerde één keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": null,
+        "squareDarkDuringChoir": true,
+        "seniorsDark": false,
+        "homesDark": true,
+        "hospitalDark": true,
+        "chargerPauses": 1,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-open|koor-donker|senioren-aan|woonwijk-uit|ziekenhuis-uit|pauzes-2|moraal-0-69",
+      "facts": "De ijsbaan bleef de hele avond open, ook tijdens de kerstdisco. Tijdens het kerstkoor (20:00-22:00) ging de grote boom op het dorpsplein uit. De Gouden Ster hield de hele avond zijn feestverlichting. De woonwijk zat minstens één blok zonder tuinverlichting. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": null,
+        "squareDarkDuringChoir": true,
+        "seniorsDark": false,
+        "homesDark": true,
+        "hospitalDark": true,
+        "chargerPauses": 2,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-open|koor-donker|senioren-uit|woonwijk-aan|ziekenhuis-aan|pauzes-1|moraal-0-69",
+      "facts": "De ijsbaan bleef de hele avond open, ook tijdens de kerstdisco. Tijdens het kerstkoor (20:00-22:00) ging de grote boom op het dorpsplein uit. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk bleef de hele avond verlicht. De kerstboom bij het ziekenhuis bleef de hele avond aan. Het laadplein pauzeerde één keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": null,
+        "squareDarkDuringChoir": true,
+        "seniorsDark": true,
+        "homesDark": false,
+        "hospitalDark": false,
+        "chargerPauses": 1,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-open|koor-donker|senioren-uit|woonwijk-aan|ziekenhuis-aan|pauzes-2|moraal-0-69",
+      "facts": "De ijsbaan bleef de hele avond open, ook tijdens de kerstdisco. Tijdens het kerstkoor (20:00-22:00) ging de grote boom op het dorpsplein uit. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk bleef de hele avond verlicht. De kerstboom bij het ziekenhuis bleef de hele avond aan. Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": null,
+        "squareDarkDuringChoir": true,
+        "seniorsDark": true,
+        "homesDark": false,
+        "hospitalDark": false,
+        "chargerPauses": 2,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-open|koor-donker|senioren-uit|woonwijk-aan|ziekenhuis-uit|pauzes-0|moraal-0-69",
+      "facts": "De ijsbaan bleef de hele avond open, ook tijdens de kerstdisco. Tijdens het kerstkoor (20:00-22:00) ging de grote boom op het dorpsplein uit. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk bleef de hele avond verlicht. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein laadde de hele avond normaal door. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": null,
+        "squareDarkDuringChoir": true,
+        "seniorsDark": true,
+        "homesDark": false,
+        "hospitalDark": true,
+        "chargerPauses": 0,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-open|koor-donker|senioren-uit|woonwijk-aan|ziekenhuis-uit|pauzes-1|moraal-0-69",
+      "facts": "De ijsbaan bleef de hele avond open, ook tijdens de kerstdisco. Tijdens het kerstkoor (20:00-22:00) ging de grote boom op het dorpsplein uit. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk bleef de hele avond verlicht. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein pauzeerde één keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": null,
+        "squareDarkDuringChoir": true,
+        "seniorsDark": true,
+        "homesDark": false,
+        "hospitalDark": true,
+        "chargerPauses": 1,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-open|koor-donker|senioren-uit|woonwijk-aan|ziekenhuis-uit|pauzes-2|moraal-0-69",
+      "facts": "De ijsbaan bleef de hele avond open, ook tijdens de kerstdisco. Tijdens het kerstkoor (20:00-22:00) ging de grote boom op het dorpsplein uit. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk bleef de hele avond verlicht. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": null,
+        "squareDarkDuringChoir": true,
+        "seniorsDark": true,
+        "homesDark": false,
+        "hospitalDark": true,
+        "chargerPauses": 2,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-open|koor-donker|senioren-uit|woonwijk-uit|ziekenhuis-aan|pauzes-0|moraal-0-69",
+      "facts": "De ijsbaan bleef de hele avond open, ook tijdens de kerstdisco. Tijdens het kerstkoor (20:00-22:00) ging de grote boom op het dorpsplein uit. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk zat minstens één blok zonder tuinverlichting. De kerstboom bij het ziekenhuis bleef de hele avond aan. Het laadplein laadde de hele avond normaal door. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": null,
+        "squareDarkDuringChoir": true,
+        "seniorsDark": true,
+        "homesDark": true,
+        "hospitalDark": false,
+        "chargerPauses": 0,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-open|koor-donker|senioren-uit|woonwijk-uit|ziekenhuis-aan|pauzes-1|moraal-0-69",
+      "facts": "De ijsbaan bleef de hele avond open, ook tijdens de kerstdisco. Tijdens het kerstkoor (20:00-22:00) ging de grote boom op het dorpsplein uit. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk zat minstens één blok zonder tuinverlichting. De kerstboom bij het ziekenhuis bleef de hele avond aan. Het laadplein pauzeerde één keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": null,
+        "squareDarkDuringChoir": true,
+        "seniorsDark": true,
+        "homesDark": true,
+        "hospitalDark": false,
+        "chargerPauses": 1,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-open|koor-donker|senioren-uit|woonwijk-uit|ziekenhuis-aan|pauzes-2|moraal-0-69",
+      "facts": "De ijsbaan bleef de hele avond open, ook tijdens de kerstdisco. Tijdens het kerstkoor (20:00-22:00) ging de grote boom op het dorpsplein uit. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk zat minstens één blok zonder tuinverlichting. De kerstboom bij het ziekenhuis bleef de hele avond aan. Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": null,
+        "squareDarkDuringChoir": true,
+        "seniorsDark": true,
+        "homesDark": true,
+        "hospitalDark": false,
+        "chargerPauses": 2,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-open|koor-donker|senioren-uit|woonwijk-uit|ziekenhuis-uit|pauzes-0|moraal-0-69",
+      "facts": "De ijsbaan bleef de hele avond open, ook tijdens de kerstdisco. Tijdens het kerstkoor (20:00-22:00) ging de grote boom op het dorpsplein uit. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk zat minstens één blok zonder tuinverlichting. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein laadde de hele avond normaal door. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": null,
+        "squareDarkDuringChoir": true,
+        "seniorsDark": true,
+        "homesDark": true,
+        "hospitalDark": true,
+        "chargerPauses": 0,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-open|koor-donker|senioren-uit|woonwijk-uit|ziekenhuis-uit|pauzes-1|moraal-0-69",
+      "facts": "De ijsbaan bleef de hele avond open, ook tijdens de kerstdisco. Tijdens het kerstkoor (20:00-22:00) ging de grote boom op het dorpsplein uit. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk zat minstens één blok zonder tuinverlichting. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein pauzeerde één keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": null,
+        "squareDarkDuringChoir": true,
+        "seniorsDark": true,
+        "homesDark": true,
+        "hospitalDark": true,
+        "chargerPauses": 1,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-open|koor-donker|senioren-uit|woonwijk-uit|ziekenhuis-uit|pauzes-2|moraal-0-69",
+      "facts": "De ijsbaan bleef de hele avond open, ook tijdens de kerstdisco. Tijdens het kerstkoor (20:00-22:00) ging de grote boom op het dorpsplein uit. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk zat minstens één blok zonder tuinverlichting. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": null,
+        "squareDarkDuringChoir": true,
+        "seniorsDark": true,
+        "homesDark": true,
+        "hospitalDark": true,
+        "chargerPauses": 2,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-open|koor-licht|senioren-aan|woonwijk-uit|ziekenhuis-aan|pauzes-1|moraal-0-69",
+      "facts": "De ijsbaan bleef de hele avond open, ook tijdens de kerstdisco. Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De Gouden Ster hield de hele avond zijn feestverlichting. De woonwijk zat minstens één blok zonder tuinverlichting. De kerstboom bij het ziekenhuis bleef de hele avond aan. Het laadplein pauzeerde één keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": null,
+        "squareDarkDuringChoir": false,
+        "seniorsDark": false,
+        "homesDark": true,
+        "hospitalDark": false,
+        "chargerPauses": 1,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-open|koor-licht|senioren-aan|woonwijk-uit|ziekenhuis-aan|pauzes-2|moraal-0-69",
+      "facts": "De ijsbaan bleef de hele avond open, ook tijdens de kerstdisco. Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De Gouden Ster hield de hele avond zijn feestverlichting. De woonwijk zat minstens één blok zonder tuinverlichting. De kerstboom bij het ziekenhuis bleef de hele avond aan. Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": null,
+        "squareDarkDuringChoir": false,
+        "seniorsDark": false,
+        "homesDark": true,
+        "hospitalDark": false,
+        "chargerPauses": 2,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-open|koor-licht|senioren-aan|woonwijk-uit|ziekenhuis-uit|pauzes-1|moraal-0-69",
+      "facts": "De ijsbaan bleef de hele avond open, ook tijdens de kerstdisco. Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De Gouden Ster hield de hele avond zijn feestverlichting. De woonwijk zat minstens één blok zonder tuinverlichting. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein pauzeerde één keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": null,
+        "squareDarkDuringChoir": false,
+        "seniorsDark": false,
+        "homesDark": true,
+        "hospitalDark": true,
+        "chargerPauses": 1,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-open|koor-licht|senioren-aan|woonwijk-uit|ziekenhuis-uit|pauzes-2|moraal-0-69",
+      "facts": "De ijsbaan bleef de hele avond open, ook tijdens de kerstdisco. Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De Gouden Ster hield de hele avond zijn feestverlichting. De woonwijk zat minstens één blok zonder tuinverlichting. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": null,
+        "squareDarkDuringChoir": false,
+        "seniorsDark": false,
+        "homesDark": true,
+        "hospitalDark": true,
+        "chargerPauses": 2,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-open|koor-licht|senioren-uit|woonwijk-aan|ziekenhuis-aan|pauzes-1|moraal-0-69",
+      "facts": "De ijsbaan bleef de hele avond open, ook tijdens de kerstdisco. Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk bleef de hele avond verlicht. De kerstboom bij het ziekenhuis bleef de hele avond aan. Het laadplein pauzeerde één keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": null,
+        "squareDarkDuringChoir": false,
+        "seniorsDark": true,
+        "homesDark": false,
+        "hospitalDark": false,
+        "chargerPauses": 1,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-open|koor-licht|senioren-uit|woonwijk-aan|ziekenhuis-aan|pauzes-2|moraal-0-69",
+      "facts": "De ijsbaan bleef de hele avond open, ook tijdens de kerstdisco. Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk bleef de hele avond verlicht. De kerstboom bij het ziekenhuis bleef de hele avond aan. Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": null,
+        "squareDarkDuringChoir": false,
+        "seniorsDark": true,
+        "homesDark": false,
+        "hospitalDark": false,
+        "chargerPauses": 2,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-open|koor-licht|senioren-uit|woonwijk-aan|ziekenhuis-uit|pauzes-1|moraal-0-69",
+      "facts": "De ijsbaan bleef de hele avond open, ook tijdens de kerstdisco. Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk bleef de hele avond verlicht. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein pauzeerde één keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": null,
+        "squareDarkDuringChoir": false,
+        "seniorsDark": true,
+        "homesDark": false,
+        "hospitalDark": true,
+        "chargerPauses": 1,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-open|koor-licht|senioren-uit|woonwijk-aan|ziekenhuis-uit|pauzes-2|moraal-0-69",
+      "facts": "De ijsbaan bleef de hele avond open, ook tijdens de kerstdisco. Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk bleef de hele avond verlicht. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": null,
+        "squareDarkDuringChoir": false,
+        "seniorsDark": true,
+        "homesDark": false,
+        "hospitalDark": true,
+        "chargerPauses": 2,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-open|koor-licht|senioren-uit|woonwijk-aan|ziekenhuis-uit|pauzes-2|moraal-70-77",
+      "facts": "De ijsbaan bleef de hele avond open, ook tijdens de kerstdisco. Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk bleef de hele avond verlicht. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: matig, het dorp heeft het duidelijk gemerkt.",
+      "traits": {
+        "rinkClosedAt": null,
+        "squareDarkDuringChoir": false,
+        "seniorsDark": true,
+        "homesDark": false,
+        "hospitalDark": true,
+        "chargerPauses": 2,
+        "moraleBand": "70-77"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-open|koor-licht|senioren-uit|woonwijk-uit|ziekenhuis-aan|pauzes-1|moraal-0-69",
+      "facts": "De ijsbaan bleef de hele avond open, ook tijdens de kerstdisco. Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk zat minstens één blok zonder tuinverlichting. De kerstboom bij het ziekenhuis bleef de hele avond aan. Het laadplein pauzeerde één keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": null,
+        "squareDarkDuringChoir": false,
+        "seniorsDark": true,
+        "homesDark": true,
+        "hospitalDark": false,
+        "chargerPauses": 1,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-open|koor-licht|senioren-uit|woonwijk-uit|ziekenhuis-aan|pauzes-2|moraal-0-69",
+      "facts": "De ijsbaan bleef de hele avond open, ook tijdens de kerstdisco. Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk zat minstens één blok zonder tuinverlichting. De kerstboom bij het ziekenhuis bleef de hele avond aan. Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": null,
+        "squareDarkDuringChoir": false,
+        "seniorsDark": true,
+        "homesDark": true,
+        "hospitalDark": false,
+        "chargerPauses": 2,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-open|koor-licht|senioren-uit|woonwijk-uit|ziekenhuis-aan|pauzes-2|moraal-70-77",
+      "facts": "De ijsbaan bleef de hele avond open, ook tijdens de kerstdisco. Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk zat minstens één blok zonder tuinverlichting. De kerstboom bij het ziekenhuis bleef de hele avond aan. Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: matig, het dorp heeft het duidelijk gemerkt.",
+      "traits": {
+        "rinkClosedAt": null,
+        "squareDarkDuringChoir": false,
+        "seniorsDark": true,
+        "homesDark": true,
+        "hospitalDark": false,
+        "chargerPauses": 2,
+        "moraleBand": "70-77"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-open|koor-licht|senioren-uit|woonwijk-uit|ziekenhuis-uit|pauzes-1|moraal-0-69",
+      "facts": "De ijsbaan bleef de hele avond open, ook tijdens de kerstdisco. Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk zat minstens één blok zonder tuinverlichting. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein pauzeerde één keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": null,
+        "squareDarkDuringChoir": false,
+        "seniorsDark": true,
+        "homesDark": true,
+        "hospitalDark": true,
+        "chargerPauses": 1,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-open|koor-licht|senioren-uit|woonwijk-uit|ziekenhuis-uit|pauzes-2|moraal-0-69",
+      "facts": "De ijsbaan bleef de hele avond open, ook tijdens de kerstdisco. Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk zat minstens één blok zonder tuinverlichting. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: zwaar, veel bewoners zijn boos, al bleef het net heel.",
+      "traits": {
+        "rinkClosedAt": null,
+        "squareDarkDuringChoir": false,
+        "seniorsDark": true,
+        "homesDark": true,
+        "hospitalDark": true,
+        "chargerPauses": 2,
+        "moraleBand": "0-69"
+      },
+      "summary": ""
+    },
+    {
+      "key": "ijsbaan-open|koor-licht|senioren-uit|woonwijk-uit|ziekenhuis-uit|pauzes-2|moraal-70-77",
+      "facts": "De ijsbaan bleef de hele avond open, ook tijdens de kerstdisco. Tijdens het kerstkoor (20:00-22:00) bleef de grote boom op het dorpsplein branden. De feestverlichting bij seniorencomplex De Gouden Ster ging minstens één blok uit. De woonwijk zat minstens één blok zonder tuinverlichting. De feestverlichting bij het ziekenhuis ging minstens één blok uit (de zorg zelf liep gewoon door). Het laadplein pauzeerde twee keer; dat laden werd vooraf of na middernacht ingehaald. Eindstemming in het dorp: matig, het dorp heeft het duidelijk gemerkt.",
+      "traits": {
+        "rinkClosedAt": null,
+        "squareDarkDuringChoir": false,
+        "seniorsDark": true,
+        "homesDark": true,
+        "hospitalDark": true,
+        "chargerPauses": 2,
+        "moraleBand": "70-77"
+      },
+      "summary": ""
+    }
+  ]
+}
