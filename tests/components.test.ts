@@ -304,3 +304,19 @@ describe('eindscherm en tijdlijn met events', () => {
     expect(store.state.game!.schedule).toEqual(perfectEventsSchedule());
   });
 });
+
+describe('eventcorrectie in grafiek en optelsom', () => {
+  it('de verwachte basisbelasting in de grafiek telt onthulde events mee', () => {
+    const wrapper = mount(LoadChart, { props: { loads: [95, 95, 85, 100, 110, 85], lockedCount: 3, adjustments: [0, 0, -10, 0, 10, 0] } });
+    const heights = wrapper.findAll('.baseline').map((b) => b.attributes('style'));
+    expect(heights[2]).toContain(`${(140 / 170) * 100}%`);
+    expect(heights[4]).toContain(`${(135 / 170) * 100}%`);
+  });
+
+  it('de optelsom toont het nieuws met spaties', () => {
+    const wrapper = mount(PlanningBoard, { props: { schedule: referenceSchedule(), executedActions: perfectEventsSchedule().slice(0, 3) } });
+    const sums = wrapper.findAll('.load-equation').map((e) => e.text());
+    expect(sums[4]).toContain('125 + 10 − 25 + 0');
+    expect(sums[2]).toContain('150 − 10 − 55 + 0');
+  });
+});

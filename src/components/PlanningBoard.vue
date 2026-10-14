@@ -93,6 +93,13 @@ function eventChips(i: number): { key: string; label: string; title: string }[] 
 
 const extraFor = (i: number) => (props.schedule[i]!.extraCharging ? CHARGERS.extraKw : 0);
 const reductionFor = (i: number) => BLOCKS[i]!.baselineLoadKw + adjustments.value[i]! + extraFor(i) - loads.value[i]!;
+
+/** Basis ± nieuws − inzet + extra, als leesbare som. */
+function equation(i: number): string {
+  const news = adjustments.value[i]!;
+  const newsPart = news ? ` ${news > 0 ? '+' : '−'} ${Math.abs(news)}` : '';
+  return `${BLOCKS[i]!.baselineLoadKw}${newsPart} − ${reductionFor(i)} + ${extraFor(i)}`;
+}
 const isValid = computed(() => issues.value.length === 0);
 const isFirstRound = computed(() => lockedCount.value === 0);
 
@@ -180,7 +187,7 @@ function toggleDecoration(i: number, id: DecorationId): void {
           <span class="name">Netbelasting</span>
           <span class="muted">Limiet 100 kW per blok</span>
         </div>
-        <LoadChart class="chart-cell" :loads="loads" :locked-count="lockedCount" />
+        <LoadChart class="chart-cell" :loads="loads" :locked-count="lockedCount" :adjustments="adjustments" />
 
         <!-- Communicatie -->
         <div class="row-label" data-asset="message">
@@ -343,7 +350,7 @@ function toggleDecoration(i: number, id: DecorationId): void {
 
         <div class="row-label"><span class="name">Zo telt het op</span><span class="muted">Basis ± nieuws − inzet + extra</span></div>
         <div v-for="block in BLOCKS" :key="`sum-${block.index}`" class="load-equation" :class="{ congested: loads[block.index]! > CAPACITY_KW }">
-          <span>{{ block.baselineLoadKw }}<template v-if="adjustments[block.index]"> {{ adjustments[block.index]! > 0 ? '+' : '−' }} {{ Math.abs(adjustments[block.index]!) }}</template> − {{ reductionFor(block.index) }} + {{ extraFor(block.index) }}</span>
+          <span>{{ equation(block.index) }}</span>
           <strong>= {{ loads[block.index] }} kW</strong>
           <span>{{ loads[block.index]! > CAPACITY_KW ? `${loads[block.index]! - CAPACITY_KW} kW te veel` : 'Binnen de limiet' }}</span>
         </div>

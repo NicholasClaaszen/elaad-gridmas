@@ -5,6 +5,8 @@ import { BLOCKS, CAPACITY_KW } from '../domain/scenario';
 const props = defineProps<{
   loads: number[];
   lockedCount: number;
+  /** Bekende eventcorrectie per blok (kW); de verwachte basisbelasting schuift mee. */
+  adjustments?: number[];
 }>();
 
 /** Schaal van de grafiek; ruim boven de hoogste basisbelasting (155 kW). */
@@ -18,6 +20,7 @@ const columns = computed(() =>
     const load = props.loads[i] ?? block.baselineLoadKw;
     return {
       block,
+      expected: block.baselineLoadKw + (props.adjustments?.[i] ?? 0),
       load,
       over: load > CAPACITY_KW,
       excess: load - CAPACITY_KW,
@@ -45,7 +48,7 @@ const summary = computed(() =>
           <p v-else class="headroom muted">{{ CAPACITY_KW - c.load }} kW ruimte</p>
         </div>
         <div class="bars" :style="{ height: `${BAR_AREA_PX}px` }" aria-hidden="true">
-          <div class="baseline" :style="{ height: pct(c.block.baselineLoadKw) }" />
+          <div class="baseline" :style="{ height: pct(c.expected) }" />
           <div class="bar" :style="{ height: pct(Math.min(c.load, CAPACITY_KW)) }" />
           <div
             v-if="c.over"
