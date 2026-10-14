@@ -1,8 +1,8 @@
-import { BATTERY, BLOCKS, CHARGERS, DECORATIONS, RINK } from './scenario';
+import { BATTERY, BLOCKS, CHARGERS, DECORATIONS, GENERATOR, RINK } from './scenario';
 import type { BlockAction, Schedule } from './types';
 
-/** Netbelasting (kW) van één blok volgens SPEC §2.5. Puur en deterministisch. */
-export function calculateLoad(blockIndex: number, action: BlockAction): number {
+/** Netbelasting (kW) van één blok volgens SPEC §2.5, plus de bekende eventcorrectie. Puur en deterministisch. */
+export function calculateLoad(blockIndex: number, action: BlockAction, adjustmentKw = 0): number {
   const block = BLOCKS[blockIndex];
   if (!block) throw new RangeError(`Onbekend tijdsblok ${blockIndex}`);
 
@@ -17,12 +17,14 @@ export function calculateLoad(blockIndex: number, action: BlockAction): number {
     (action.chargersPaused ? CHARGERS.pauseKw : 0) -
     (action.batteryDischarge ? BATTERY.dischargeKw : 0) -
     (action.rinkPaused ? RINK.reductionKw : 0) -
-    decorationReduction
+    decorationReduction +
+    adjustmentKw -
+    (action.emergencyGenerator ? GENERATOR.reductionKw : 0)
   );
 }
 
-export function calculateLoads(schedule: Schedule): number[] {
-  return schedule.map((action, i) => calculateLoad(i, action));
+export function calculateLoads(schedule: Schedule, adjustments: readonly number[] = []): number[] {
+  return schedule.map((action, i) => calculateLoad(i, action, adjustments[i] ?? 0));
 }
 
 /** Resterende batterij-energie (kWh) ná elk blok. Kan negatief worden bij een ongeldig programma. */

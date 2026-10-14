@@ -23,6 +23,7 @@ export function createNewGame(runId: string, teamName: string, options: { isDemo
     schedule: options.schedule ? cloneSchedule(options.schedule) : createEmptySchedule(),
     executed: [],
     isDemo: options.isDemo ?? false,
+    generatorUnlocked: false,
   };
 }
 
@@ -79,6 +80,7 @@ export function executeNextBlock(state: GameState): GameState {
     moraleAfter,
     delta: moraleAfter - state.morale,
     events: morale.events,
+    news: [],
   };
 
   return {

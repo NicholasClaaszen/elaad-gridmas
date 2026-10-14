@@ -1,4 +1,4 @@
-import type { BlockAction, DecorationId, ScenarioBlock, Schedule } from './types';
+import type { BlockAction, CommsMessage, DecorationId, ScenarioBlock, Schedule } from './types';
 
 export const CAPACITY_KW = 100;
 export const INITIAL_MORALE = 75;
@@ -81,6 +81,19 @@ export const CHARGERS = {
   extraBlocks: [0, 5] as readonly number[],
   story: 'Laden pauzeren mag, maar elke gemiste 40 kWh moet vooraf of achteraf worden ingehaald.',
 };
+
+export const GENERATOR = {
+  name: 'Noodaggregaat',
+  reductionKw: 20,
+  allowedBlocks: [1, 2, 3, 4] as readonly number[],
+  story: 'Alleen voor noodgevallen. Levert 20 kW per blok, maar het dorp gaat het merken.',
+};
+
+/** Het bericht in blok 0; v1.0-acties zonder message tellen extra laden als "laad alvast op". */
+export function messageOf(action: BlockAction | undefined): CommsMessage {
+  if (!action) return 'none';
+  return action.message ?? (action.extraCharging ? 'precharge' : 'none');
+}
 
 export function createEmptyAction(blockIndex: number): BlockAction {
   return {

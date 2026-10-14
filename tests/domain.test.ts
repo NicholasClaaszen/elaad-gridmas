@@ -2,7 +2,8 @@ import { describe, expect, it } from 'vitest';
 import { batteryRemainingAfterEachBlock, calculateLoad, calculateLoads, chargingNetKwh } from '../src/domain/calculateLoad';
 import { applyMoraleDelta, calculateRoundMorale } from '../src/domain/calculateMorale';
 import { ACTION_FEEDBACK, ATMOSPHERE_FEEDBACK } from '../src/domain/feedbackContent';
-import { BLOCKS, createEmptyAction } from '../src/domain/scenario';
+import { BLOCKS, createEmptyAction, messageOf } from '../src/domain/scenario';
+import type { DecorationId } from '../src/domain/types';
 import { isScheduleValid, validateSchedule } from '../src/domain/validateSchedule';
 import { REFERENCE, referenceSchedule, withBlock } from './fixtures';
 
@@ -130,5 +131,27 @@ describe('calculateRoundMorale', () => {
   it('9. is deterministisch', () => {
     const run = () => referenceSchedule().map((a, i) => calculateRoundMorale(i, a));
     expect(run()).toEqual(run());
+  });
+});
+
+describe('calculateLoad met events', () => {
+  it('telt een eventcorrectie en het noodaggregaat mee', () => {
+    const a = { ...createEmptyAction(4), decorationsOff: ['square'] as DecorationId[] };
+    expect(calculateLoad(4, a)).toBe(110);
+    expect(calculateLoad(4, a, 20)).toBe(130);
+    expect(calculateLoad(4, { ...a, emergencyGenerator: true }, 20)).toBe(110);
+  });
+
+  it('calculateLoads gebruikt per blok de juiste correctie', () => {
+    const loads = calculateLoads(referenceSchedule(), [0, 0, -10, 0, 20, 0]);
+    expect(loads).toEqual([95, 95, 85, 100, 120, 85]);
+  });
+});
+
+describe('messageOf', () => {
+  it('leidt het bericht af, ook voor v1.0-acties zonder message', () => {
+    expect(messageOf(createEmptyAction(0))).toBe('none');
+    expect(messageOf({ ...createEmptyAction(0), extraCharging: true })).toBe('precharge');
+    expect(messageOf({ ...createEmptyAction(0), message: 'notice' })).toBe('notice');
   });
 });
