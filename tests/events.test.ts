@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { calculateRoundMorale } from '../src/domain/calculateMorale';
 import { eventLoadAdjustments, knownLoadAdjustments, revealedEvents } from '../src/domain/events';
 import { createEmptyAction } from '../src/domain/scenario';
 import type { BlockAction, DecorationId } from '../src/domain/types';
@@ -71,5 +72,47 @@ describe('getriggerde events', () => {
   it('nieuwsteksten bevatten nooit moraalinformatie', () => {
     const all = revealedEvents([act(0), dark(1, 'homes', 'seniors'), dark(2, 'homes'), act(3, { rinkPaused: true }), act(4), act(5)]);
     for (const e of all) expect(`${e.headline} ${e.text}`.toLowerCase()).not.toMatch(/moraal|punten|straf/);
+  });
+});
+
+const lines = (b: number, a: BlockAction, history: BlockAction[]) =>
+  calculateRoundMorale(b, a, history).events.filter((e) => e.assetId === 'event').map((e) => `${e.eventId}:${e.delta}`);
+const empty = (n: number) => Array.from({ length: n }, (_, i) => act(i));
+
+describe('eventmoraal', () => {
+  it('zonder historie is de moraal exact v1.0', () => {
+    expect(calculateRoundMorale(4, dark(4, 'seniors', 'square')).delta).toBe(4 - 1 - 2);
+  });
+
+  it('appgroep ontploft bij 2+ donkere locaties zonder aankondiging', () => {
+    expect(lines(4, dark(4, 'seniors', 'square'), empty(4))).toEqual(['app-storm:-3']);
+    const noticed = [act(0, { message: 'notice' }), ...empty(4).slice(1)];
+    expect(lines(4, dark(4, 'seniors', 'square'), noticed)).toEqual([]);
+  });
+
+  it('sterrenkijkers bij woonwijk + senioren donker om 22:00', () => {
+    expect(lines(4, dark(4, 'homes', 'seniors'), empty(4))).toEqual(['stargazers:3', 'app-storm:-3']);
+  });
+
+  it('zusterkoor als het ziekenhuis de hele avond aan bleef', () => {
+    expect(lines(5, act(5), empty(5))).toEqual(['nurse-choir:3']);
+    const h = empty(5);
+    h[2] = dark(2, 'hospital');
+    expect(lines(5, act(5), h)).toEqual([]);
+  });
+
+  it('toeterende ooms bij twee laadpauzes op rij', () => {
+    const h = empty(2);
+    h[1] = act(1, { chargersPaused: true });
+    expect(lines(2, act(2, { chargersPaused: true }), h)).toEqual(['honking:-4']);
+  });
+
+  it('Gouden Ster chagrijnig: op pad naar een donker plein', () => {
+    const h = [act(0), dark(1, 'seniors')];
+    expect(lines(2, dark(2, 'square'), h)).toEqual(['seniors-grumpy:-3']);
+  });
+
+  it('noodaggregaat kost 10 per inzet', () => {
+    expect(lines(3, act(3, { emergencyGenerator: true }), empty(3))).toEqual(['generator-used:-10']);
   });
 });

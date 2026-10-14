@@ -1,3 +1,4 @@
+import { eventMoraleEvents } from './eventMorale';
 import { ACTION_FEEDBACK, ATMOSPHERE_FEEDBACK, type PenaltyAssetId } from './feedbackContent';
 import { BLOCKS, MAX_MORALE } from './scenario';
 import type { BlockAction, MoraleEvent, MoraleResult } from './types';
@@ -24,8 +25,11 @@ function penaltyEvent(assetId: PenaltyAssetId, blockIndex: number): MoraleEvent 
   return { assetId, blockIndex, delta, ...feedback };
 }
 
-/** Moraalreactie op één uitgevoerd blok: altijd een positief sfeerbericht plus één bericht per strafgevende actie. */
-export function calculateRoundMorale(blockIndex: number, committedAction: BlockAction): MoraleResult {
+/**
+ * Moraalreactie op één uitgevoerd blok: altijd een positief sfeerbericht plus één bericht per strafgevende actie.
+ * Met `history` (de eerder uitgevoerde acties) komen daar de eventreacties bij; zonder history is dit exact SPEC v1.0.
+ */
+export function calculateRoundMorale(blockIndex: number, committedAction: BlockAction, history?: readonly BlockAction[]): MoraleResult {
   const block = BLOCKS[blockIndex];
   const atmosphere = ATMOSPHERE_FEEDBACK[blockIndex];
   if (!block || !atmosphere) throw new RangeError(`Onbekend tijdsblok ${blockIndex}`);
@@ -35,6 +39,7 @@ export function calculateRoundMorale(blockIndex: number, committedAction: BlockA
   if (committedAction.rinkPaused) events.push(penaltyEvent('rink', blockIndex));
   if (committedAction.chargersPaused) events.push(penaltyEvent('chargers', blockIndex));
   // Batterij ontladen en extra laden kosten geen moraal.
+  if (history) events.push(...eventMoraleEvents(blockIndex, committedAction, history));
 
   return { blockIndex, delta: events.reduce((sum, e) => sum + e.delta, 0), events };
 }
