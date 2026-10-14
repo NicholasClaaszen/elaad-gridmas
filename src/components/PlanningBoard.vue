@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 import { batteryRemainingAfterEachBlock, calculateLoads, chargingNetKwh } from '../domain/calculateLoad';
-import { BATTERY, BLOCKS, CAPACITY_KW, CHARGERS, DECORATIONS, DECORATION_BLOCKS, RINK } from '../domain/scenario';
-import type { AssetId, BlockAction, DecorationId, Schedule } from '../domain/types';
+import { eventLoadAdjustments, revealedEvents } from '../domain/events';
+import { EVENT_ICONS } from '../domain/eventNews';
+import { BATTERY, BLOCKS, CAPACITY_KW, CHARGERS, DECORATIONS, DECORATION_BLOCKS, GENERATOR, RINK, messageOf } from '../domain/scenario';
+import type { AssetId, BlockAction, CommsMessage, DecorationId, Schedule } from '../domain/types';
 import { validateSchedule } from '../domain/validateSchedule';
 import LoadChart from './LoadChart.vue';
 import VillageView from './VillageView.vue';
@@ -16,6 +18,7 @@ const props = defineProps<{
   selectedBlock?: number;
   schedule: Schedule;
   executedActions: BlockAction[];
+  generatorUnlocked?: boolean;
   error?: string | null;
 }>();
 
@@ -49,15 +52,47 @@ function toggleSelected(): void {
   const id = selectedAsset.value;
   if (id === 'rink') patch(i, { rinkPaused: !a.rinkPaused });
   else if (id === 'battery') patch(i, { batteryDischarge: !a.batteryDischarge });
-  else if (id === 'chargers') patch(i, CHARGERS.extraBlocks.includes(i) ? { extraCharging: !a.extraCharging } : { chargersPaused: !a.chargersPaused });
+  else if (id === 'chargers') {
+    if (i === 0) setMessage(message.value === 'precharge' ? 'none' : 'precharge');
+    else patch(i, CHARGERS.extraBlocks.includes(i) ? { extraCharging: !a.extraCharging } : { chargersPaused: !a.chargersPaused });
+  }
   else toggleDecoration(i, id);
 }
 
 const lockedCount = computed(() => props.executedActions.length);
 const nextIndex = computed(() => lockedCount.value);
-const loads = computed(() => calculateLoads(props.schedule));
+// Alleen nieuws dat al is onthuld; toekomstige events blijven een verrassing.
+const news = computed(() => revealedEvents(props.executedActions));
+const adjustments = computed(() => eventLoadAdjustments(news.value));
+const loads = computed(() => calculateLoads(props.schedule, adjustments.value));
 const battery = computed(() => batteryRemainingAfterEachBlock(props.schedule));
-const issues = computed(() => validateSchedule(props.schedule, props.executedActions));
+const issues = computed(() => validateSchedule(props.schedule, props.executedActions, { generatorUnlocked: props.generatorUnlocked }));
+const message = computed(() => messageOf(props.schedule[0]));
+
+const MESSAGES: { id: CommsMessage; label: string; hint: string }[] = [
+  { id: 'none', label: 'Niets', hint: 'Geen bericht. Het dorp merkt vanzelf wat er gebeurt.' },
+  { id: 'precharge', label: 'Laad alvast op', hint: `+${CHARGERS.extraKw} kW nu, en ruimte voor een extra laadpauze later.` },
+  { id: 'notice', label: 'Aankondiging', hint: 'We vertellen wat we vanavond dimmen. Minder verrassingen in het dorp.' },
+];
+const messageHint = computed(() => MESSAGES.find((m) => m.id === message.value)!.hint);
+
+function setMessage(m: CommsMessage): void {
+  patch(0, { message: m, extraCharging: m === 'precharge' }, 'chargers');
+}
+
+const signedKw = (kw: number) => `${kw > 0 ? '+' : '−'}${Math.abs(kw)} kW`;
+
+/** Belastingseffecten van onthulde events per blok, voor de kolomkop. */
+function eventChips(i: number): { key: string; label: string; title: string }[] {
+  return news.value.flatMap((e) =>
+    e.loadEffects
+      .filter((effect) => effect.blockIndex === i)
+      .map((effect) => ({ key: `${e.eventId}-${e.revealedAfterBlock}`, label: `${EVENT_ICONS[e.eventId]} ${signedKw(effect.deltaKw)}`, title: e.headline })),
+  );
+}
+
+const extraFor = (i: number) => (props.schedule[i]!.extraCharging ? CHARGERS.extraKw : 0);
+const reductionFor = (i: number) => BLOCKS[i]!.baselineLoadKw + adjustments.value[i]! + extraFor(i) - loads.value[i]!;
 const isValid = computed(() => issues.value.length === 0);
 const isFirstRound = computed(() => lockedCount.value === 0);
 
@@ -133,6 +168,7 @@ function toggleDecoration(i: number, id: DecorationId): void {
         >
           <span class="time">{{ block.label }}</span>
           <span class="phase muted">{{ block.phase }}</span>
+          <span v-for="chip in eventChips(block.index)" :key="chip.key" class="event-chip" :title="chip.title">{{ chip.label }}</span>
           <span class="status">
             <template v-if="columnStatus(block.index) === 'done'">Uitgevoerd</template>
             <template v-else-if="columnStatus(block.index) === 'next'">Volgende</template>
@@ -145,6 +181,32 @@ function toggleDecoration(i: number, id: DecorationId): void {
           <span class="muted">Limiet 100 kW per blok</span>
         </div>
         <LoadChart class="chart-cell" :loads="loads" :locked-count="lockedCount" />
+
+        <!-- Communicatie -->
+        <div class="row-label" data-asset="message">
+          <span class="name">Bericht aan het dorp</span>
+          <span class="muted">Eén bericht om 14:00</span>
+        </div>
+        <div v-for="block in BLOCKS" :key="`msg-${block.index}`" class="cell" :class="{ locked: isLocked(block.index), comms: block.index === 0 }">
+          <template v-if="block.index === 0">
+            <div role="radiogroup" aria-label="Bericht aan het dorp, 14:00-16:00" class="segmented">
+              <button
+                v-for="m in MESSAGES"
+                :key="m.id"
+                type="button"
+                role="radio"
+                :data-message="m.id"
+                :aria-checked="message === m.id"
+                :class="{ active: message === m.id }"
+                :title="m.hint"
+                :disabled="isLocked(0)"
+                @click="setMessage(m.id)"
+              >{{ m.label }}</button>
+            </div>
+            <span class="muted comms-hint">{{ messageHint }}</span>
+          </template>
+          <span v-else class="na" aria-label="geen bericht mogelijk">–</span>
+        </div>
 
         <!-- Feestverlichting -->
         <template v-for="decoration in DECORATIONS" :key="decoration.id">
@@ -212,6 +274,10 @@ function toggleDecoration(i: number, id: DecorationId): void {
             <span>{{ schedule[block.index]!.chargersPaused ? 'Pauze' : 'Actief' }}</span>
             <span v-if="schedule[block.index]!.chargersPaused" class="kw-tag">−{{ CHARGERS.pauseKw }} kW</span>
           </button>
+          <span v-else-if="block.index === 0" class="toggle is-readonly" :class="message === 'precharge' ? 'is-charge' : 'is-idle'">
+            <span>{{ message === 'precharge' ? 'Extra laden (bericht)' : 'Stand-by' }}</span>
+            <span v-if="message === 'precharge'" class="kw-tag">+{{ CHARGERS.extraKw }} kW</span>
+          </span>
           <button
             v-else
             type="button"
@@ -250,10 +316,34 @@ function toggleDecoration(i: number, id: DecorationId): void {
           <span class="energy muted" :class="{ negative: battery[block.index]! < 0 }">{{ battery[block.index] }} kWh</span>
         </div>
 
+        <!-- Noodaggregaat: alleen als een event het dorp klem zette -->
+        <template v-if="generatorUnlocked">
+          <div class="row-label emergency" data-asset="generator">
+            <span class="name">{{ GENERATOR.name }}</span>
+            <span class="muted">Alleen in nood: −{{ GENERATOR.reductionKw }} kW per blok</span>
+          </div>
+          <div v-for="block in BLOCKS" :key="`gen-${block.index}`" class="cell" :class="{ locked: isLocked(block.index) }">
+            <button
+              v-if="GENERATOR.allowedBlocks.includes(block.index)"
+              type="button"
+              class="toggle"
+              :class="schedule[block.index]!.emergencyGenerator ? 'is-active' : 'is-idle'"
+              :aria-pressed="schedule[block.index]!.emergencyGenerator ?? false"
+              :aria-label="`Noodaggregaat, ${block.label}: ${schedule[block.index]!.emergencyGenerator ? 'aan' : 'uit'}`"
+              :disabled="isLocked(block.index)"
+              @click="patch(block.index, { emergencyGenerator: !schedule[block.index]!.emergencyGenerator })"
+            >
+              <span>{{ schedule[block.index]!.emergencyGenerator ? 'Aan' : 'Uit' }}</span>
+              <span v-if="schedule[block.index]!.emergencyGenerator" class="kw-tag">−{{ GENERATOR.reductionKw }} kW</span>
+            </button>
+            <span v-else class="na" aria-label="niet beschikbaar">–</span>
+          </div>
+        </template>
 
-        <div class="row-label"><span class="name">Zo telt het op</span><span class="muted">Basis − inzet + extra</span></div>
+
+        <div class="row-label"><span class="name">Zo telt het op</span><span class="muted">Basis ± nieuws − inzet + extra</span></div>
         <div v-for="block in BLOCKS" :key="`sum-${block.index}`" class="load-equation" :class="{ congested: loads[block.index]! > CAPACITY_KW }">
-          <span>{{ block.baselineLoadKw }} − {{ block.baselineLoadKw + (schedule[block.index]!.extraCharging ? CHARGERS.extraKw : 0) - loads[block.index]! }} + {{ schedule[block.index]!.extraCharging ? CHARGERS.extraKw : 0 }}</span>
+          <span>{{ block.baselineLoadKw }}<template v-if="adjustments[block.index]"> {{ adjustments[block.index]! > 0 ? '+' : '−' }} {{ Math.abs(adjustments[block.index]!) }}</template> − {{ reductionFor(block.index) }} + {{ extraFor(block.index) }}</span>
           <strong>= {{ loads[block.index] }} kW</strong>
           <span>{{ loads[block.index]! > CAPACITY_KW ? `${loads[block.index]! - CAPACITY_KW} kW te veel` : 'Binnen de limiet' }}</span>
         </div>
@@ -273,6 +363,14 @@ function toggleDecoration(i: number, id: DecorationId): void {
           Na elk gespeeld blok lees je in het nieuwsbulletin hoe Gridmas op jullie keuzes reageerde.
         </p>
       </details>
+      <section v-if="news.length" class="known-news" aria-label="Nieuws dat de planning raakt">
+        <h3>Wat het dorp weet</h3>
+        <ul>
+          <li v-for="e in news" :key="`${e.eventId}-${e.revealedAfterBlock}`">
+            <span aria-hidden="true">{{ EVENT_ICONS[e.eventId] }}</span> <strong>{{ e.headline }}</strong><span v-if="e.kind === 'rumour'" class="muted"> (gerucht)</span>
+          </li>
+        </ul>
+      </section>
       <h3>Klopt het programma?</h3>
 
       <dl class="resources">
@@ -319,6 +417,17 @@ function toggleDecoration(i: number, id: DecorationId): void {
 </template>
 
 <style scoped>
+.event-chip { display: inline-block; width: fit-content; font-size: .7rem; padding: .05rem .4rem; border-radius: 999px; background: var(--lamp-soft); border: 1px solid var(--lamp); color: var(--snow); }
+.segmented { display: flex; flex-wrap: wrap; gap: .25rem; }
+.segmented button { font-size: .72rem; padding: .25rem .45rem; border-radius: var(--radius-control); border: 1px solid var(--line); background: transparent; color: inherit; cursor: pointer; }
+.segmented button.active { background: var(--pine); border-color: var(--pine); color: var(--night); font-weight: 700; }
+.segmented button:disabled { cursor: default; opacity: .7; }
+.cell.comms { display: grid; gap: .3rem; align-content: start; }
+.comms-hint { font-size: .68rem; line-height: 1.3; }
+.is-readonly { cursor: default; opacity: .8; }
+.row-label.emergency .name { color: var(--holly); }
+.known-news { margin-bottom: 1rem; }
+.known-news ul { list-style: none; padding: 0; margin: .4rem 0 0; display: grid; gap: .35rem; font-size: .85rem; }
 .village-section { grid-column: 1 / -1; }
 .village-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 1rem; margin-bottom: 1rem; }
 .village-heading h2 { font-size: 1.8rem; }

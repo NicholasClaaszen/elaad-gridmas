@@ -24,7 +24,8 @@ import { MockHardwareAdapter } from '../hardware/MockHardwareAdapter';
 export const GAME_STORAGE_KEY = 'merry-gridmas:game';
 export const LEADERBOARD_STORAGE_KEY = 'merry-gridmas:leaderboard';
 export const SETTINGS_STORAGE_KEY = 'merry-gridmas:settings';
-const STORAGE_VERSION = 1;
+// 2: events, communicatieblok en noodaggregaat
+const STORAGE_VERSION = 2;
 const HARDWARE_TIMEOUT_MS = 2000;
 
 export type StorageLike = Pick<Storage, 'getItem' | 'setItem' | 'removeItem'>;

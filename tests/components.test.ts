@@ -5,7 +5,8 @@ import { describe, expect, it } from 'vitest';
 import App from '../src/App.vue';
 import LoadChart from '../src/components/LoadChart.vue';
 import PlanningBoard from '../src/components/PlanningBoard.vue';
-import { referenceDemoSchedule } from '../src/domain/referenceSchedule';
+import { perfectEventsSchedule, referenceDemoSchedule } from '../src/domain/referenceSchedule';
+import type { BlockAction } from '../src/domain/types';
 import { BLOCKS, DECORATIONS, createEmptySchedule } from '../src/domain/scenario';
 import { MockHardwareAdapter } from '../src/hardware/MockHardwareAdapter';
 import { createGameStore } from '../src/state/gameStore';
@@ -13,7 +14,7 @@ import { GAME_STORE_KEY } from '../src/state/injection';
 import { referenceSchedule } from './fixtures';
 
 const PLANNING_COMPONENTS = ['PlanningBoard.vue', 'LoadChart.vue', 'LocationCard.vue', 'LocationDetail.vue', 'VillageView.vue', 'VillageMap.vue', 'LocationIllustration.vue'];
-const FORBIDDEN_IMPORTS = ['calculateMorale', 'feedbackContent', 'domain/game', 'MoraleEvent', 'ExecutedBlock', 'GameState'];
+const FORBIDDEN_IMPORTS = ['calculateMorale', 'feedbackContent', 'eventMorale', 'domain/game', 'MoraleEvent', 'ExecutedBlock', 'GameState'];
 
 describe('8. de planning toont geen moraal of straffen', () => {
   it('planningscomponenten importeren niets uit de moraalengine', () => {
@@ -84,7 +85,8 @@ describe('App: volledige speelloop', () => {
     expect(wrapper.text()).toContain('Plan de kerstavond');
 
     // Build the entire plan through the visible controls, not store shortcuts.
-    for (const action of referenceSchedule()) {
+    await wrapper.get('[data-message="precharge"]').trigger('click');
+    for (const action of perfectEventsSchedule()) {
       const label = BLOCKS[action.blockIndex]!.label;
       for (const id of action.decorationsOff) {
         const name = DECORATIONS.find(d => d.id === id)!.name;
@@ -93,9 +95,9 @@ describe('App: volledige speelloop', () => {
       if (action.rinkPaused) await wrapper.get(`[aria-label="IJsbaan, ${label}: open"]`).trigger('click');
       if (action.batteryDischarge) await wrapper.get(`[aria-label="Buurtbatterij, ${label}: stand-by"]`).trigger('click');
       if (action.chargersPaused) await wrapper.get(`[aria-label="Laadplein, ${label}: actief"]`).trigger('click');
-      if (action.extraCharging) await wrapper.get(`[aria-label="Laadplein, ${label}: stand-by"]`).trigger('click');
+      if (action.extraCharging && action.blockIndex !== 0) await wrapper.get(`[aria-label="Laadplein, ${label}: stand-by"]`).trigger('click');
     }
-    expect(store.state.game!.schedule).toEqual(referenceSchedule());
+    expect(store.state.game!.schedule).toEqual(perfectEventsSchedule());
     await flushPromises();
 
     for (let i = 0; i < 6; i++) {
@@ -208,5 +210,38 @@ describe('App: hervatten', () => {
     expect(wrapper.get('.topbar .morale strong').text()).toBe('86');
     expect(wrapper.get('[aria-label="Woonwijk, 18:00-20:00: feestverlichting aan"]').attributes('disabled')).toBeDefined();
     wrapper.unmount();
+  });
+});
+
+describe('PlanningBoard met events', () => {
+  const executed = perfectEventsSchedule().slice(0, 3);
+
+  it('toont onthulde eventbelasting in de kolomkop en rekent ermee', () => {
+    const wrapper = mount(PlanningBoard, { props: { schedule: referenceSchedule(), executedActions: executed } });
+    const head4 = wrapper.findAll('.block-head')[4]!;
+    expect(head4.text()).toContain('🎅 +20 kW');
+    expect(head4.text()).toContain('🚗 −10 kW');
+    expect(wrapper.text()).toContain('110 kW');
+    expect(wrapper.find('button.play').attributes('disabled')).toBeDefined();
+  });
+
+  it('toont geen moraal in eventnieuws', () => {
+    const wrapper = mount(PlanningBoard, { props: { schedule: perfectEventsSchedule(), executedActions: executed } });
+    expect(wrapper.html().toLowerCase()).not.toMatch(/moraal|penalty|morale/);
+    expect(wrapper.text()).toContain('De Kerstman komt zijn slee laden');
+  });
+
+  it('communicatieblok: kiezen voor aankondiging zet extra laden uit', async () => {
+    const wrapper = mount(PlanningBoard, { props: { schedule: perfectEventsSchedule(), executedActions: [] } });
+    await wrapper.find('[data-message="notice"]').trigger('click');
+    const emitted = wrapper.emitted('update')!.at(-1)![0] as BlockAction;
+    expect(emitted).toMatchObject({ blockIndex: 0, message: 'notice', extraCharging: false });
+  });
+
+  it('toont het noodaggregaat alleen als het ontgrendeld is', () => {
+    const locked = mount(PlanningBoard, { props: { schedule: perfectEventsSchedule(), executedActions: [] } });
+    expect(locked.find('[data-asset="generator"]').exists()).toBe(false);
+    const open = mount(PlanningBoard, { props: { schedule: perfectEventsSchedule(), executedActions: [], generatorUnlocked: true } });
+    expect(open.find('[data-asset="generator"]').exists()).toBe(true);
   });
 });

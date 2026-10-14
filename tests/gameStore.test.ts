@@ -138,6 +138,12 @@ describe('gameStore', () => {
     expect(createGameStore({ storage }).screen.value).toBe('WELCOME');
   });
 
+  it('negeert een opgeslagen spel van versie 1 (van vóór de events)', () => {
+    const storage = memoryStorage();
+    storage.setItem('merry-gridmas:game', JSON.stringify({ version: 1, game: { phase: 'PLANNING' }, hardwareMode: 'mock' }));
+    expect(createGameStore({ storage }).state.game).toBeNull();
+  });
+
   it('importeert een scorebord zonder dubbele runs', async () => {
     const store = createGameStore({ storage: memoryStorage(), createRunId: ids });
     store.startGame('Team Export');

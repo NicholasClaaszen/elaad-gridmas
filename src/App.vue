@@ -10,6 +10,7 @@ import ScenePreview from './components/ScenePreview.vue';
 import WelcomeScreen from './components/WelcomeScreen.vue';
 import { BATTERY, BLOCK_COUNT, BLOCKS, CAPACITY_KW } from './domain/scenario';
 import { calculateLoad, batteryRemainingAfterEachBlock } from './domain/calculateLoad';
+import { knownLoadAdjustments } from './domain/events';
 import { useGameStore } from './state/injection';
 import { createSoundPlayer } from './audio/soundPlayer';
 import { buildFinaleSoundscape, buildNewsSoundscape } from './audio/soundscape';
@@ -25,7 +26,7 @@ const shownIndex = computed(() => screen.value === 'PLANNING' ? selectedBlock.va
 const shownLoad = computed(() => {
   const g = state.game;
   if (!g) return BLOCKS[0]!.baselineLoadKw;
-  return screen.value === 'PLANNING' ? calculateLoad(shownIndex.value, g.schedule[shownIndex.value]!) : (lastExecuted.value?.loadKw ?? BLOCKS[0]!.baselineLoadKw);
+  return screen.value === 'PLANNING' ? calculateLoad(shownIndex.value, g.schedule[shownIndex.value]!, knownLoadAdjustments(executedActions.value)[shownIndex.value] ?? 0) : (lastExecuted.value?.loadKw ?? BLOCKS[0]!.baselineLoadKw);
 });
 const shownBattery = computed(() => {
   const g = state.game;
@@ -85,6 +86,7 @@ const runningLabel = computed(() => BLOCKS[(lastExecuted.value?.action.blockInde
           :selected-block="selectedBlock"
           @select-block="selectedBlock = $event"
           :executed-actions="executedActions"
+          :generator-unlocked="game.generatorUnlocked"
           :error="state.error"
           @update="store.setAction"
           @play="store.playNextBlock"
