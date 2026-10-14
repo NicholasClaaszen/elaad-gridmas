@@ -87,7 +87,9 @@ describe('validateSchedule', () => {
     const executed = referenceSchedule().slice(0, 3);
     const changed = withBlock(referenceSchedule(), 1, { decorationsOff: ['homes'] });
     expect(validateSchedule(changed, executed).map((i) => i.code)).toContain('history-modified');
-    expect(validateSchedule(referenceSchedule(), executed)).toEqual([]);
+    // Na blok 2 is de Kerstman bekend: blok 4 moet één locatie extra dimmen.
+    const adjusted = withBlock(referenceSchedule(), 4, { decorationsOff: ['homes', 'seniors', 'square'] });
+    expect(validateSchedule(adjusted, executed)).toEqual([]);
   });
 
   it('leeg programma is ongeldig door overbelasting', () => {
@@ -153,5 +155,43 @@ describe('messageOf', () => {
     expect(messageOf(createEmptyAction(0))).toBe('none');
     expect(messageOf({ ...createEmptyAction(0), extraCharging: true })).toBe('precharge');
     expect(messageOf({ ...createEmptyAction(0), message: 'notice' })).toBe('notice');
+  });
+});
+
+describe('validateSchedule met events', () => {
+  it('v1.0-referentie is geldig zonder historie', () => {
+    expect(validateSchedule(referenceSchedule())).toEqual([]);
+  });
+
+  it('de onthulde Kerstman maakt de v1.0-referentie ongeldig in blok 4', () => {
+    const s = referenceSchedule();
+    const issues = validateSchedule(s, s.slice(0, 3));
+    expect(issues.map((i) => [i.code, i.blockIndex])).toEqual([['overload', 4]]);
+    expect(issues[0]!.message).toContain('110 kW');
+  });
+
+  it('bericht alleen in blok 0', () => {
+    const s = withBlock(referenceSchedule(), 2, { message: 'notice' });
+    expect(validateSchedule(s).map((i) => i.code)).toContain('message-block');
+  });
+
+  it('aankondiging en extra laden in blok 0 sluiten elkaar uit', () => {
+    const s = withBlock(referenceSchedule(), 0, { message: 'notice', extraCharging: true });
+    expect(validateSchedule(s).map((i) => i.code)).toContain('message-conflict');
+    const t = withBlock(referenceSchedule(), 0, { message: 'precharge', extraCharging: false });
+    expect(validateSchedule(t).map((i) => i.code)).toContain('message-conflict');
+  });
+
+  it('noodaggregaat alleen na ontgrendeling en alleen in blok 1-4', () => {
+    const s = withBlock(referenceSchedule(), 3, { emergencyGenerator: true });
+    expect(validateSchedule(s).map((i) => i.code)).toContain('generator-locked');
+    expect(validateSchedule(s, [], { generatorUnlocked: true })).toEqual([]);
+    const t = withBlock(referenceSchedule(), 5, { emergencyGenerator: true });
+    expect(validateSchedule(t, [], { generatorUnlocked: true }).map((i) => i.code)).toContain('generator-block');
+  });
+
+  it('een gewijzigd bericht in een uitgevoerd blok telt als gewijzigde historie', () => {
+    const s = withBlock(referenceSchedule(), 0, { message: 'notice', extraCharging: false });
+    expect(validateSchedule(s, referenceSchedule().slice(0, 1)).map((i) => i.code)).toContain('history-modified');
   });
 });

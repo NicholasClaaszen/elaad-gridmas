@@ -1,5 +1,6 @@
 import { batteryRemainingAfterEachBlock, calculateLoad } from './calculateLoad';
-import { BATTERY, BLOCKS, BLOCK_COUNT, CAPACITY_KW, CHARGERS, DECORATION_BLOCKS, RINK } from './scenario';
+import { knownLoadAdjustments } from './events';
+import { BATTERY, BLOCKS, BLOCK_COUNT, CAPACITY_KW, CHARGERS, DECORATION_BLOCKS, GENERATOR, RINK, messageOf } from './scenario';
 import type { BlockAction, Schedule, ValidationIssue } from './types';
 
 function sameAction(a: BlockAction, b: BlockAction): boolean {
@@ -9,16 +10,27 @@ function sameAction(a: BlockAction, b: BlockAction): boolean {
     a.batteryDischarge === b.batteryDischarge &&
     a.chargersPaused === b.chargersPaused &&
     a.extraCharging === b.extraCharging &&
+    messageOf(a) === messageOf(b) &&
+    (a.emergencyGenerator ?? false) === (b.emergencyGenerator ?? false) &&
     a.decorationsOff.length === b.decorationsOff.length &&
     a.decorationsOff.every((d) => b.decorationsOff.includes(d))
   );
+}
+
+export interface ValidateOptions {
+  /** Ontgrendeld door de engine nadat een event de avond onoplosbaar maakte. */
+  generatorUnlocked?: boolean;
 }
 
 /**
  * Controleert een volledig programma (verleden + toekomst) op alle technische regels.
  * Geeft een lege lijst terug als het programma geldig is. Bevat bewust geen moraalinformatie.
  */
-export function validateSchedule(schedule: Schedule, executedPrefix: readonly BlockAction[] = []): ValidationIssue[] {
+export function validateSchedule(
+  schedule: Schedule,
+  executedPrefix: readonly BlockAction[] = [],
+  options: ValidateOptions = {},
+): ValidationIssue[] {
   const issues: ValidationIssue[] = [];
 
   if (schedule.length !== BLOCK_COUNT) {
@@ -34,6 +46,9 @@ export function validateSchedule(schedule: Schedule, executedPrefix: readonly Bl
       });
     }
   });
+
+  // Alleen events die door de uitgevoerde historie al onthuld zijn; de rest blijft een verrassing.
+  const adjustments = knownLoadAdjustments(executedPrefix);
 
   let rinkUses = 0;
   let batteryUses = 0;
@@ -108,7 +123,29 @@ export function validateSchedule(schedule: Schedule, executedPrefix: readonly Bl
       });
     }
 
-    const load = calculateLoad(i, action);
+    if (i !== 0 && (action.message ?? 'none') !== 'none') {
+      issues.push({ code: 'message-block', blockIndex: i, message: `Een bericht aan het dorp kan alleen om 14:00-16:00, niet in ${label}.` });
+    }
+    if (i === 0 && action.message !== undefined && (action.message === 'precharge') !== action.extraCharging) {
+      issues.push({
+        code: 'message-conflict',
+        blockIndex: i,
+        message: 'Om 14:00-16:00 hoort extra laden bij het bericht "Laad alvast op". Kies één bericht.',
+      });
+    }
+    if (action.emergencyGenerator) {
+      if (!options.generatorUnlocked) {
+        issues.push({ code: 'generator-locked', blockIndex: i, message: 'Het noodaggregaat is alleen beschikbaar als het dorp echt klem zit.' });
+      } else if (!GENERATOR.allowedBlocks.includes(i)) {
+        issues.push({
+          code: 'generator-block',
+          blockIndex: i,
+          message: `Het noodaggregaat kan alleen tussen 16:00 en 00:00 draaien, niet in ${label}.`,
+        });
+      }
+    }
+
+    const load = calculateLoad(i, action, adjustments[i] ?? 0);
     if (load > CAPACITY_KW) {
       issues.push({
         code: 'overload',
@@ -151,6 +188,10 @@ export function validateSchedule(schedule: Schedule, executedPrefix: readonly Bl
   return issues;
 }
 
-export function isScheduleValid(schedule: Schedule, executedPrefix: readonly BlockAction[] = []): boolean {
-  return validateSchedule(schedule, executedPrefix).length === 0;
+export function isScheduleValid(
+  schedule: Schedule,
+  executedPrefix: readonly BlockAction[] = [],
+  options: ValidateOptions = {},
+): boolean {
+  return validateSchedule(schedule, executedPrefix, options).length === 0;
 }
