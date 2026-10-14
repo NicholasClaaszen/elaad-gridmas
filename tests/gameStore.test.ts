@@ -3,7 +3,7 @@ import { DummyEsp32Connector } from '../src/hardware/DummyEsp32Connector';
 import { MockHardwareAdapter } from '../src/hardware/MockHardwareAdapter';
 import { toSceneMessage } from '../src/hardware/protocol';
 import { createGameStore, type StorageLike } from '../src/state/gameStore';
-import { referenceSchedule } from './fixtures';
+import { eventsReferenceSchedule } from './fixtures';
 
 function memoryStorage(): StorageLike & { data: Map<string, string> } {
   const data = new Map<string, string>();
@@ -19,7 +19,7 @@ let counter = 0;
 const ids = () => `run-${++counter}`;
 
 async function playThroughReference(store: ReturnType<typeof createGameStore>, rounds = 6) {
-  for (const action of referenceSchedule()) store.setAction(action);
+  for (const action of eventsReferenceSchedule()) store.setAction(action);
   for (let i = 0; i < rounds; i++) {
     expect(await store.playNextBlock()).toBe(true);
     store.finishRunningRound();
@@ -48,7 +48,7 @@ describe('gameStore', () => {
 
   it('10b. een demo-run telt niet mee', async () => {
     const store = createGameStore({ storage: memoryStorage(), createRunId: ids });
-    store.startDemo(referenceSchedule());
+    store.startDemo(eventsReferenceSchedule());
     await playThroughReference(store);
     expect(store.screen.value).toBe('FINISHED');
     expect(store.state.leaderboard).toEqual([]);
@@ -78,7 +78,7 @@ describe('gameStore', () => {
     const mock = new MockHardwareAdapter();
     const store = createGameStore({ storage: memoryStorage(), createRunId: ids, adapters: { mock } });
     store.startGame('Team Klikker');
-    for (const action of referenceSchedule()) store.setAction(action);
+    for (const action of eventsReferenceSchedule()) store.setAction(action);
     expect(mock.scenes).toEqual([]);
   });
 
@@ -125,7 +125,7 @@ describe('gameStore', () => {
     const storage = memoryStorage();
     const first = createGameStore({ storage, createRunId: ids });
     first.startGame('Team Midden');
-    for (const action of referenceSchedule()) first.setAction(action);
+    for (const action of eventsReferenceSchedule()) first.setAction(action);
     await first.playNextBlock();
     const reloaded = createGameStore({ storage, createRunId: ids });
     expect(reloaded.screen.value).toBe('ROUND_REVIEW');

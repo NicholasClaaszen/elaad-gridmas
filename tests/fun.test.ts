@@ -4,7 +4,7 @@ import { continueAfterReview, completeRound, createNewGame, executeNextBlock } f
 import { teamTitles } from '../src/domain/teamTitles';
 import type { GameState } from '../src/domain/types';
 import { createGameStore, type StorageLike } from '../src/state/gameStore';
-import { referenceSchedule, withBlock } from './fixtures';
+import { eventsReferenceSchedule, referenceSchedule, withBlock } from './fixtures';
 
 function playAll(state: GameState): GameState {
   let s = state;
@@ -31,7 +31,7 @@ describe('teamTitles', () => {
 });
 
 describe('soundscape', () => {
-  const run = playAll(createNewGame('r', 'Team', { schedule: referenceSchedule() }));
+  const run = playAll(createNewGame('r', 'Team', { schedule: eventsReferenceSchedule() }));
 
   it('mixt keuzes en nieuws van een blok tot een vaste reeks geluiden', () => {
     // 20:00-22:00: batterij, senioren uit (-7), laadpauze (-5), ronde -4
@@ -48,7 +48,7 @@ describe('soundscape', () => {
 
   it('laat zware straffen harder klinken en eindigt met gemopper bij een slechte ronde', () => {
     let s = createNewGame('r', 'Team', {
-      schedule: withBlock(referenceSchedule(), 3, { decorationsOff: ['seniors', 'square', 'hospital'] }),
+      schedule: withBlock(eventsReferenceSchedule(), 3, { decorationsOff: ['seniors', 'square', 'hospital'] }),
     });
     s = playAll(s);
     const cues = buildNewsSoundscape(s.executed[3]!);

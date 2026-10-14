@@ -1,0 +1,21 @@
+{
+  "description": "Perfecte run met events (spec 2026-10-14). Precies één run haalt 87.",
+  "initialMorale": 75,
+  "capacityKw": 100,
+  "schedule": [
+    {"blockIndex": 0, "decorationsOff": [], "rinkPaused": false, "batteryDischarge": false, "chargersPaused": false, "extraCharging": true, "message": "precharge"},
+    {"blockIndex": 1, "decorationsOff": [], "rinkPaused": false, "batteryDischarge": false, "chargersPaused": true, "extraCharging": false},
+    {"blockIndex": 2, "decorationsOff": [], "rinkPaused": true, "batteryDischarge": true, "chargersPaused": false, "extraCharging": false},
+    {"blockIndex": 3, "decorationsOff": ["seniors"], "rinkPaused": false, "batteryDischarge": true, "chargersPaused": true, "extraCharging": false},
+    {"blockIndex": 4, "decorationsOff": ["homes", "seniors", "square"], "rinkPaused": false, "batteryDischarge": false, "chargersPaused": false, "extraCharging": false},
+    {"blockIndex": 5, "decorationsOff": [], "rinkPaused": false, "batteryDischarge": false, "chargersPaused": false, "extraCharging": true}
+  ],
+  "expected": {
+    "blockLoadsKw": [95, 95, 85, 100, 100, 85],
+    "moraleAfterBlock": [78, 82, 86, 82, 80, 87],
+    "batteryRemainingKwh": [100, 100, 50, 0, 0, 0],
+    "newsPerBlock": [["early-birds"], ["snow", "santa-rumour"], ["santa"], [], [], []],
+    "finalMorale": 87,
+    "valid": true
+  }
+}

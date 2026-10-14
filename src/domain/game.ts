@@ -1,5 +1,7 @@
 import { batteryRemainingAfterEachBlock, calculateLoad } from './calculateLoad';
 import { applyMoraleDelta, calculateRoundMorale } from './calculateMorale';
+import { hasValidCompletion } from './completion';
+import { generatorUnlockedNews, knownLoadAdjustments, revealedEvents } from './events';
 import { BATTERY, BLOCK_COUNT, INITIAL_MORALE, createEmptySchedule } from './scenario';
 import type { BlockAction, ExecutedBlock, GameState, Schedule } from './types';
 import { validateSchedule } from './validateSchedule';
@@ -62,25 +64,32 @@ export function executeNextBlock(state: GameState): GameState {
   const blockIndex = state.executed.length;
   if (blockIndex >= BLOCK_COUNT) throw new GameRuleError('Alle tijdsblokken zijn al uitgevoerd.');
 
-  const issues = validateSchedule(state.schedule, executedActions(state));
+  const history = executedActions(state);
+  const issues = validateSchedule(state.schedule, history, { generatorUnlocked: state.generatorUnlocked });
   if (issues.length > 0) {
     throw new GameRuleError(`Het programma is nog niet geldig: ${issues.map((i) => i.message).join(' ')}`);
   }
 
   const action = cloneAction(state.schedule[blockIndex]!);
   const previousBattery = state.executed.at(-1)?.batteryAfterKwh ?? BATTERY.capacityKwh;
-  const morale = calculateRoundMorale(blockIndex, action);
+  const morale = calculateRoundMorale(blockIndex, action, history);
   const moraleAfter = applyMoraleDelta(state.morale, morale.delta);
+
+  // Wat dit blok onthult, en of het dorp daardoor klem zit.
+  const after = [...history, action];
+  const news = revealedEvents(after).filter((e) => e.revealedAfterBlock === blockIndex);
+  const stuck = !state.generatorUnlocked && blockIndex < BLOCK_COUNT - 1 && !hasValidCompletion(after);
+  if (stuck) news.push(generatorUnlockedNews(blockIndex));
 
   const executedBlock: ExecutedBlock = {
     action,
-    loadKw: calculateLoad(blockIndex, action),
+    loadKw: calculateLoad(blockIndex, action, knownLoadAdjustments(history)[blockIndex] ?? 0),
     batteryAfterKwh: previousBattery - (action.batteryDischarge ? BATTERY.energyPerBlockKwh : 0),
     moraleBefore: state.morale,
     moraleAfter,
     delta: moraleAfter - state.morale,
     events: morale.events,
-    news: [],
+    news,
   };
 
   return {
@@ -88,6 +97,7 @@ export function executeNextBlock(state: GameState): GameState {
     phase: 'ROUND_RUNNING',
     morale: moraleAfter,
     executed: [...state.executed, executedBlock],
+    generatorUnlocked: state.generatorUnlocked || stuck,
   };
 }
 
@@ -108,9 +118,10 @@ export function batteryProjection(state: GameState): number[] {
 
 /** Een run telt alleen mee als hij volledig is uitgevoerd en geldig is. */
 export function isCompletedValidRun(state: GameState): boolean {
+  const actions = executedActions(state);
   return (
     state.phase === 'FINISHED' &&
     state.executed.length === BLOCK_COUNT &&
-    validateSchedule(executedActions(state)).length === 0
+    validateSchedule(actions, actions, { generatorUnlocked: state.generatorUnlocked }).length === 0
   );
 }

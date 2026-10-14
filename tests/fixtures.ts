@@ -11,3 +11,10 @@ export function withBlock(schedule: Schedule, blockIndex: number, patch: Partial
 }
 
 export { createEmptySchedule };
+
+import eventsCase from '../REFERENCE_CASE_EVENTS.json';
+
+/** Perfecte run met events (REFERENCE_CASE_EVENTS.json). */
+export const EVENTS_REFERENCE = eventsCase;
+export const eventsReferenceSchedule = (): Schedule =>
+  eventsCase.schedule.map((a) => ({ ...a, decorationsOff: [...a.decorationsOff] }) as BlockAction);
