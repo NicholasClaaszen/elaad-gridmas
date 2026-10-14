@@ -41,7 +41,7 @@ export const EVENT_NEWS: Record<NewsEventId, NewsText> = {
   },
   generator: {
     headline: 'Noodaggregaat ontgrendeld',
-    text: 'Het dorp zit klem: zonder hulp is de rest van de avond niet meer binnen 100 kW te houden. Het noodaggregaat levert 20 kW per blok. Het ronkt, het stinkt en iedereen hoort het.',
+    text: 'Het dorp zit klem: zonder hulp is de rest van de avond niet meer binnen 100 kW te houden. Het noodaggregaat levert 30 kW per blok. Het ronkt, het stinkt en iedereen hoort het.',
   },
 };
 

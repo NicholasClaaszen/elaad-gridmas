@@ -113,7 +113,7 @@ Met gebeurtenissen (§2.6) wordt dit:
 ```
 actualLoadKw = (formule hierboven)
              + sum(deltaKw van al onthulde events voor dit blok)
-             - (emergencyGenerator ? 20 : 0)
+             - (emergencyGenerator ? 30 : 0)
 ```
 
 ### 2.6 Gebeurtenissen
@@ -131,7 +131,7 @@ Elke run heeft minstens twee gebeurtenissen (sneeuw en de Kerstman). Alle trigge
 | Gridmas dimt mee (zelfdoenders) | getriggerd | `notice` | blok 3 **−10 kW** | blok 0 |
 | Vroege vogels | getriggerd | `precharge` | blok 4 **−10 kW** | blok 0 |
 
-**Noodaggregaat.** Na elk uitgevoerd blok controleert de engine of er met de bekende events nog een geldig vervolg bestaat (zonder aggregaat). Zo niet, dan wordt het noodaggregaat ontgrendeld en meldt het bulletin dat. Daarna mag `emergencyGenerator` in blok 1-4, onbeperkt: −20 kW per blok en verborgen −10 moraal per inzet. Zonder ontgrendeling is het ongeldig. 20 kW per blok redt elke vastgelopen situatie; het verandert het optimum niet, omdat het alleen verschijnt als een team klem zit.
+**Noodaggregaat.** Na elk uitgevoerd blok controleert de engine of er met de bekende events nog een geldig vervolg bestaat (zonder aggregaat). Zo niet, dan wordt het noodaggregaat ontgrendeld en meldt het bulletin dat. Daarna mag `emergencyGenerator` in blok 1-4, onbeperkt: −30 kW per blok en verborgen −10 moraal per inzet. Zonder ontgrendeling is het ongeldig. Ook na ontgrendeling kunnen nog verrassingen volgen (tot +25 kW in blok 4); 30 kW per blok redt elke vastgelopen situatie, ook dan (met 20 kW bleven 8 doodlopende toestanden over). Een uitputtende test bewaakt dat geen team ooit definitief klem zit. Het verandert het optimum niet: de beste run met aggregaat haalt 84, het maximum blijft 87.
 
 ## 3. Verborgen moraalberekening
 

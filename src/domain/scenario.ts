@@ -84,9 +84,11 @@ export const CHARGERS = {
 
 export const GENERATOR = {
   name: 'Noodaggregaat',
-  reductionKw: 20,
+  // 30 kW: ook na ontgrendeling kunnen nog verrassingen volgen (tot +25 kW in blok 4). Met 20 kW kon een team
+  // dan alsnog definitief klem komen te zitten; tests/balance.test.ts bewaakt dat dit nooit gebeurt.
+  reductionKw: 30,
   allowedBlocks: [1, 2, 3, 4] as readonly number[],
-  story: 'Alleen voor noodgevallen. Levert 20 kW per blok, maar het dorp gaat het merken.',
+  story: 'Alleen voor noodgevallen. Levert 30 kW per blok, maar het dorp gaat het merken.',
 };
 
 /** Het bericht in blok 0; v1.0-acties zonder message tellen extra laden als "laad alvast op". */

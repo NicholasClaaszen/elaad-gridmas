@@ -181,13 +181,43 @@ describe('events in de speelloop', () => {
     expect(s.generatorUnlocked).toBe(true);
     expect(s.executed[2]!.news.map((n) => n.eventId)).toEqual(['exodus', 'santa', 'generator']);
     expect(hasValidCompletion(s.executed.map((e) => e.action))).toBe(false);
-    // Vooraf geldig: blok 2 = 150 − 20 − 30 = 100. Na blok 2: blok 3 = 155 + 15 − 40 − 25 = 105 → met aggregaat 85.
-    // Blok 4: 125 + 20 − 25 = 120 → woonwijk + senioren uit en aggregaat = 80.
+    // Vooraf geldig: blok 2 = 150 − 20 − 30 = 100. Na blok 2: blok 3 = 155 + 15 − 40 − 25 = 105 → met aggregaat 75.
+    // Blok 4: 125 + 20 − 25 = 120 → woonwijk + senioren uit en aggregaat = 70.
     s = updatePlannedAction(s, { ...s.schedule[3]!, emergencyGenerator: true });
     s = updatePlannedAction(s, { ...s.schedule[4]!, decorationsOff: ['homes', 'seniors'], emergencyGenerator: true });
     s = playRest(s);
     expect(s.phase).toBe('FINISHED');
     expect(s.executed[3]!.events.some((e) => e.eventId === 'generator-used')).toBe(true);
+    expect(isCompletedValidRun(s)).toBe(true);
+  });
+
+  it('nieuwe verrassingen na ontgrendeling zetten het dorp niet alsnog klem', () => {
+    const e = (blockIndex: number, change: Partial<Schedule[number]> = {}) => ({
+      blockIndex, decorationsOff: [], rinkPaused: false, batteryDischarge: false, chargersPaused: false, extraCharging: false, ...change,
+    }) as Schedule[number];
+    const plan: Schedule = [
+      e(0, { message: 'none' }),
+      e(1, { batteryDischarge: true }),
+      e(2, { batteryDischarge: true, chargersPaused: true, decorationsOff: ['square'] }),
+      e(3, { decorationsOff: ['homes', 'square'], rinkPaused: true }),
+      e(4, { decorationsOff: ['homes', 'seniors', 'hospital', 'square'] }),
+      e(5, { extraCharging: true }),
+    ];
+    let s = createNewGame('run-k', 'Team Dubbel Klem', { schedule: plan });
+    s = continueAfterReview(playBlock(s));
+    s = continueAfterReview(playBlock(s));
+    // Na de sneeuw kan het dorpsplein in blok 2 weer aan: 150 − 10 − 25 − 20 = 95.
+    s = updatePlannedAction(s, e(2, { batteryDischarge: true, chargersPaused: true }));
+    s = continueAfterReview(playBlock(s));
+    expect(s.generatorUnlocked).toBe(true);
+    // Geldig met wat nu bekend is; daarna onthult blok 3 de Grote Uittocht (+15) en de ijsdisco (+10) voor blok 4.
+    s = updatePlannedAction(s, e(3, { decorationsOff: ['homes'], rinkPaused: true, emergencyGenerator: true }));
+    s = updatePlannedAction(s, e(4, { decorationsOff: ['homes', 'seniors', 'hospital', 'square'], emergencyGenerator: true }));
+    s = continueAfterReview(playBlock(s));
+    // Blok 4: 125 + 20 + 15 + 10 − 40 − aggregaat moet nog binnen 100 kW passen.
+    s = playRest(s);
+    expect(s.phase).toBe('FINISHED');
+    expect(s.executed[4]!.loadKw).toBeLessThanOrEqual(100);
     expect(isCompletedValidRun(s)).toBe(true);
   });
 

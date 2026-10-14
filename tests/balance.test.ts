@@ -1,8 +1,9 @@
 import { describe, expect, it } from 'vitest';
 import { calculateLoad } from '../src/domain/calculateLoad';
 import { applyMoraleDelta, calculateRoundMorale } from '../src/domain/calculateMorale';
+import { hasValidCompletion } from '../src/domain/completion';
 import { knownLoadAdjustments } from '../src/domain/events';
-import { BATTERY, CAPACITY_KW, CHARGERS, DECORATION_IDS, INITIAL_MORALE, RINK, createEmptyAction } from '../src/domain/scenario';
+import { BATTERY, CAPACITY_KW, CHARGERS, DECORATION_IDS, GENERATOR, INITIAL_MORALE, RINK, createEmptyAction, messageOf } from '../src/domain/scenario';
 import type { BlockAction, CommsMessage, DecorationId } from '../src/domain/types';
 import { eventsReferenceSchedule } from './fixtures';
 
@@ -51,7 +52,66 @@ function searchOptimum() {
   return { best, bestRuns };
 }
 
+/**
+ * Loopt elke speelbare avond langs, zoals de engine hem toelaat: een actie mag alleen als er met de nu bekende
+ * events nog een geldig vervolg is (met aggregaat zodra het ontgrendeld is). Telt de toestanden waarin
+ * het team helemaal geen geldige zet meer heeft.
+ */
+function countDeadlocks(): number {
+  const withGenerator = (b: number, unlocked: boolean): BlockAction[] =>
+    options(b).flatMap((a) => (unlocked && GENERATOR.allowedBlocks.includes(b) ? [a, { ...a, emergencyGenerator: true }] : [a]));
+  const count = (h: BlockAction[], pick: (a: BlockAction) => boolean) => h.filter(pick).length;
+  const withinLimits = (h: BlockAction[]) =>
+    count(h, (a) => a.rinkPaused) <= RINK.maxUses &&
+    count(h, (a) => a.batteryDischarge) <= BATTERY.maxUses &&
+    count(h, (a) => a.chargersPaused) <= CHARGERS.maxPauses;
+  const key = (h: BlockAction[], adjustments: number[], unlocked: boolean) =>
+    [h.length, count(h, (a) => a.rinkPaused), count(h, (a) => a.batteryDischarge), count(h, (a) => a.chargersPaused), count(h, (a) => a.extraCharging), adjustments.join(','), unlocked, messageOf(h[0])].join('|');
+
+  const completions = new Map<string, boolean>();
+  const completes = (h: BlockAction[], adjustments: number[], unlocked: boolean): boolean => {
+    const k = key(h, adjustments, unlocked);
+    const cached = completions.get(k);
+    if (cached !== undefined) return cached;
+    const b = h.length;
+    const result =
+      b === 6
+        ? count(h, (a) => a.chargersPaused) === count(h, (a) => a.extraCharging)
+        : withGenerator(b, unlocked).some((a) => {
+            const next = [...h, a];
+            return withinLimits(next) && calculateLoad(b, a, adjustments[b] ?? 0) <= CAPACITY_KW && completes(next, adjustments, unlocked);
+          });
+    completions.set(k, result);
+    return result;
+  };
+
+  const seen = new Set<string>();
+  let deadlocks = 0;
+  const walk = (h: BlockAction[], unlocked: boolean) => {
+    const b = h.length;
+    if (b === 6) return;
+    const adjustments = knownLoadAdjustments(h);
+    const k = key(h, adjustments, unlocked);
+    if (seen.has(k)) return;
+    seen.add(k);
+    let playable = false;
+    for (const a of withGenerator(b, unlocked)) {
+      const next = [...h, a];
+      if (!withinLimits(next) || calculateLoad(b, a, adjustments[b] ?? 0) > CAPACITY_KW || !completes(next, adjustments, unlocked)) continue;
+      playable = true;
+      walk(next, unlocked || (b < 5 && !hasValidCompletion(next)));
+    }
+    if (!playable) deadlocks++;
+  };
+  walk([], false);
+  return deadlocks;
+}
+
 describe('balans met events', () => {
+  it('het noodaggregaat haalt elke vastgelopen avond: nergens zit een team definitief klem', () => {
+    expect(countDeadlocks()).toBe(0);
+  }, 120_000);
+
   it('maximale eindmoraal is 87, met precies één perfecte run', () => {
     const { best, bestRuns } = searchOptimum();
     expect(best).toBe(87);

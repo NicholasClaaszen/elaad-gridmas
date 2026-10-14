@@ -141,7 +141,7 @@ describe('calculateLoad met events', () => {
     const a = { ...createEmptyAction(4), decorationsOff: ['square'] as DecorationId[] };
     expect(calculateLoad(4, a)).toBe(110);
     expect(calculateLoad(4, a, 20)).toBe(130);
-    expect(calculateLoad(4, { ...a, emergencyGenerator: true }, 20)).toBe(110);
+    expect(calculateLoad(4, { ...a, emergencyGenerator: true }, 20)).toBe(100);
   });
 
   it('calculateLoads gebruikt per blok de juiste correctie', () => {

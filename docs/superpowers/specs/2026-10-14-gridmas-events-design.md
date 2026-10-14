@@ -49,7 +49,7 @@ het nieuwsbulletin van blok X en vanaf dan in de planning en validatie.
 | `nurse-choir` (Zusterkoor) | getriggerd (moraal) | ziekenhuis in geen enkel blok UIT | **+3** moraal in blok 5 | blok 5 |
 | `honking` (Toeterende ooms) | getriggerd (moraal) | laadplein gepauzeerd in blok b én b−1 | **−4** moraal in blok b | blok b |
 | `app-storm` (Appgroep ontploft) | getriggerd (moraal) | ≥2 locaties UIT in één blok, geen `notice` | **−3** moraal in dat blok | dat blok |
-| `generator` (Noodaggregaat) | vangnet | zie hieronder | **−20 kW** per ingezet blok, **−10** moraal per inzet | — |
+| `generator` (Noodaggregaat) | vangnet | zie hieronder | **−30 kW** per ingezet blok, **−10** moraal per inzet | — |
 
 Belastingseffecten zijn na onthulling zichtbaar in de planner. Moraaleffecten verschijnen
 uitsluitend in het bulletin van het blok waarin ze vallen, nooit vooraf.
@@ -60,16 +60,18 @@ uitsluitend in het bulletin van het blok waarin ze vallen, nooit vooraf.
   zoektocht over de resterende blokken met de bekende eventbelasting) of er nog een geldig vervolg
   bestaat. Zo niet: `state.generatorUnlocked = true` en het bulletin meldt het aggregaat.
 - `BlockAction.emergencyGenerator` mag alleen `true` zijn als `generatorUnlocked`, in blokken 1-4,
-  onbeperkt aantal keer. Elke inzet: −20 kW en −10 moraal (verborgen tot het bulletin).
-- Balanscheck: 20 kW per blok redt 100% van de vastgelopen situaties; omdat het pas verschijnt als
-  je klem zit, verandert het het optimum niet.
+  onbeperkt aantal keer. Elke inzet: −30 kW en −10 moraal (verborgen tot het bulletin).
+- Balanscheck (uitputtend): 30 kW per blok redt 100% van de vastgelopen situaties, ook als er na de
+  ontgrendeling nog verrassingen volgen (tot +25 kW in blok 4). Het oorspronkelijke ontwerp met 20 kW
+  liet 8 toestanden over waarin een team definitief klem zat (gevonden in de eindreview). Omdat het pas
+  verschijnt als je klem zit, verandert het het optimum niet: beste run met aggregaat 84, maximum 87.
 
 ### Formules
 
 ```
 actualLoadKw(b) = (SPEC §2.5 formule)
                 + sum(deltaKw van onthulde events voor blok b)
-                - (emergencyGenerator ? 20 : 0)
+                - (emergencyGenerator ? 30 : 0)
 
 roundDelta(b)   = baseMoraleBonus + strafpunten (SPEC §3.1) + sum(eventmoraal in blok b)
 ```
@@ -125,7 +127,7 @@ roundDelta(b)   = baseMoraleBonus + strafpunten (SPEC §3.1) + sum(eventmoraal i
 - v1.0-referentie op functieniveau (zonder historie/events) blijft `[95,95,95,100,100,85]` / 87.
 - Nieuwe fixture `REFERENCE_CASE_EVENTS.json` via de volledige game-loop: waarden uit de tabel hierboven.
 - Oude referentierun in de game-loop: blok 4 ongeldig na onthulling van de Kerstman.
-- Noodaggregaat: vastgelopen historie ontgrendelt; ongeldig zonder ontgrendeling; −20 kW, −10 moraal.
+- Noodaggregaat: vastgelopen historie ontgrendelt; ongeldig zonder ontgrendeling; −30 kW, −10 moraal; uitputtend: nergens definitief klem.
 - Validatie: `message` alleen in blok 0; `precharge` ⇔ extra laden in blok 0.
 - Balanstest: uitputtende zoektocht via domeinfuncties bevestigt maximum 87 met één optimale run.
 - UI: planner toont eventbelasting maar geen moraal; bulletin toont breaking news; communicatiekeuze werkt.
