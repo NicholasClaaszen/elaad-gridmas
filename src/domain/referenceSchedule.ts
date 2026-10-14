@@ -1,7 +1,7 @@
 import type { Schedule } from './types';
 
 /**
- * Het referentieschema uit SPEC §8 / REFERENCE_CASE.json, voor de organisatorendemo.
+ * Het v1.0-referentieschema uit SPEC §8 / REFERENCE_CASE.json (zonder events).
  * Een test bewaakt dat dit identiek blijft aan de fixture.
  */
 export function referenceDemoSchedule(): Schedule {

@@ -1,7 +1,8 @@
 # Merry Gridmas - projectinstructies voor Claude Code
 
 - Lees `SPEC.md` voor alle functionele regels en acceptatiecriteria. `SPEC.md` is leidend bij twijfel.
-- Gebruik `REFERENCE_CASE.json` als verplichte regressie-fixture. Verwachte eindmoraal is 87.
+- Verplichte regressie-fixtures: `REFERENCE_CASE.json` (SPEC v1.0 op functieniveau, zonder events; eindmoraal 87) en
+  `REFERENCE_CASE_EVENTS.json` (volledige speelloop met events; eindmoraal 87, de enige perfecte run).
 - Stack: Vue 3, TypeScript, Vite, Vitest; **geen React**.
 - UI-taal: Nederlands; speels maar technisch correct.
 - Pure, deterministische domeinfuncties; verberg toekomstige moraalwaarden in de planning.

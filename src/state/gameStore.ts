@@ -194,7 +194,7 @@ export function createGameStore(options: GameStoreOptions = {}) {
       setGame(createNewGame(createRunId(), name));
     },
 
-    /** Organisator: demo met het referentieschema. Telt niet mee voor het scorebord. */
+    /** Organisator: demo met een vooraf ingevuld schema. Telt niet mee voor het scorebord. */
     startDemo(schedule: Schedule): void {
       setGame(createNewGame(createRunId(), 'Demo (organisator)', { isDemo: true, schedule }));
     },

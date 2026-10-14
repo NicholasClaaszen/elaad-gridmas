@@ -22,7 +22,7 @@ Hoogste eindmoraal wint, uitsluitend bij een technisch geldig programma. Gelijke
 
 - Geen echte VTN, VEN, authenticatie of netwerkintegratie voor MVP.
 - Geen volledige OpenADR 3.1-conformiteitsclaim. Gebruik intern een neutraal planningsmodel met optionele educatieve Program/Event/Interval-projectie.
-- Geen geldstromen, marktprijzen, weersimulatie, onverwachte willekeurige events of complexe laadcurves.
+- Geen geldstromen, marktprijzen, weersimulatie, willekeurige events of complexe laadcurves. Gebeurtenissen (§2.6) zijn deterministisch: vaste verhaalmomenten plus reacties op uitgevoerde keuzes.
 - De simulatie is volledig deterministisch: gelijke acties = gelijke uitkomst.
 - Alle belastingen zijn fictieve, geaggregeerde spelwaarden. Geen medische apparatuur of andere kritieke installaties schakelen.
 
@@ -32,7 +32,7 @@ Tijdsblokken hebben 2 uur duur. Gebruik block index 0 t/m 5. Alle tijdstippen zi
 
 | index | label | basisbelasting kW | standaard moraalbonus | fase |
 |---:|---|---:|---:|---|
-| 0 | 14:00-16:00 | 75 | +3 | voorbereiden |
+| 0 | 14:00-16:00 | 75 | +3 | voorbereiden / communicatie |
 | 1 | 16:00-18:00 | 115 | +5 | eerste kerstlichtjes |
 | 2 | 18:00-20:00 | 150 | +8 | kerstdiner |
 | 3 | 20:00-22:00 | 155 | +8 | kerstpiek/koor |
@@ -40,6 +40,16 @@ Tijdsblokken hebben 2 uur duur. Gebruik block index 0 t/m 5. Alle tijdstippen zi
 | 5 | 00:00-02:00 | 65 | +4 | nachtelijke afwikkeling |
 
 **Maximale netbelasting: 100 kW in elk afzonderlijk blok.** Geen tolerantie op overbelasting. Eerste moraal: 75 van maximaal 100.
+
+### 2.0 Communicatieblok (blok 0)
+
+In blok 0 stuurt het team hoogstens één bericht aan het dorp (`message`):
+
+- `precharge` ("Laad alvast op"): gelijk aan de extra vooruitlaadsessie van §2.4 in blok 0 (+20 kW, +40 kWh). `precharge` en extra laden in blok 0 gaan altijd samen.
+- `notice` ("Aankondiging"): geen directe belasting; voorkomt de verrassingsevents *Grote Uittocht*, *Gouden Ster op pad* en *Appgroep ontploft* en triggert *Zelfdoenders* (§2.6).
+- `none`: geen bericht.
+
+Een bericht in een ander blok dan 0 is ongeldig. v1.0-data zonder `message` met extra laden in blok 0 telt als `precharge`.
 
 ### 2.1 Vier schakelbare kerstlocaties
 
@@ -98,6 +108,31 @@ actualLoadKw = baselineLoadKw
 
 Een programma is alleen geldig als voor **elk** van de 6 blokken `actualLoadKw <= 100` EN alle globale asset- en energiebeperkingen kloppen. Laat optionele overreductie toe: die is niet automatisch strafbaar. Geen ongedefinieerde penalty voor uitgespaarde kW.
 
+Met gebeurtenissen (§2.6) wordt dit:
+
+```
+actualLoadKw = (formule hierboven)
+             + sum(deltaKw van al onthulde events voor dit blok)
+             - (emergencyGenerator ? 20 : 0)
+```
+
+### 2.6 Gebeurtenissen
+
+Elke run heeft minstens twee gebeurtenissen (sneeuw en de Kerstman). Alle triggers lezen **uitsluitend uitgevoerde blokken**; er is geen toeval. "Onthuld na blok X": verschijnt in het nieuwsbulletin van blok X en telt vanaf dan mee in planning en validatie. Belastingseffecten zijn na onthulling zichtbaar in de planner; vóór onthulling bestaan ze voor de speler niet.
+
+| event | soort | trigger | effect | onthuld na |
+|---|---|---|---|---|
+| Sneeuwbui | vast | altijd | blok 2 **−10 kW** | blok 1 |
+| Gerucht: rendier bij het laadplein | vast | altijd | alleen tekst | blok 1 |
+| De Kerstman laadt zijn slee | vast | altijd | blok 4 **+20 kW** | blok 2 |
+| De Grote Uittocht | getriggerd | woonwijk UIT in blok b ∈ {1,2,3}, geen `notice` | blok b+1 **+15 kW** | blok b |
+| De Gouden Ster gaat op pad | getriggerd | senioren UIT in blok 1, geen `notice` | blok 2 **+10 kW** | blok 1 |
+| De ijsdisco verhuist | getriggerd | ijsbaan dicht in blok 3 | blok 4 **+10 kW** | blok 3 |
+| Gridmas dimt mee (zelfdoenders) | getriggerd | `notice` | blok 3 **−10 kW** | blok 0 |
+| Vroege vogels | getriggerd | `precharge` | blok 4 **−10 kW** | blok 0 |
+
+**Noodaggregaat.** Na elk uitgevoerd blok controleert de engine of er met de bekende events nog een geldig vervolg bestaat (zonder aggregaat). Zo niet, dan wordt het noodaggregaat ontgrendeld en meldt het bulletin dat. Daarna mag `emergencyGenerator` in blok 1-4, onbeperkt: −20 kW per blok en verborgen −10 moraal per inzet. Zonder ontgrendeling is het ongeldig. 20 kW per blok redt elke vastgelopen situatie; het verandert het optimum niet, omdat het alleen verschijnt als een team klem zit.
+
 ## 3. Verborgen moraalberekening
 
 **Toon nooit toekomstige moraalvoorspellingen, optelsommen of strafwaarden in de plannings-UI.** Deze tabel zit in de spelengine. In de nabespreking per ronde mag de engine alleen het effect van de reeds uitgevoerde acties onthullen.
@@ -115,6 +150,19 @@ Een programma is alleen geldig als voor **elk** van de 6 blokken `actualLoadKw <
 | battery ontladen | 0 | 0 | 0 | 0 |
 
 Bonus moraal per blok staat in de scenariotabel (+3, +5, +8, +8, +4, +4). Vooruitladen en inhaalladen hebben 0 moraalstraf. Geen random modifiers.
+
+**Eventmoraal** (alleen in het bulletin van het blok waarin het valt):
+
+| reactie | trigger | delta |
+|---|---|---:|
+| Sterrenkijkers | woonwijk én senioren UIT in blok 4 | +3 |
+| Zusterkoor | ziekenhuis in geen enkel blok UIT (blok 5) | +3 |
+| Toeterende ooms | laadplein gepauzeerd in blok b én b−1 | −4 |
+| De buurtapp ontploft | ≥2 locaties UIT in één blok, geen `notice` | −3 |
+| Busreis naar een donker plein | Gouden Ster op pad én dorpsplein UIT in blok 2 | −3 |
+| Het aggregaat ronkt | noodaggregaat ingezet | −10 per blok |
+
+`calculateRoundMorale(blockIndex, action)` zonder historie geeft exact de v1.0-regels; de speelloop geeft de eerder uitgevoerde acties mee en krijgt daarmee de eventmoraal.
 
 ```
 roundDelta = block.baseMoraleBonus + sum(negativePenaltiesForActivatedActions)
@@ -148,7 +196,7 @@ Voorbeelden:
 2. **Planningsdashboard**: 6 kolommen met tijdsblokken en rijen voor de 7 speelelementen. Compacte simpele toggles, niet meer dan drie soorten bediening (aan/uit, pauze/actief, laden/stand-by). Op mobiel mag een tijdsblok-selectie worden gebruikt, maar primair optimaliseren voor 1366x768 en groter.
 3. **Validatie**: per blok berekende netbelasting zichtbaar versus limiet 100 kW, indicatoren voor resterende batterij-energie, beschikbare ijsbaan-inzet en energieneutraliteit laadplein. Duidelijke foutmeldingen, geen verborgen technische beperkingen.
 4. **Uitvoering ronde**: actie op knop `Speel tijdsblok` bevriest die ronde en synchroniseert fysieke scene. Korte, optionele animatie van lichtjes/vermogen, geen onnodige wachttijd.
-5. **Nieuwsbulletin**: laat actuele moraal, delta en verklarende berichten voor dit blok zien. Klik `Verder naar volgende ronde` om terug te gaan naar alleen toekomstig aanpasbare planning.
+5. **Nieuwsbulletin**: laat actuele moraal, delta en verklarende berichten voor dit blok zien, plus **Breaking news**: nieuw onthulde gebeurtenissen en geruchten met hun concrete kW-gevolgen voor komende blokken. Klik `Verder naar volgende ronde` om terug te gaan naar alleen toekomstig aanpasbare planning.
 6. **Eindscherm**: eindmoraal, alle loads per blok, moralescore per blok, energiebalans, samenvatting van de kerstnacht, optioneel educatieve `OpenADR programma`-weergave en scorebord. Daarna `Volgend team`.
 7. **Organisatorenpaneel** (niet prominent): reset huidig spel, demo met referentieschema, leaderboard wissen met bevestiging, mock/hardware-modus.
 
@@ -285,7 +333,20 @@ De onderstaande planning is geldig en moet exact deze waarden opleveren:
 Netto laadenergie: +40 -40 -40 +40 = **0 kWh**.
 Eindmoraal: **87**. Op basis van de hier vastgelegde discrete mogelijkheden en penalties is 87 de hoogst haalbare eindscore; leg dit als organisatoren-regressietest vast, maar toon het nooit vooraf aan spelers.
 
-Een JSON-fixture van dit schema staat in `REFERENCE_CASE.json`.
+Een JSON-fixture van dit schema staat in `REFERENCE_CASE.json`. Sinds de gebeurtenissen (§2.6) geldt deze tabel op **functieniveau** (`calculateLoad`/`calculateRoundMorale` zonder historie). In de speelloop loopt dit schema vast op de Kerstman: na blok 2 is blok 4 110 kW en moet het team bijsturen.
+
+### 8.1 Referentierun met gebeurtenissen
+
+| index | acties | load kW | eindmoraal na dit blok | batterij kWh na dit blok |
+|---:|---|---:|---:|---:|
+| 0 | bericht `precharge` (extra vooruitladen) | 95 | 78 | 100 |
+| 1 | laadplein pauze | 95 | 82 | 100 |
+| 2 | ijsbaan pauze + batterij (sneeuw −10) | 85 | 86 | 50 |
+| 3 | seniorenverlichting UIT + batterij + laadplein pauze | 100 | 82 | 0 |
+| 4 | woonwijk + senioren + dorpsplein UIT (Kerstman +20, vroege vogels −10, sterrenkijkers +3, appgroep −3) | 100 | 80 | 0 |
+| 5 | extra nachtelijk inhaalladen (zusterkoor +3) | 85 | 87 | 0 |
+
+Eindmoraal **87**; een uitputtende zoektocht bevestigt dat dit de enige run is die 87 haalt (beste route met `notice`: 83). Fixture: `REFERENCE_CASE_EVENTS.json`. Ook deze waarde nooit vooraf aan spelers tonen.
 
 ### Minimaal te automatiseren tests
 
