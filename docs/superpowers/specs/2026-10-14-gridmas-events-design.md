@@ -110,8 +110,8 @@ roundDelta(b)   = baseMoraleBonus + strafpunten (SPEC §3.1) + sum(eventmoraal i
 
 ## UI
 
-- **Planner:** blok 0 krijgt in de laadpleinrij een driestandenkeuze *Niets / Laad alvast op /
-  Aankondiging* met korte uitleg zonder moraalhints. Kolomkop toont basis + eventchips (bijv.
+- **Planner:** eigen rij *Bericht aan het dorp* met in blok 0 een driestandenkeuze *Niets / Laad alvast op /
+  Aankondiging* met korte uitleg zonder moraalhints; de laadpleincel van blok 0 toont het gevolg alleen-lezen. Kolomkop toont basis + eventchips (bijv.
   `125 + 🎅 20 − 🚗 10`). Noodaggregaat-rij alleen zichtbaar indien ontgrendeld.
 - **Bulletin:** nieuwe sectie *Breaking news* met nieuw onthulde events/geruchten en concrete
   kW-regels voor toekomstige blokken; eventmoraal tussen de moraalberichten.
