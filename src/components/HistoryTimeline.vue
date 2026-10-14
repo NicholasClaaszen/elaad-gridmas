@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { EVENT_ICONS } from '../domain/eventNews';
 import { BLOCKS } from '../domain/scenario';
 import type { ExecutedBlock } from '../domain/types';
 
@@ -21,6 +22,7 @@ const signed = (n: number) => (n > 0 ? `+${n}` : `${n}`);
           </summary>
           <ul>
             <li v-for="(ev, n) in e.events" :key="n">{{ ev.headline }} ({{ signed(ev.delta) }})</li>
+            <li v-for="n in e.news" :key="`news-${n.eventId}-${n.revealedAfterBlock}`" class="news">{{ EVENT_ICONS[n.eventId] }} {{ n.headline }}</li>
           </ul>
         </details>
       </li>

@@ -46,7 +46,8 @@ export function buildNewsSoundscape(executed: ExecutedBlock): SoundCue[] {
 
   for (const event of penalties) {
     const intensity = Math.abs(event.delta) / HEAVIEST_PENALTY;
-    if (event.assetId === 'rink') add('rink-closed', intensity);
+    if (event.assetId === 'event') add(event.delta > 0 ? 'sparkle' : 'groan', Math.abs(event.delta) / 10);
+    else if (event.assetId === 'rink') add('rink-closed', intensity);
     else if (event.assetId === 'chargers') add('chargers-paused', intensity);
     else add('lights-off', intensity);
   }

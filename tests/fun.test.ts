@@ -58,6 +58,18 @@ describe('soundscape', () => {
     expect(cues.at(-1)!.kind).toBe('groan');
   });
 
+  it('geeft eventreacties een eigen klank', () => {
+    // 22:00-00:00: drie locaties donker (-3, -1, -2), sterrenkijkers (+3), appgroep (-3), ronde -2
+    expect(buildNewsSoundscape(run.executed[4]!).map((c) => c.kind)).toEqual([
+      'jingle',
+      'lights-off',
+      'lights-off',
+      'lights-off',
+      'sparkle',
+      'groan',
+    ]);
+  });
+
   it('is deterministisch en blijft binnen 0-1', () => {
     for (const e of run.executed) {
       expect(buildNewsSoundscape(e)).toEqual(buildNewsSoundscape(e));

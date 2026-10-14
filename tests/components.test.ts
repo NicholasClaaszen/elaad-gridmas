@@ -4,7 +4,10 @@ import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import App from '../src/App.vue';
 import LoadChart from '../src/components/LoadChart.vue';
+import OrganizerControls from '../src/components/OrganizerControls.vue';
 import PlanningBoard from '../src/components/PlanningBoard.vue';
+import RoundReview from '../src/components/RoundReview.vue';
+import { generatorUnlockedNews, revealedEvents } from '../src/domain/events';
 import { perfectEventsSchedule, referenceDemoSchedule } from '../src/domain/referenceSchedule';
 import type { BlockAction } from '../src/domain/types';
 import { BLOCKS, DECORATIONS, createEmptySchedule } from '../src/domain/scenario';
@@ -243,5 +246,61 @@ describe('PlanningBoard met events', () => {
     expect(locked.find('[data-asset="generator"]').exists()).toBe(false);
     const open = mount(PlanningBoard, { props: { schedule: perfectEventsSchedule(), executedActions: [], generatorUnlocked: true } });
     expect(open.find('[data-asset="generator"]').exists()).toBe(true);
+  });
+});
+
+describe('RoundReview met events', () => {
+  it('toont breaking news met concrete kW-regels en markeert geruchten', () => {
+    const actions = perfectEventsSchedule().slice(0, 2);
+    const executed = {
+      action: actions[1]!, loadKw: 95, batteryAfterKwh: 100, moraleBefore: 78, moraleAfter: 82, delta: 4,
+      events: [{ assetId: 'atmosphere' as const, blockIndex: 1, delta: 5, headline: 'x', text: 'y' }],
+      news: revealedEvents(actions).filter((e) => e.revealedAfterBlock === 1),
+    };
+    const wrapper = mount(RoundReview, { props: { executed, isLast: false } });
+    const breaking = wrapper.find('.breaking-news');
+    expect(breaking.text()).toContain('Sneeuwbui boven Gridmas');
+    expect(breaking.text()).toContain('18:00-20:00: −10 kW');
+    expect(breaking.text()).toContain('Gerucht');
+  });
+
+  it('meldt het noodaggregaat', () => {
+    const a = perfectEventsSchedule()[2]!;
+    const executed = { action: a, loadKw: 100, batteryAfterKwh: 50, moraleBefore: 80, moraleAfter: 82, delta: 2, events: [], news: [generatorUnlockedNews(2)] };
+    expect(mount(RoundReview, { props: { executed, isLast: false } }).text()).toContain('Noodaggregaat ontgrendeld');
+  });
+});
+
+describe('eindscherm en tijdlijn met events', () => {
+  it('toont de gebeurtenissen van de avond en de tijdlijn toont nieuws', async () => {
+    const store = createGameStore();
+    store.startDemo(perfectEventsSchedule());
+    for (let i = 0; i < 6; i++) {
+      await store.playNextBlock();
+      store.finishRunningRound();
+      if (i === 2) {
+        const wrapper = mount(App, { global: { provide: { [GAME_STORE_KEY as symbol]: store } } });
+        store.continueAfterReview();
+        await flushPromises();
+        expect(wrapper.get('.timeline').text()).toContain('De Kerstman komt zijn slee laden');
+        wrapper.unmount();
+        continue;
+      }
+      store.continueAfterReview();
+    }
+    const wrapper = mount(App, { global: { provide: { [GAME_STORE_KEY as symbol]: store } } });
+    await flushPromises();
+    const evening = wrapper.get('.evening-events').text();
+    expect(evening).toContain('De Kerstman komt zijn slee laden');
+    expect(evening).toContain('Sneeuwbui boven Gridmas');
+    expect(evening).not.toContain('Gerucht');
+    wrapper.unmount();
+  });
+
+  it('de organisatorendemo speelt de perfecte run', async () => {
+    const store = createGameStore();
+    const wrapper = mount(OrganizerControls, { global: { provide: { [GAME_STORE_KEY as symbol]: store } } });
+    await wrapper.findAll('button').find((b) => b.text().startsWith('Demo met'))!.trigger('click');
+    expect(store.state.game!.schedule).toEqual(perfectEventsSchedule());
   });
 });

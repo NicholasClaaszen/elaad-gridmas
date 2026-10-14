@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
+import { EVENT_ICONS } from '../domain/eventNews';
 import { BLOCKS, CAPACITY_KW } from '../domain/scenario';
 import MoraleMeter from './MoraleMeter.vue';
 import type { ExecutedBlock } from '../domain/types';
@@ -15,6 +16,7 @@ const block = computed(() => BLOCKS[props.executed.action.blockIndex]!);
 const positive = computed(() => props.executed.events.reduce((sum, e) => sum + Math.max(0, e.delta), 0));
 const negative = computed(() => props.executed.events.reduce((sum, e) => sum + Math.min(0, e.delta), 0));
 const signed = (n: number) => (n > 0 ? `+${n}` : `${n}`);
+const kw = (n: number) => (n > 0 ? `+${n}` : `−${Math.abs(n)}`);
 </script>
 
 <template>
@@ -43,8 +45,24 @@ const signed = (n: number) => (n > 0 ? `+${n}` : `${n}`);
       </p>
     </div>
 
+    <section v-if="executed.news.length" class="breaking-news" aria-label="Breaking news">
+      <h3>Breaking news</h3>
+      <article v-for="n in executed.news" :key="`${n.eventId}-${n.revealedAfterBlock}`" :class="n.kind">
+        <span class="icon" aria-hidden="true">{{ EVENT_ICONS[n.eventId] }}</span>
+        <div>
+          <p v-if="n.kind === 'rumour'" class="eyebrow">Gerucht</p>
+          <h4>{{ n.headline }}</h4>
+          <p>{{ n.text }}</p>
+          <p v-for="effect in n.loadEffects" :key="effect.blockIndex" class="effect">
+            {{ BLOCKS[effect.blockIndex]!.label }}: {{ kw(effect.deltaKw) }} kW
+          </p>
+        </div>
+      </article>
+      <p v-if="executed.news.some((n) => n.loadEffects.length)" class="muted">Check de planning: de belasting van komende blokken is veranderd.</p>
+    </section>
+
     <ol class="events">
-      <li v-for="(event, n) in executed.events" :key="n" :class="{ atmosphere: event.assetId === 'atmosphere' }">
+      <li v-for="(event, n) in executed.events" :key="n" :class="{ atmosphere: event.assetId === 'atmosphere', event: event.assetId === 'event' }">
         <span class="event-delta" :class="event.delta >= 0 ? 'delta-up' : 'delta-down'">{{ signed(event.delta) }}</span>
         <div>
           <h3>{{ event.headline }}</h3>
@@ -68,6 +86,13 @@ const signed = (n: number) => (n > 0 ? `+${n}` : `${n}`);
 </template>
 
 <style scoped>
+.breaking-news { margin: 1.2rem 0; padding: 1rem; border: 2px solid var(--lamp); border-radius: var(--radius-panel); background: var(--lamp-soft); display: grid; gap: .8rem; }
+.breaking-news h3 { font-size: 1rem; text-transform: uppercase; letter-spacing: .08em; color: var(--lamp); }
+.breaking-news article { display: grid; grid-template-columns: 2rem 1fr; gap: .6rem; }
+.breaking-news .icon { font-size: 1.5rem; line-height: 1; }
+.breaking-news h4 { font-size: 1.05rem; margin-bottom: .2rem; }
+.breaking-news .effect { font-weight: 700; color: var(--snow); margin-top: .3rem; }
+.breaking-news .rumour h4 { font-style: italic; }
 .newspaper-head { padding-bottom: 1rem; border-bottom: 3px double var(--line); display: grid; gap: .5rem; }
 .newspaper-head h2 { font-size: clamp(2rem, 3.3vw, 3rem); letter-spacing: -.035em; }
 .score-arithmetic { display: flex; justify-content: space-between; gap: .75rem; margin-bottom: .7rem; }

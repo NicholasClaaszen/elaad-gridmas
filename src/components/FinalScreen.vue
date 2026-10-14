@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { EVENT_ICONS } from '../domain/eventNews';
 import { computed } from 'vue';
 import { chargingNetKwh } from '../domain/calculateLoad';
 import type { LeaderboardEntry } from '../domain/leaderboard';
@@ -31,6 +32,8 @@ const highlights = computed(() => {
 });
 const qualification = computed(() => props.game.morale >= 85 ? 'Kersthelden van Gridmas' : props.game.morale >= 78 ? 'Een dorp met wat te bespreken' : props.game.morale >= 70 ? 'De burgemeester wil jullie spreken' : 'Net gered. Buurtapp ontploft.');
 const titles = computed(() => teamTitles(actions.value));
+/** Echte gebeurtenissen; geruchten tellen niet mee. */
+const evening = computed(() => props.game.executed.flatMap((e) => e.news).filter((n) => n.kind === 'news'));
 const signed = (n: number) => (n > 0 ? `+${n}` : `${n}`);
 const SHORT_NAMES: Record<DecorationId, string> = {
   homes: 'woonwijk',
@@ -57,6 +60,8 @@ function actionSummary(i: number): string {
   if (a.batteryDischarge) parts.push('batterij');
   if (a.chargersPaused) parts.push('laadpauze');
   if (a.extraCharging) parts.push('extra laden');
+  if (a.message === 'notice') parts.push('aankondiging');
+  if (a.emergencyGenerator) parts.push('noodaggregaat');
   return parts.join(', ') || 'geen ingrepen';
 }
 </script>
@@ -126,7 +131,7 @@ function actionSummary(i: number): string {
           uitgestelde laadbeurt is ingehaald.
         </p>
 
-        <section class="highlights"><h3>Dit blijft hangen in Gridmas</h3><article v-for="event in highlights" :key="`${event.assetId}-${event.blockIndex}`"><span :class="event.delta >= 0 ? 'delta-up' : 'delta-down'">{{ signed(event.delta) }} · {{ BLOCKS[event.blockIndex]!.label }}</span><h4>{{ event.headline }}</h4><p class="muted">{{ event.text }}</p></article></section>
+        <section class="highlights"><h3>Dit blijft hangen in Gridmas</h3><article v-for="event in highlights" :key="`${event.assetId}-${event.eventId ?? ''}-${event.blockIndex}`"><span :class="event.delta >= 0 ? 'delta-up' : 'delta-down'">{{ signed(event.delta) }} · {{ BLOCKS[event.blockIndex]!.label }}</span><h4>{{ event.headline }}</h4><p class="muted">{{ event.text }}</p></article></section><section v-if="evening.length" class="evening-events"><h3>Gebeurtenissen van de avond</h3><ul><li v-for="n in evening" :key="`${n.eventId}-${n.revealedAfterBlock}`"><span aria-hidden="true">{{ EVENT_ICONS[n.eventId] }}</span> {{ BLOCKS[n.revealedAfterBlock]!.label }} · {{ n.headline }}</li></ul></section>
         <OpenAdrView :schedule="actions" />
       </div>
 
@@ -139,6 +144,7 @@ function actionSummary(i: number): string {
 </template>
 
 <style scoped>
+.evening-events ul { list-style: none; padding: 0; display: grid; gap: .35rem; }
 .results-scroll { overflow-x: auto; }
 .titles h3 { font-size: 1.1rem; margin: .75rem 0 .5rem; }
 .titles ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: .75rem; max-width: 900px; }

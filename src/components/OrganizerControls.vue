@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { referenceDemoSchedule } from '../domain/referenceSchedule';
+import { perfectEventsSchedule } from '../domain/referenceSchedule';
 import type { HardwareMode } from '../state/gameStore';
 import { useGameStore } from '../state/injection';
 
@@ -19,7 +19,7 @@ async function reset(): Promise<void> {
 }
 
 function startDemo(): void {
-  store.startDemo(referenceDemoSchedule());
+  store.startDemo(perfectEventsSchedule());
   emit('close');
 }
 
@@ -83,7 +83,7 @@ function toggleOffline(): void {
             <button type="button" class="btn danger" @click="reset">Ja, resetten</button>
             <button type="button" class="btn btn-quiet" @click="confirmReset = false">Annuleren</button>
           </template>
-          <button type="button" class="btn" @click="startDemo">Demo met referentieschema</button>
+          <button type="button" class="btn" @click="startDemo">Demo met de perfecte run</button>
         </div>
         <p class="muted small">De demo-run telt niet mee voor het scorebord.</p>
       </div>
