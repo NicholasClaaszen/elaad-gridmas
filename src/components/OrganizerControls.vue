@@ -4,7 +4,7 @@ import { perfectEventsSchedule } from '../domain/referenceSchedule';
 import type { HardwareMode } from '../state/gameStore';
 import { useGameStore } from '../state/injection';
 
-const emit = defineEmits<{ close: []; testSound: [] }>();
+const emit = defineEmits<{ close: []; testSound: []; printCards: [] }>();
 const store = useGameStore();
 
 const confirmClear = ref(false);
@@ -86,6 +86,18 @@ function toggleOffline(): void {
           <button type="button" class="btn" @click="startDemo">Demo met de perfecte run</button>
         </div>
         <p class="muted small">De demo-run telt niet mee voor het scorebord.</p>
+      </div>
+
+      <div class="group">
+        <h3>Fysieke rekwisieten</h3>
+        <label class="check">
+          <input type="checkbox" data-setting="props-mode" :checked="store.state.propsMode" @change="store.setPropsMode(($event.target as HTMLInputElement).checked)" />
+          Locatie-info staat op geprinte kaarten
+        </label>
+        <p class="muted small">Het scherm toont dan alleen het schema, de miniatuur en het nieuws. De locatiekaarten zelf verdwijnen.</p>
+        <div class="actions">
+          <button type="button" class="btn" @click="emit('printCards')">Locatiekaarten printen (A6)</button>
+        </div>
       </div>
 
       <div class="group">

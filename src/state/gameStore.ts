@@ -85,12 +85,14 @@ export function createGameStore(options: GameStoreOptions = {}) {
   const persisted = readJson<PersistedGame>(storage, GAME_STORAGE_KEY);
   const restoredGame = persisted?.version === STORAGE_VERSION ? persisted.game : null;
 
-  const settings = readJson<{ soundOn?: boolean }>(storage, SETTINGS_STORAGE_KEY);
+  const settings = readJson<{ soundOn?: boolean; propsMode?: boolean }>(storage, SETTINGS_STORAGE_KEY);
 
   const state = reactive({
     game: restoredGame as GameState | null,
     /** Stationsinstelling, los van het spel: blijft bewaard tussen teams. */
     soundOn: settings?.soundOn ?? true,
+    /** Fysieke rekwisieten: locatie-info staat op geprinte kaarten, niet op het scherm. */
+    propsMode: settings?.propsMode ?? false,
     leaderboard: parseStoredLeaderboard(),
     hardwareMode: (persisted?.hardwareMode ?? 'mock') as HardwareMode,
     hardwareWarning: null as string | null,
@@ -177,6 +179,10 @@ export function createGameStore(options: GameStoreOptions = {}) {
   if (state.game?.phase === 'ROUND_RUNNING') state.game = completeRound(state.game);
   if (state.game?.phase === 'FINISHED') recordFinishedRun();
   state.scene = sceneForCurrentGame();
+
+  function saveSettings(): void {
+    storage.setItem(SETTINGS_STORAGE_KEY, JSON.stringify({ soundOn: state.soundOn, propsMode: state.propsMode }));
+  }
 
   const store = {
     state,
@@ -268,7 +274,12 @@ export function createGameStore(options: GameStoreOptions = {}) {
 
     setSoundOn(on: boolean): void {
       state.soundOn = on;
-      storage.setItem(SETTINGS_STORAGE_KEY, JSON.stringify({ soundOn: on }));
+      saveSettings();
+    },
+
+    setPropsMode(on: boolean): void {
+      state.propsMode = on;
+      saveSettings();
     },
 
     dismissError(): void {

@@ -2,6 +2,7 @@
 import { computed, ref, watch } from 'vue';
 import FinalScreen from './components/FinalScreen.vue';
 import HistoryTimeline from './components/HistoryTimeline.vue';
+import LocationPrintCards from './components/LocationPrintCards.vue';
 import OrganizerControls from './components/OrganizerControls.vue';
 import PlanningBoard from './components/PlanningBoard.vue';
 import RoundReview from './components/RoundReview.vue';
@@ -19,6 +20,7 @@ const store = useGameStore();
 const { state } = store;
 const screen = store.screen;
 const showOrganizer = ref(false);
+const showCards = ref(false);
 const selectedBlock = ref(0);
 watch(() => state.game?.executed.length, (count) => { selectedBlock.value = Math.min(count ?? 0, BLOCK_COUNT - 1); }, { immediate: true });
 const phaseLabel = computed(() => ({ WELCOME: 'Voorbereiding', PLANNING: 'Programmeren', ROUND_RUNNING: 'Uitvoering', ROUND_REVIEW: 'Nieuws uit het dorp', FINISHED: 'Eindresultaat' })[screen.value]);
@@ -57,7 +59,8 @@ const runningLabel = computed(() => BLOCKS[(lastExecuted.value?.action.blockInde
 </script>
 
 <template>
-  <div class="app" @pointerdown.capture="sound.unlock()" @keydown.capture="sound.unlock()">
+  <LocationPrintCards v-if="showCards" @close="showCards = false" />
+  <div v-else class="app" @pointerdown.capture="sound.unlock()" @keydown.capture="sound.unlock()">
     <header class="topbar">
       <div class="brand-block"><p class="brand">Merry Gridmas<span class="brand-star" aria-hidden="true">✦</span></p><p class="brand-sub">Keep the lights on!</p></div>
       <div class="phase"><span class="eyebrow">{{ phaseLabel }}</span><span v-if="game" class="team">{{ game.teamName }}</span><span v-else class="team">ElaadNL · Kerstavond 2026</span></div>
@@ -77,6 +80,7 @@ const runningLabel = computed(() => BLOCKS[(lastExecuted.value?.action.blockInde
         v-if="screen === 'WELCOME'"
         :leaderboard="state.leaderboard"
         :error="state.error"
+        :props-mode="state.propsMode"
         @start="store.startGame"
       />
 
@@ -87,6 +91,7 @@ const runningLabel = computed(() => BLOCKS[(lastExecuted.value?.action.blockInde
           @select-block="selectedBlock = $event"
           :executed-actions="executedActions"
           :generator-unlocked="game.generatorUnlocked"
+          :props-mode="state.propsMode"
           :error="state.error"
           @update="store.setAction"
           @play="store.playNextBlock"
@@ -125,7 +130,7 @@ const runningLabel = computed(() => BLOCKS[(lastExecuted.value?.action.blockInde
       <button type="button" class="btn btn-quiet organizer" @click="showOrganizer = true">Organisator</button>
     </footer>
 
-    <OrganizerControls v-if="showOrganizer" @close="showOrganizer = false" @test-sound="sound.play(buildFinaleSoundscape(87))" />
+    <OrganizerControls v-if="showOrganizer" @close="showOrganizer = false" @print-cards="showOrganizer = false; showCards = true" @test-sound="sound.play(buildFinaleSoundscape(87))" />
   </div>
 </template>
 

@@ -20,6 +20,8 @@ const props = defineProps<{
   executedActions: BlockAction[];
   generatorUnlocked?: boolean;
   error?: string | null;
+  /** Locatie-info staat op geprinte kaarten: geen locatiekaarten en -details op het scherm. */
+  propsMode?: boolean;
 }>();
 
 const emit = defineEmits<{
@@ -142,11 +144,13 @@ function toggleDecoration(i: number, id: DecorationId): void {
   <section class="planning" aria-labelledby="planning-title">
     <div class="village-section">
       <div class="village-heading">
-        <div><p class="eyebrow">Jullie controlecentrum</p><h2 id="planning-title">Plan de kerstavond</h2><p class="muted">Selecteer een tijdsblok en bekijk een locatie.</p></div>
+        <div><p class="eyebrow">Jullie controlecentrum</p><h2 id="planning-title">Plan de kerstavond</h2><p class="muted">{{ propsMode ? 'Selecteer een tijdsblok. Wat elke locatie doet, staat op de kaarten.' : 'Selecteer een tijdsblok en bekijk een locatie.' }}</p></div>
         <div class="play-control"><span :class="isValid ? 'delta-up' : 'muted'">{{ isValid ? 'Het hele programma klopt' : `${issues.length} punten om op te lossen` }}</span><button type="button" class="btn btn-primary play" :disabled="!isValid" @click="emit('play')">{{ playLabel }}</button></div>
       </div>
+      <template v-if="!propsMode">
       <VillageView :scene="selectedScene" :selected="selectedAsset" @select="selectedAsset = $event" />
       <p class="preview-caption muted">Planningsbeeld · {{ BLOCKS[selectedIndex]!.label }} · batterij na dit blok. Dit is jullie plan; het dorp voert het pas uit als jullie spelen.</p>
+      </template>
     </div>
     <div class="main">
       <header class="intro">
@@ -356,8 +360,10 @@ function toggleDecoration(i: number, id: DecorationId): void {
     </div>
 
     <aside class="side" aria-label="Controle van het programma">
+      <template v-if="!propsMode">
       <LocationDetail :location="selectedLocation" :scene="selectedScene" editable :battery-discharging="selectedAction.batteryDischarge" :block-label="BLOCKS[selectedIndex]!.label" :restriction="restriction" @toggle="toggleSelected" />
       <div class="side-divider" />
+      </template>
       <details v-if="isFirstRound" class="guide">
         <summary>Tip: begin met het laadplein</summary>
         <p>

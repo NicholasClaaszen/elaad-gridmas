@@ -9,7 +9,7 @@ import VillageView from './VillageView.vue';
 import LocationDetail from './LocationDetail.vue';
 import Scoreboard from './Scoreboard.vue';
 
-defineProps<{ leaderboard: LeaderboardEntry[]; error?: string | null }>();
+defineProps<{ leaderboard: LeaderboardEntry[]; error?: string | null; propsMode?: boolean }>();
 const emit = defineEmits<{ start: [teamName: string] }>();
 const teamName = ref('');
 const selected = ref<AssetId>();
@@ -42,9 +42,12 @@ const scene = idleScene();
       <Scoreboard :entries="leaderboard" :limit="5" />
     </div>
     <div class="meet-village">
+      <div v-if="propsMode" class="village-title"><h2>Dit is Gridmas</h2><p class="muted">Pak de locatiekaarten erbij. Iedereen heeft zo zijn plannen voor vanavond.</p></div>
+      <template v-else>
       <div class="village-title"><h2>Dit is Gridmas</h2><p class="muted">Klik op een locatie. Iedereen heeft zo zijn plannen voor vanavond.</p></div>
       <VillageView :scene="scene" :selected="selected" @select="selected = selected === $event ? undefined : $event" />
       <div v-if="location" class="welcome-detail"><LocationDetail :location="location" :scene="scene" /><button class="btn btn-quiet" type="button" @click="selected = undefined">Details sluiten</button></div>
+      </template>
     </div>
   </section>
 </template>

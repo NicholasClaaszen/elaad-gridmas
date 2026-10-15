@@ -9,6 +9,9 @@ Eén A4 voor wie de stand bemant. Een team speelt ongeveer 15-20 minuten, met 5-
   - Klik op **Test geluid** en zet het volume goed. Het is druk op de markt.
   - Wis het scorebord van de test van gisteren. Exporteer het eerst als je het wilt bewaren.
   - Kies bij hardware de gesimuleerde miniatuur zolang de fysieke set er niet is.
+- Spelen met geprinte kaarten? Kies **Locatiekaarten printen (A6)** in het organisatorenpaneel. Print op A4, staand,
+  op 100% en met achtergrondafbeeldingen aan, en knip langs de stippellijnen. Zet daarna **Fysieke rekwisieten** aan:
+  het scherm toont dan geen locatie-info meer, alleen het schema, de miniatuur en het nieuws.
 - Speel eventueel één keer **Demo met de perfecte run** om te zien dat alles werkt. Demo's tellen niet mee.
 
 ## Per team
