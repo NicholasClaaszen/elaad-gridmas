@@ -74,7 +74,6 @@ const MESSAGES: { id: CommsMessage; label: string; hint: string }[] = [
   { id: 'precharge', label: 'Laad alvast op', hint: `+${CHARGERS.extraKw} kW nu, en ruimte voor een extra laadpauze later.` },
   { id: 'notice', label: 'Aankondiging', hint: 'We vertellen wat we vanavond dimmen. Minder verrassingen in het dorp.' },
 ];
-const messageHint = computed(() => MESSAGES.find((m) => m.id === message.value)!.hint);
 
 function setMessage(m: CommsMessage): void {
   patch(0, { message: m, extraCharging: m === 'precharge' }, 'chargers');
@@ -161,6 +160,31 @@ function toggleDecoration(i: number, id: DecorationId): void {
       </header>
 
 
+      <section class="comms-panel" :class="{ locked: isLocked(0) }" aria-labelledby="comms-title" data-asset="message">
+        <div class="comms-heading">
+          <h4 id="comms-title">Bericht aan het dorp</h4>
+          <span class="comms-time">{{ isLocked(0) ? 'Verstuurd om 14:00' : 'Eén keuze · 14:00' }}</span>
+        </div>
+        <div role="radiogroup" aria-labelledby="comms-title" class="message-options">
+          <button
+            v-for="m in MESSAGES"
+            :key="m.id"
+            type="button"
+            role="radio"
+            :data-message="m.id"
+            :aria-checked="message === m.id"
+            :aria-labelledby="`message-label-${m.id}`"
+            :aria-describedby="`message-hint-${m.id}`"
+            :class="{ active: message === m.id }"
+            :disabled="isLocked(0)"
+            @click="setMessage(m.id)"
+          >
+            <span :id="`message-label-${m.id}`" class="message-label">{{ m.label }}</span>
+            <span :id="`message-hint-${m.id}`" class="muted message-hint">{{ m.hint }}</span>
+          </button>
+        </div>
+      </section>
+
       <div class="board" role="group" aria-label="Planning per tijdsblok">
         <div class="corner" />
         <button
@@ -188,32 +212,6 @@ function toggleDecoration(i: number, id: DecorationId): void {
           <span class="muted">Limiet 100 kW per blok</span>
         </div>
         <LoadChart class="chart-cell" :loads="loads" :locked-count="lockedCount" :adjustments="adjustments" />
-
-        <!-- Communicatie -->
-        <div class="row-label" data-asset="message">
-          <span class="name">Bericht aan het dorp</span>
-          <span class="muted">Eén bericht om 14:00</span>
-        </div>
-        <div v-for="block in BLOCKS" :key="`msg-${block.index}`" class="cell" :class="{ locked: isLocked(block.index), comms: block.index === 0 }">
-          <template v-if="block.index === 0">
-            <div role="radiogroup" aria-label="Bericht aan het dorp, 14:00-16:00" class="segmented">
-              <button
-                v-for="m in MESSAGES"
-                :key="m.id"
-                type="button"
-                role="radio"
-                :data-message="m.id"
-                :aria-checked="message === m.id"
-                :class="{ active: message === m.id }"
-                :title="m.hint"
-                :disabled="isLocked(0)"
-                @click="setMessage(m.id)"
-              >{{ m.label }}</button>
-            </div>
-            <span class="muted comms-hint">{{ messageHint }}</span>
-          </template>
-          <span v-else class="na" aria-label="geen bericht mogelijk">–</span>
-        </div>
 
         <!-- Feestverlichting -->
         <template v-for="decoration in DECORATIONS" :key="decoration.id">
@@ -425,12 +423,21 @@ function toggleDecoration(i: number, id: DecorationId): void {
 
 <style scoped>
 .event-chip { display: inline-block; width: fit-content; font-size: .7rem; padding: .05rem .4rem; border-radius: 999px; background: var(--lamp-soft); border: 1px solid var(--lamp); color: var(--snow); }
-.segmented { display: flex; flex-wrap: wrap; gap: .25rem; }
-.segmented button { font-size: .72rem; padding: .25rem .45rem; border-radius: var(--radius-control); border: 1px solid var(--line); background: transparent; color: inherit; cursor: pointer; }
-.segmented button.active { background: var(--pine); border-color: var(--pine); color: var(--night); font-weight: 700; }
-.segmented button:disabled { cursor: default; opacity: .7; }
-.cell.comms { display: grid; gap: .3rem; align-content: start; }
-.comms-hint { font-size: .68rem; line-height: 1.3; }
+.comms-panel { margin-bottom: 1rem; padding: 1rem; border: 1px solid var(--line); border-radius: var(--radius-panel); background: var(--night-deep); }
+.comms-heading { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: .5rem; margin-bottom: .75rem; }
+.comms-heading h4 { margin: 0; font-size: var(--step-0); }
+.comms-time { font-size: .75rem; color: var(--lamp); }
+.message-options { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .5rem; }
+.message-options button { display: flex; flex-direction: column; gap: .4rem; min-width: 0; padding: .75rem; border-radius: var(--radius-control); border: 1px solid var(--line); background: var(--night-raised); color: inherit; text-align: left; cursor: pointer; }
+.message-options button:hover:not(:disabled) { border-color: var(--frost); }
+.message-options button.active { background: #39a67814; border-color: var(--pine); box-shadow: inset 0 0 0 1px var(--pine); }
+.message-label { display: flex; align-items: center; gap: .5rem; font-size: var(--step--1); font-weight: 700; }
+.message-label::before { content: ''; width: .8rem; height: .8rem; flex-shrink: 0; border: 1px solid var(--snow-muted); border-radius: 50%; }
+.active .message-label::before { border-color: var(--pine); background: var(--pine); box-shadow: inset 0 0 0 3px var(--night-deep); }
+.message-hint { font-size: .8rem; line-height: 1.4; }
+.message-options button:disabled { cursor: default; }
+.comms-panel.locked { opacity: .75; }
+@media (max-width: 700px) { .message-options { grid-template-columns: 1fr; } }
 .is-readonly { cursor: default; opacity: .8; }
 .row-label.emergency .name { color: var(--holly); }
 .known-news { margin-bottom: 1rem; }
