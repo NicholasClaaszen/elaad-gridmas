@@ -53,14 +53,16 @@ defineProps<{ id: AssetId; active?: boolean; batteryPercent?: number }>();
       <path v-else d="M62 76H118V87H62Z" fill="#d65b55" />
     </g>
     <g v-else-if="id === 'chargers'">
-      <g v-for="x in [29, 80, 131]" :key="x">
-        <rect :x="x" y="36" width="17" height="38" rx="4" fill="#637f90" />
-        <rect :x="x + 4" y="42" width="9" height="8" rx="1" :fill="active === false ? '#293c4c' : '#69ce98'" />
-        <path :d="`M${x + 17} 48q12 0 8 23`" fill="none" stroke="#91abb7" stroke-width="2" />
-        <path :d="`M${x - 13} 87v-12l9 -13h24l9 13v12Z`" fill="#718d9d" />
-        <path :d="`M${x - 1} 64h17l5 9h-27Z`" fill="#1d3547" />
-        <circle :cx="x - 6" cy="87" r="5" fill="#122535" /><circle :cx="x + 23" cy="87" r="5" fill="#122535" />
-        <path class="windows" :d="`M${x - 10} 78h5v4h-5Z M${x + 22} 78h5v4h-5Z`" />
+      <!-- Drie parkeerplekken: laadpaal links, auto in zijaanzicht ernaast, kabel naar de laadklep. -->
+      <g v-for="(x, n) in [14, 66, 118]" :key="x">
+        <rect :x="x" y="48" width="9" height="42" rx="2" fill="#637f90" />
+        <rect :x="x + 2" y="53" width="5" height="7" rx="1" :fill="active === false ? '#293c4c' : '#69ce98'" />
+        <path :d="`M${x + 9} 64C${x + 15} 64 ${x + 12} 80 ${x + 14} 81`" fill="none" stroke="#91abb7" stroke-width="2" />
+        <path :d="`M${x + 12} 88V80Q${x + 12} 76 ${x + 16} 75L${x + 20} 74L${x + 26} 67H${x + 37}L${x + 43} 74L${x + 47} 75Q${x + 50} 76 ${x + 50} 80V88Z`" :fill="['#718d9d', '#a05b52', '#5f8a72'][n]" />
+        <path :d="`M${x + 22} 74L${x + 27} 69H${x + 31}V74Z M${x + 33} 74V69H${x + 36}L${x + 40} 74Z`" fill="#9fc3d6" />
+        <path class="windows" :d="`M${x + 47} 78h3v3h-3Z`" />
+        <circle :cx="x + 20" cy="88" r="4.5" fill="#122535" /><circle :cx="x + 20" cy="88" r="1.6" fill="#91abb7" />
+        <circle :cx="x + 42" cy="88" r="4.5" fill="#122535" /><circle :cx="x + 42" cy="88" r="1.6" fill="#91abb7" />
       </g>
     </g>
     <g v-else>
